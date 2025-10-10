@@ -1,0 +1,261 @@
+ID = "endelruck.energy_drone"
+Range = 300
+IdealRange = [200, 300]
+IdealRadius = [0, 180]
+Speed = 60
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.5
+		Density = 0.0001
+	}
+
+	Homing
+	{
+		Type = TargetHoming
+		TurnVelocity = 360d
+		Delay = 2
+		AvoidanceRaycastDistance = 0
+		ModifiesLinearVelocity = true
+		VelocityCompensation = 80%
+	}
+
+	Retarget
+	{
+		Type = SameShipRetarget
+	}
+
+	DeathByLifetime
+	{
+		Type = DeathByLifetime
+		Lifetime = 10
+		HasTarget = true
+	}
+
+	DeathByDistanceTraveled
+	{
+		Type = DeathByDistanceTraveled
+		// Distance auto-computed from range.
+		HasTarget = false
+	}
+	DeathByDistanceTraveledTargeted
+	{
+		Type = DeathByDistanceTraveled
+		Distance = (&~/Range) * 3
+		HasTarget = true
+	}
+
+	Targetable
+	{
+		Type = Targetable
+		Health = 10000
+		TargetCategory = "laser"
+	}
+	
+	Hit
+	{
+		Type = PenetratingHit
+		FactorEffectsWith = Targetable
+
+		CrewCollisions = {Enemies=true; Junk=true}
+		HitCrew = &HitOperational
+
+		HitShield = &HitOperational
+		HitOperational
+		{
+			Offset = [-0.15, 0]
+
+			HitEffects
+			[
+				{
+					Type = Damage
+					Damage = 10000
+				}
+				{
+					Type = Impulse;
+					Impulse = 50;
+				}
+				{
+					Type = SpawnBullets
+					Bullet = &<../../shots/energy_drone/ion_scatter_ray.rules>
+					Count = 10
+					Arc = [-45d, 45d]
+					InheritVelocity = false
+					ScaleHealth = false
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/bullet_hit_ion.rules>
+				&<particles/bullet_ion_sparks.rules>
+				&<./Data/shots/bullet_large/particles/bullet_smoke_large.rules>
+				&<particles/bullet_flash_ion.rules>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "bullet_ion_hit.wav"
+					Volume = .4
+					SpeedVariation = .4
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .03
+					Duration = .3
+				}
+			]
+		}
+		HitStructural
+		{
+			HitEffects
+			[
+				{
+					Type = Damage
+					Damage = 5000
+				}
+				{
+					Type = Impulse;
+					Impulse = 50;
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/bullet_hit_ion.rules>
+				&<particles/bullet_ion_sparks.rules>
+				&<./Data/shots/bullet_large/particles/bullet_smoke_large.rules>
+				&<particles/bullet_flash_ion.rules>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "bullet_ion_hit.wav"
+					Volume = .3
+					SpeedVariation = .4
+				}
+			]
+		}
+		PenetratingOperational
+		{
+			// No effect.
+		}
+		PenetratingStructural
+		{
+			// No effect.
+		}
+		FinishedPenetratingOperational
+		{
+			// No effect.
+		}
+		FinishedPenetratingStructural
+		{
+			// No effect.
+		}
+		HitFriendly
+		{
+			Offset = [-0.15, 0]
+
+			HitEffects
+			[
+			]
+
+			MediaEffects
+			[
+				&<particles/bullet_hit_ion.rules>
+				&<particles/bullet_ion_sparks.rules>
+				&<./Data/shots/bullet_large/particles/bullet_smoke_large.rules>
+				&<particles/bullet_flash_ion.rules>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "bullet_ion_hit.wav"
+					Volume = .4
+					SpeedVariation = .4
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .03
+					Duration = .3
+				}
+			]
+		}
+	}
+
+	Sprite
+	{
+		Type = AnimatedSprite
+		ReduceScaleWith = Hit
+		ReduceScaleExponent = 0.5
+		Animation
+		{
+			AtlasSprite
+			{
+				Texture
+				{
+					File = "bullet_ion.png"
+					SampleMode = Linear
+					MipLevels = max
+				}
+				Size = [4, 3]
+				TargetBlendMode
+				{
+					SourceRgbFactor = SourceAlpha
+					DestRgbFactor = One
+					RgbOperator = Add
+					SourceAlphaFactor = Zero
+					DestAlphaFactor = One
+					AlphaOperator = Add
+				}
+			}
+			FrameCount = 16
+			FrameSize = [128, 128]
+			FramesPerRow = 4
+			FramesPerSecond = 60
+		}
+	}
+
+	GlowSprite
+	{
+		Type = Sprite
+		ReduceScaleWith = Hit
+		ReduceScaleExponent = 0.5
+		RenderBucket = BulletUpper2
+		Z = .25
+		IsLight = true
+		Sprite
+		{
+			Texture
+			{
+				File = "./Data/common_effects/particles/blob.png"
+				MipLevels = max
+				SampleMode = Linear
+			}
+			Size = [15, 15]
+			VertexColor
+			{
+				Rf = 0.69
+				Gf = 0.96383333
+				Bf = 1
+				Af = 1
+			}
+			TargetBlendMode = Add
+			Shader = "./Data/common_effects/fancy_light.shader"
+			_litReflectiveStrength = 24
+			_litAdditiveStrength = 0.05
+			_unlitAdditiveStrength = 0.2
+		}
+	}
+
+	MediaEffects
+	{
+		Type = MediaEffects
+		MediaEffects
+		[
+			&<particles/bullet_trail_ion.rules>
+		]
+	}
+}

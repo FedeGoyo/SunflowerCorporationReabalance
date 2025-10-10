@@ -1,0 +1,46 @@
+ID = "fariel.ion_scatter_ray_small"
+Range = 260
+IdealRange = [60, 260]
+IdealRadius = 180
+Speed = 5
+Explosion = &<ion_burst.rules>
+
+Components : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components"
+{
+	DeployDeath : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath"
+	{
+		Lifetime = [0.3, 0.9]
+		
+		OnDeath : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/OnDeath"
+		{
+			HitEffects : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/OnDeath/HitEffects"
+			[
+				{
+					Type = SpawnBullets
+					Bullet = &~/Explosion
+					Count = 1
+					InheritVelocity = false
+					ScaleHealth = false
+				}
+			]
+		}
+	}
+	
+	Hit : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit"
+	{
+		HitShield : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitShield"
+		{
+			HitEffects
+			[
+				{
+					Type = Damage
+					Damage = 150
+				}
+				{
+					Type = Impulse;
+					Impulse = 20;
+				}
+			]
+		}
+	}
+}

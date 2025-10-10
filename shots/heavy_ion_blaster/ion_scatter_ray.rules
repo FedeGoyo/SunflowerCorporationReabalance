@@ -1,0 +1,69 @@
+Hit
+{
+	Type = PenetratingHit
+	Penetration = 10000 // 21
+	PenetratesShields = false
+	PenetrationSpeed = 5
+
+	CrewCollisions = {Enemies=true; Junk=true}
+	PenetratesCrew = true
+	HitCrew = &HitOperational
+
+	HitShield = &HitOperational
+	HitOperational
+	{
+		ReduceEffectsByPenetration = false
+		Offset = [-0.15, 0]
+
+		HitEffects
+		[
+			{
+				Type = Damage
+				Damage =  { BaseValue=250; BuffType=ElectronBuff; BuffMode=Multiply; }
+			}
+			{
+				Type = StatusApplication
+				StatusType = cosmoteer.fire
+				StatusChance = { BaseValue = .1; EffectScaleExponent = 1 }
+				ValueType = Interpolated
+			}
+			{
+				Type = AreaCrewStun
+				Duration = 0.5
+				Falloff = 1
+				Radius = 1
+				Cumulative = false
+				HitShipOnly = true
+			}
+		]
+
+		/*MediaEffects : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_burst.rules>/Components/Hit/HitOperational/MediaEffects"
+		[
+		]*/
+
+	}
+	HitStructural
+	{
+		ReduceEffectsByPenetration = false
+		Offset = [0.15, 0]
+
+		HitEffects
+		[
+			{
+				Type = Damage
+				Damage = { BaseValue=125; BuffType=ElectronBuff; BuffMode=Multiply; }
+			}
+		]
+
+		/*MediaEffects : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_burst.rules>/Components/Hit/HitOperational/MediaEffects"
+		[
+		]*/
+	}
+	PenetratingOperational = &HitOperational
+	PenetratingStructural
+	{
+		// No effect.
+	}
+	FinishedPenetratingOperational = &PenetratingOperational
+	FinishedPenetratingStructural = &PenetratingStructural
+}

@@ -1,0 +1,317 @@
+Resources // Reduce cost
+[
+	[steel, 44]
+	[coil2, 38]
+	[processor, 5]
+]
+Components
+{
+//	Used to put an AoE energy drain, similar to AoE stun of Deck Cannon
+	DrainEffect
+	{
+		Type = TriggeredEffects
+		Location = [1.5, 1.5]
+		Trigger = ArcEmitter
+
+		HitEffects
+		[
+			{
+				Type = ExplosiveResourceDrain
+				ResourceType = battery
+				TotalDrain = 15000 // { BaseValue=2500; BuffType=Arc_Emitter_Shot; BuffMode=Multiply; }
+				Radius = 10
+//				Slices = 1
+				Filter
+				{
+					Friendlies=true;
+					IgnoreInvulnerability=true;
+					ExcludePartCategories = [fariel.arc_transformer]
+				}
+				
+				MediaEffectsOnDrainFactor = .0005
+				MediaEffectsOnDrain : &<./Data/shots/missile_emp/missile_emp.rules>/Components/Hit/HitOperational/HitEffects/0/MediaEffectsOnDrain
+				[]
+				/*[
+					&<particles/missile_emp_hit_sizzle.rules>
+					&<particles/missile_emp_lightning.rules>
+					&<particles/missile_emp_drain.rules>
+
+					: /BASE_SOUNDS/AudioExterior
+					{
+						Sound = "../disruptor_bolt/discharge.wav"
+						Volume = 1
+						SpeedVariation = .2
+					}
+				]*/
+			}
+		]
+	}
+
+
+	AutoTargetToggle // Add targeting
+	{
+		Type = ModeToggle
+		Mode = FireModeToggle
+		OnModes = [1, 2]
+	}
+	
+	/*ArcEnergyBuff // Add a better self buff, but doesn't work...
+	{
+		Type = SelfBuffProvider
+		BuffType = Arc_Emitter_Shot
+		BuffAmount = 1
+//		BuffAmount = { BaseValue=1; BuffType=Arc_Emitter_Shot; BuffMode=Multiply; }
+		BuffMultiplier = ArcEmitterStorageProxy
+	}*/
+
+/*	Currently not used, requires to first enable NotReadyToggle in arc_transformer.rules
+	Canshot	// Prevent it from shooting if at least one of the active adjacent arc transformers isn't at full arc energy capacity
+	{
+		Type = MultiToggle
+		ViaBuffs
+		{
+			OutgoingBuffProviders = [BuffProvider]
+			ComponentID = NotReadyToggle
+		}
+		Mode = Any
+		Invert = true
+	}
+	ReadyToShot
+	{
+		Type = MultiToggle
+		Toggles = [OperationalWithPower, CanShot]
+		Mode = All
+	}
+*/
+	
+	ReloadProgressBar
+	{
+		Type = ProgressBar
+		OperationalToggle = IsOperational
+		ShowProgressFor = ArcEmitterStorageProxy
+	}
+	
+/*	ModularBatteryStorage
+	{
+		Type = MultiResourceStorage
+		OperationalToggle = IsOperational
+		ResourceType = battery
+		IsDrainable = false
+		ResourceStorages = []
+		ViaBuffs
+		{
+			OutgoingBuffProviders = [BuffProvider]
+			ComponentID = BatteryStorage
+		}
+		AddMode = PrioritizeLeastResources
+		ReceiveResourceMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+	}
+
+	BatteryConsumer
+	{
+		Type = ResourceConsumer
+		ResourceType = battery
+		Storage = ModularBatteryStorage
+		DefaultPriority = &/PRIORITIES/Weapon_Supply
+		ResupplyThreshold = 500
+		OperationalToggle = PowerToggle
+	}*/
+	
+	
+/*
+	BuffToggle1
+	{
+		Type = ThresholdToggle
+		AmountFrom = ArcEmitterStorageProxy
+		MinAmount = 1
+		MaxAmount = 4
+	}
+	Buff1
+	{
+		Type = ToggledComponents
+		Toggle = BuffToggle1
+		IncludeInBlueprints = false;
+		Components
+		{
+			ShotBuffProvider1
+			{
+				Type = SelfBuffProvider
+				BuffType = Arc_Emitter_Shot
+				BuffAmount = 1
+			}
+		}
+	}
+	BuffToggle2
+	{
+		Type = ThresholdToggle
+		AmountFrom = ArcEmitterStorageProxy
+		MinAmount = 5
+		MaxAmount = 8
+	}
+	Buff2
+	{
+		Type = ToggledComponents
+		Toggle = BuffToggle2
+		IncludeInBlueprints = false;
+		Components
+		{
+			ShotBuffProvider2
+			{
+				Type = SelfBuffProvider
+				BuffType = Arc_Emitter_Shot
+				BuffAmount = 2
+			}
+		}
+	}
+	BuffToggle3
+	{
+		Type = ThresholdToggle
+		AmountFrom = ArcEmitterStorageProxy
+		MinAmount = 9
+		MaxAmount = 12
+	}
+	Buff3
+	{
+		Type = ToggledComponents
+		Toggle = BuffToggle3
+		IncludeInBlueprints = false;
+		Components
+		{
+			ShotBuffProvider3
+			{
+				Type = SelfBuffProvider
+				BuffType = Arc_Emitter_Shot
+				BuffAmount = 3
+			}
+		}
+	}
+	BuffToggle4
+	{
+		Type = ThresholdToggle
+		AmountFrom = ArcEmitterStorageProxy
+		MinAmount = 13
+		MaxAmount = 16
+	}
+	Buff4
+	{
+		Type = ToggledComponents
+		Toggle = BuffToggle4
+		IncludeInBlueprints = false;
+		Components
+		{
+			ShotBuffProvider4
+			{
+				Type = SelfBuffProvider
+				BuffType = Arc_Emitter_Shot
+				BuffAmount = 4
+			}
+		}
+	}
+	BuffToggle5
+	{
+		Type = ThresholdToggle
+		AmountFrom = ArcEmitterStorageProxy
+		MinAmount = 17
+		MaxAmount = 20
+	}
+	Buff5
+	{
+		Type = ToggledComponents
+		Toggle = BuffToggle5
+		IncludeInBlueprints = false;
+		Components
+		{
+			ShotBuffProvider5
+			{
+				Type = SelfBuffProvider
+				BuffType = Arc_Emitter_Shot
+				BuffAmount = 5
+			}
+		}
+	}
+	BuffToggle6
+	{
+		Type = ThresholdToggle
+		AmountFrom = ArcEmitterStorageProxy
+		MinAmount = 21
+		MaxAmount = 26
+	}
+	Buff6
+	{
+		Type = ToggledComponents
+		Toggle = BuffToggle6
+		IncludeInBlueprints = false;
+		Components
+		{
+			ShotBuffProvider6
+			{
+				Type = SelfBuffProvider
+				BuffType = Arc_Emitter_Shot
+				BuffAmount = 6
+			}
+		}
+	}
+*/
+}
+
+Weapon
+{
+	FireInterval = 0.5	// To use Arc Transformers when shooting only at full capacity, set this to 0
+	CanBeGivenExplicitTarget = true	// Add targeting
+	AllowDirectControl = true	// Add tafrgeting
+
+	AutoTargets	// Add targeting
+	[
+		{
+			TargetType = ShipParts
+			Toggle = AutoTargetToggle
+		}
+	]
+}
+ArcEmitter
+{
+	ResourcesUsed = 4000	// Reduce resource used
+	MinResourcesUsed = 4000	// Reduce minimum resource used
+}
+Stats	// New stats
+{
+	RecCrew = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/PartCrew/Crew)
+//	PowerDrainAttackSingle = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/DrainEffect/HitEffects/0/Radius) / 1000
+//	PowerDrainAttackSec = (&PowerDrainAttackSingle) * (&../StatsArcBeam/ROF)
+//	PowerDrainAttack = [&../PowerDrainAttackSingle, &../PowerDrainAttackSec]
+//	PowerDrainArea = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/DrainEffect/HitEffects/0/TotalDrain)
+	
+}
+StatsArcBeam	// New stats
+{
+	// Not modified
+	HitInterval = (&<./Data/../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitInterval)
+	Duration = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/Duration)
+	// Path modified
+	ROF = 1 / (&Reload)
+	BaseDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/TotalDamage/BaseValue)
+//	BaseDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/Damage/BaseValue)
+	// New
+	Reload = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyCapacity) / (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyGeneration)
+	ArcEnergyShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourcesUsed) / 1000
+	ArcEnergyPerSecond = (&ArcEnergyShot) * (&ROF)
+	ArcEnergyUsed = [&../ArcEnergyShot, &../ArcEnergyPerSecond]
+	DamageArea = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/Radius)
+	NearScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitEffectsScaleOverRange/0)
+	FarScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitEffectsScaleOverRange/1)
+	DamageArc = (&BaseDamage) / (&HitInterval) * (&Duration)
+	DamagePerShot = (&DamageArc) * (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/ProvidedValueRange/0)
+	DamagePerSecond = (&DamagePerShot) * (&ROF)
+	DamageArcNearPerShot = (&DamagePerShot) * (&NearScale)
+	DamageArcNearPerSecond = (&DamagePerSecond) * (&NearScale)
+	DamageArcNear = [&../DamageArcNearPerShot, &../DamageArcNearPerSecond]
+	DamageArcFarPerShot = (&DamagePerShot) * (&FarScale)
+	DamageArcFarPerSecond = (&DamagePerSecond) * (&FarScale)
+	DamageArcFar = [&../DamageArcFarPerShot, &../DamageArcFarPerSecond]
+//	FireChance = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/1/FireChance) // (&<./Data/../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitNothing/HitEffects/1/FireChance) * 100
+
+/*	Used when it only shots at full capacity
+	DamagePerShot = (&DamageArc) * (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyCapacity)
+	ArcEnergyShot = Infinity
+*/
+}

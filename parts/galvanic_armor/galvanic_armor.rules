@@ -1,0 +1,111 @@
+Part
+{
+	InitialPenetrationResistance = 5	// Reduce penetration resistance
+	ExplosiveDamageResistance = 50%	// Increase explosive resistance
+}
+Resources	// Reduce cost
+[
+	[steel, 24]
+	[coil2, 8]
+	[tristeel, 10]
+]
+Components // Add preferred fire
+{
+	FirePrefToggle
+	{
+		Type = UIToggle
+		ToggleID = "fire_pref"
+		Default = 2
+	}
+	FirePrefAttack
+	{
+		Type = ModeToggle
+		Mode = FirePrefToggle
+		OnModes = [0, 2]
+	}
+	FirePrefDefend
+	{
+		Type = ModeToggle
+		Mode = FirePrefToggle
+		OnModes = [1, 2]
+	}
+	AttackToggle
+	{
+		Type = MultiToggle
+		Toggles = [AutoTargetToggle, FirePrefAttack]
+		Mode = All
+	}
+	DefendToggle
+	{
+		Type = MultiToggle
+		Toggles = [AutoTargetToggle, FirePrefDefend]
+		Mode = All
+	}
+}
+TurretProxy	// Add targeting
+{
+	AllowShipWideExplicitTargetsToggle = FirePrefAttack
+	EstimateFirepowerToggle = AttackToggle
+	AlwaysShowCoverage = true
+	AllowDirectControlToggle = FirePrefAttack
+	FirePermissionToggle = FireModeToggle
+	CanBeGivenExplicitTarget = true
+	
+	AutoTargets
+	[
+		{
+			TargetType = Bullets
+			BulletTargetCategories = [laser, missile, mine, bullet]
+			Toggle = DefendToggle
+		}
+		{
+			TargetType = ShipParts
+			Toggle = AttackToggle
+			Overridable = true
+		}
+		{
+			TargetType = Crew
+			Toggle = AttackToggle
+			Overridable = true
+		}
+	]
+}
+ConvertFromArcEnergyToBatter	// Increase energy production and interval
+{
+	From
+	[
+		{
+			Storage = ArcEmitterStorageProxy
+			Quantity = 1000
+			MinQuantityForConversion = 1000
+		}
+	]
+	Interval = 1.25
+	ToQuantity = 4000
+}
+BulletEmitter
+{
+	Type = BeamEmitter	// Replace bullet with beam
+	ResourcesUsed = 40	// Reduce resource used
+}
+Stats
+{
+	// Path modified
+	DamagePerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitOperational/HitEffects/0/Damage/BaseValue)
+	ShotDamagePerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitBullet/HitEffects/0/Damage/BaseValue)
+	Range = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/Range) //(&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Range)
+	// Not modified
+	ROF = 1 / (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/FireTimer/Duration)
+	DamagePerSecond = (&DamagePerShot) * (&ROF)
+	ShotDamagePerSecond = (&ShotDamagePerShot) * (&ROF)
+	PowerPerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/ResourcesUsed) / 1000
+	// Standarized
+	NearScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitEffectsScaleOverRange/0) // (&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/HitEffectsScaleOverRange/0)
+	FarScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitEffectsScaleOverRange/1) // (&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/HitEffectsScaleOverRange/1)
+	DamageContinuousNear = (&DamagePerSecond) * (&NearScale)
+	DamageContinuousFar = (&DamagePerSecond) * (&FarScale)
+	// New
+	ShotContinuousDamageNear = (&ShotDamagePerSecond) * (&NearScale)
+	ShotContinuousDamageFar = (&ShotDamagePerSecond) * (&FarScale)
+	PowerUsageContinuous = (&PowerPerShot) * (&ROF)
+}

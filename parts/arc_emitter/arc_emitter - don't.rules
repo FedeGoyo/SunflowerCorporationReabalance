@@ -1,0 +1,360 @@
+ThresholdToggler_Proxy
+{
+	Type = ToggleProxy
+	ComponentID = ThresholdToggler_Set
+}
+	ThresholdToggler_Set
+	{
+		Type = MultiToggle
+		Toggles = [
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle1",
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle2",
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle3",
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle4",
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle5",
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle6",
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle7",
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle8",
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle9",
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle10",
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle11",
+			"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle12"
+		]
+		Mode = Any
+	}
+Threshold_Toggler_1
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle1",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+Threshold_Toggler_2
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle2",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+Threshold_Toggler_3
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle3",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+Threshold_Toggler_4
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle4",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+Threshold_Toggler_5
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle5",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+Threshold_Toggler_6
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle6",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+Threshold_Toggler_7
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle7",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+Threshold_Toggler_8
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle8",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+Threshold_Toggler_9
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle9",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+Threshold_Toggler_10
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle10",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+Threshold_Toggler_11
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle11",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+Threshold_Toggler_12
+{
+	Type = MultiToggle
+	Toggles = [
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle12",
+		"<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler_Proxy"
+	] 
+	Mode = All
+}
+ThresholdToggler1
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_1"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider1
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=1; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_1 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 0.1
+		}
+	}
+}	
+ThresholdToggler2
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_2"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider2
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=2; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_2 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 0.2
+		}
+	}
+}	
+ThresholdToggler3
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_3"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider3
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=3; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_3 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 0.3
+		}
+	}
+}	
+ThresholdToggler4
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_4"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider4
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=4; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_4 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 0.4
+		}
+	}
+}	
+ThresholdToggler5
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_5"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider5
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=5; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_5 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 0.5
+		}
+	}
+}	
+ThresholdToggler6
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_6"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider6
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=6; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_6 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 0.6
+		}
+	}
+}	
+ThresholdToggler7
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_7"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider7
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=7; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_7 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 0.7
+		}
+	}
+}	
+ThresholdToggler8
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_8"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider8
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=8; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_8 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 0.8
+		}
+	}
+}	
+ThresholdToggler9
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_9"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider9
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=9; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_9 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 0.9
+		}
+	}
+}	
+ThresholdToggler10
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_10"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider10
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=10; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_10 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 1
+		}
+	}
+}	
+	ThresholdToggler11
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_11"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider11
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=11; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_11 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 1.1
+		}
+	}
+}	
+	ThresholdToggler12
+{
+	Type = ToggledComponents
+	Toggle = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Threshold_Toggler_12"
+	IncludeInBlueprints = false;
+	Components
+	{
+		ShotBuffProvider12
+		{
+			Type = SelfBuffProvider
+			BuffType = Arc_Emitter_Shot
+			BuffAmount = { BaseValue=12; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+		}
+		ArcEmitter_12 : "<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
+		{
+			Duration = 1.2
+		}
+	}
+}

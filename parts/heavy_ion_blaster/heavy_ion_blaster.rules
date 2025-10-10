@@ -1,0 +1,34 @@
+Resources	// Reduce Cost
+[
+	[steel, 80]
+	[coil, 14]
+	[coil2, 22]
+]
+BulletEmitter
+{
+	ResourcesUsed = 3333	// Reduce resource used
+	MinResourcesUsed = 1	// Reduce minimum resource use
+}
+Turret	// Increase firing arc
+{
+	FiringArc = 220d
+	FireThresholdAngle = 220d
+}
+StatsByCategory	// New stats
+{
+	NameKey = "StatCategories/HeavyIonBlasterScatter"
+	Stats
+	{
+		DamagePerTile = (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/0/Damage/BaseValue)
+		Speed = (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Speed)
+		MinLifeSpan = (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/Lifetime/0)
+		MaxLifeSpan = (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/Lifetime/1)
+		MinDistance = (&MinLifeSpan) * (&Speed)
+		MaxDistance = (&MaxLifeSpan) * (&Speed)
+		DistancePenetrated = [&../MinDistance, &../MaxDistance]
+		Spread = deg(&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Arc/1) + deg(&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Arc/0)
+		FireChance = (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/1/StatusChance/BaseValue) * 100
+		CrewStunDuration = [0, (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/2/Duration)]
+		CrewStunRadius = (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/2/Radius)
+	}
+}

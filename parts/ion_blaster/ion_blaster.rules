@@ -1,0 +1,32 @@
+Turret	// Increase firing arc
+{
+	FiringArc = 220d
+	FireThresholdAngle = 220d
+	RotateSpeed = 90d
+}
+BaseStats
+{
+	TurretPenResist = (&"<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/TurretCollider/InitialPenetrationResistance")
+}
+IonBlasterShotStats
+{
+	Scatter = ("&<./Data/../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Count")
+}
+IonBlasterScatterStats
+{
+	NameKey = "StatCategories/IonBlasterScatter"
+	Stats
+	{
+		DamagePerTile = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/0/Damage/BaseValue)
+		Speed = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Speed)
+		MinLifeSpan = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/Lifetime/0)
+		MaxLifeSpan = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/Lifetime/1)
+		MinDistance = (&MinLifeSpan) * (&Speed)
+		MaxDistance = (&MaxLifeSpan) * (&Speed)
+		DistancePenetrated = [&../MinDistance, &../MaxDistance]
+		Spread = deg(&<./Data/../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Arc/1) + deg(&<./Data/../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Arc/0)
+		FireChance = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/1/StatusChance/BaseValue) * 100
+		CrewStunDuration = [0, (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/2/Duration)]
+		CrewStunRadius = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/2/Radius)
+	}
+}

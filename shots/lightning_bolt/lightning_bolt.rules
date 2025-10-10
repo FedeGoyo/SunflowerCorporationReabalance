@@ -1,0 +1,94 @@
+HitEffects
+[
+/*	{
+		Type = Damage
+		Damage = { BaseValue=260; BuffType=ElectronBuff; BuffMode=Multiply; }
+		Filter
+		{
+			OperationalHealth = true
+			StructuralHealth = false
+		}
+	}
+	{
+		Type = StatusApplication
+		StatusType = cosmoteer.fire
+		StatusChance = { BaseValue = .1; EffectScaleExponent = 1 }
+		ValueType = Interpolated
+	}
+	{
+		Type = Damage
+		Damage = { BaseValue=130; BuffType=ElectronBuff; BuffMode=Multiply; }
+		Filter
+		{
+			OperationalHealth = false
+			StructuralHealth = true
+		}
+	}
+*/
+
+
+	{	// Add explosive damage
+		Type = ExplosiveDamage
+		TotalDamage = { BaseValue=520; BuffType=ElectronBuff; BuffMode=Multiply; }	// Deals twice that much per tick
+		FireChancePerNDamage = 10%
+		ImpulsePerNDamage = 1
+		NDamage = 25
+		Radius = 6 // { BaseValue=4; BuffType=Arc_Emitter_Shot; BuffMode=Multiply; }	// Doesn't work
+		Slices = 1 // if ommited it is calculated automatically
+		ExpandDuration = 0.5
+		ExpandStartRadius = 0
+		ExpandLoss = 0%
+		Filter
+		{
+			OperationalHealth = true
+			StructuralHealth = false
+		}
+	}
+	{	// Add explosive damage
+		Type = ExplosiveDamage
+		TotalDamage = { BaseValue=65; BuffType=ElectronBuff; BuffMode=Multiply; } // Higher damage reduce the size of the explosion cause it breaks structure too fast
+		ImpulsePerNDamage = 1
+		NDamage = 25
+		Radius = 6 // { BaseValue=4; BuffType=Arc_Emitter_Shot; BuffMode=Multiply; }
+//		Slices = 1 // if ommited it is calculated automatically
+		Delay = 0.05
+		ExpandDuration = 1
+		ExpandStartRadius = 0
+		ExpandLoss = 0%
+		Filter
+		{
+			OperationalHealth = false
+			StructuralHealth = true
+		}
+	}
+
+/*	Unused cool stuff
+	{
+		Type = SpawnBullets
+		Bullet = &<ion_scatter_ray.rules>
+		Count = 1
+//		Arc = [-70d, 140d]
+		Spread = [-70d, 140d]
+		InheritVelocity = false
+		ScaleHealth = false
+	}
+	{	// Add fire chance
+		Type = Fire
+		FireChance = .1
+		TreatShieldAsPart = true
+	}
+	{
+		Type = ExplosiveResourceDrain
+		ResourceType = battery
+		TotalDrain = 10000 // 66
+		Radius = 10 // { BaseValue=4 ; BuffType=Arc_Emitter_Shot; BuffMode=Multiply; }	// Currently doesn't work
+		Slices = 1
+		Filter
+		{
+			Ships = true
+			Shields = true
+			Friendlies = true
+		}
+	}
+*/
+]

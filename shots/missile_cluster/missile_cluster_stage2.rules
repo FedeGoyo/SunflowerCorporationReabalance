@@ -1,0 +1,21 @@
+Components
+{
+	Hit : "&<./Data/../../../workshop/content/799600/2995534359/shots/missile_cluster/missile_cluster_stage1.rules>/Components/Hit"
+	{
+		HitOperational : "&<./Data/../../../workshop/content/799600/2995534359/shots/missile_cluster/missile_cluster_stage1.rules>/Components/Hit/HitOperational"
+		{
+			HitEffects  // "&<./Data/../../../workshop/content/799600/2995534359/shots/missile_cluster/missile_cluster_stage1.rules>/Components/Hit/HitOperational/HitEffects"
+			[
+				{
+					Type = ExplosiveDamage
+					TotalDamage = 4000	// Reduce damage of cluster missile
+					Radius = 1	// Confirm radius of cluster missile
+				}
+				{
+					Type = Impulse
+					Impulse = 25	// Reduce impulse of cluster missile
+				}
+			]
+		}
+	}
+}

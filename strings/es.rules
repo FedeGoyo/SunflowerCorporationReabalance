@@ -1,0 +1,115 @@
+Parts
+{
+	TestCannonName = "Cañon de Testeo"
+	TestCannonIcon = &TestCannonName
+	TestCannonDesc = "Este es un cañon de testeo. Dispara lo que estemos probando hoy."
+
+	IonBlasterName = "Cañon de Iones"
+	IonBlasterIcon = &IonBlasterName
+	IonBlasterDesc = "Dispara una ráfaga guiada de iones desde la torreta y luego dirige la ráfaga hacia su objetivo. Excelente para disparar en diagonal.\n\n"\
+					"Al chocar, los iones estallan en un cono de energía que daña los componentes internos y provoca cortocircuitos, aturdiendo a la tripulación y provocando un incendio. Atraviesa el blindaje con facilidad, pero los escudos lo absorben por completo."
+	IonBlasterTechDescription = &IonBlasterDesc
+
+	HeavyIonBlasterName = "Cañon de Iones Pesado"
+	HeavyIonBlasterIcon = &HeavyIonBlasterName
+	HeavyIonBlasterDesc = "Dispara una ráfaga masiva, pero lenta, de iones guiados desde la torreta y luego dirige la ráfaga hacia su objetivo. Excelente para disparar en diagonal.\n\n"\
+						"Al chocar, los iones estallan en un cono de energía que daña los componentes internos y provoca cortocircuitos, aturdiendo a la tripulación y provocando un incendio. Atraviesa el blindaje con facilidad, pero los escudos lo absorben por completo."
+	HeavyIonBlasterTechDescription = &HeavyIonBlasterDesc
+
+	GalvanicArmorName = "Armadura Galvánica"
+	GalvanicArmorIcon = &GalvanicArmorName
+	GalvanicArmorDesc = "Una placa ancha y blindada con dos bobinas cargadas en el exterior que electrocutarán a los enemigos y proyectiles cercanos, causando más daño a medida que se acerquen."
+	GalvanicArmorTechDescription = "Una placa ancha y blindada con dos bobinas cargadas en el exterior. Puede servir como una alternativa a la Defensa Puntual de corto alcance. Inflige más daño a los objetivos más cercanos."
+
+	ArcEmitterName = "Emisor de Arco"
+	ArcEmitterIcon = &ArcEmitterName
+	ArcEmitterDesc = "Una peligrosa bobina de Tesla que se monta en la parte superior de la nave en lugar de en el costado para lograr una mayor estabilidad. Cada impacto dispara un rayo tan grande que drena la energía de los sistemas cercanos. Cada emisor de arco requiere uno o más transformadores de arco adyacentes."
+	ArcEmitterTechDescription = "Drena los Transformadores de Arco cercanos y los canaliza en una explosión masiva de electricidad."
+
+	ArcTransformerName = "Transformador de Arco"
+	ArcTransformerIcon = &ArcTransformerName
+	ArcTransformerDesc = "Convierte las baterías en energía de arco para ser utilizada por Emisores de Arco y Armaduras Galvánicas."
+	ArcTransformerTechDescription = "Convierte las baterías en una forma de energía eficiente pero no portátil llamada energía de arco. Esta se suministra automáticamente a los módulos cercanos."
+
+	// Armor / Ion Diffusion Lattice
+	IonDiffusionLattice2x2 = "Difusor de Iones 2x2"
+	IonDiffusionLattice2x2Icon = "Difusor de Iones 2x2"
+	IonDiffusionLattice2x2Desc = "Contiene una disposición especial de reflectores de iones que actúan como un láser y una esponja al mismo tiempo. Absorben la energía de los iones y la expulsan en pequeños haces."
+	IonDiffusionLatticeTechName = "Difusor de Iones"
+	IonDiffusionLatticeTechDescription = &IonDiffusionLattice2x2Desc
+
+	IonDiffusionLattice3x2 = "Difusor de Iones 3x2"
+	IonDiffusionLattice3x2Icon = "Difusor de Iones 3x2"
+	IonDiffusionLattice3x2Desc = &IonDiffusionLattice2x2Desc
+
+	IonDiffusionLattice2x3Wedge = "Cuña de Difusor de Iones 2x3"
+	IonDiffusionLattice2x3WedgeIcon = "Cuña de Difusor de Iones 2x3"
+	IonDiffusionLattice2x3WedgeDesc = &IonDiffusionLattice2x2Desc
+
+	IonDiffusionLattice2x4Wedge = "Cuña de Difusor de Iones 2x4"
+	IonDiffusionLattice2x4WedgeIcon = "Cuña de Difusor de Iones 2x4"
+	IonDiffusionLattice2x4WedgeDesc = &IonDiffusionLattice2x2Desc
+
+	IonDiffusionLatticeWedge = "Cuña de Difusor de Iones"
+	IonDiffusionLatticeWedgeIcon = "Cuña de Difusor de Iones"
+	IonDiffusionLatticeWedgeDesc = &IonDiffusionLattice2x2Desc
+
+	IonDiffusionLatticeTri = "Triangulo de Difusor de Iones"
+	IonDiffusionLatticeTriIcon = "Triangulo de Difusor de Iones"
+	IonDiffusionLatticeTriDesc = &IonDiffusionLattice2x2Desc
+}
+
+Stats
+{
+	ArcNotes = "<gray>Nota: La Velocidad de Disparo se incrementan por cada Transformador de Arco adicional.</gray>"
+	PowerDrainAttackFmt = "<white>Agotamiento de Energy por Ataque:</white> <good>{0:0.##}</good><gray>/disparo (</gray><good>{1:0.##}</good><gray>/seg)</gray>"
+	// Vanila modified
+	CrewStunDurationFmt = "<white>Tiempo de Aturdimiento de los Tripulantes:</white> <good>{0:0.##}-{1:0.##}</good> <gray>s</gray>"
+}
+
+StatCategories
+{
+	// Names
+	GalvanicBolt = "Descarga galvánica"
+	HeavyIonBlasterShot = "Descarga pesada de iones"
+	HeavyIonBlasterScatter = "Rayos de iones pesados"
+	IonBlasterScatter = "Rayos de iones"
+	IonBlasterShot = "Descarga de iones"
+	MissileCluster = "Misil de racimo"
+	ArcBeam = "Haz de arco"
+
+	// Formatters, Technically, this are the Stats, but Fariel put them all in StatCategories
+	ArcEnergyGenerationFmt = "<white>Producción de energía de arco:</white> <good>{0:0.##}</good><gray>/s</gray>"
+	ArcEnergyCapacityFmt = "<white>Capacidad de energía de arco:</white> <good>{0:0.##}</good>"
+	ShotContinuousDamageNearFmt = "<white>Daño vs disparos (Cerca):</white> <good>{0:n0}</good><gray>/s</gray>"
+	ShotContinuousDamageFarFmt = "<white>Daño vs disparos (Lejos):</white> <good>{0:n0}</good><gray>/s</gray>"
+	ArcEnergyUsedFmt = "<white>Energía de arco usada:</white> <good>{0:n0}</good><gray>/disparo (</gray><good>{1:n0}</good><gray>/s)</gray>"
+	DamageArcNearFmt = "<white>Daño máximo (cercano):</white> <good>{0:n0}</good><gray>/disparo (</gray><good>{1:n0}</good><gray>/s)</gray>"
+	DamageArcFarFmt = "<white>Daño máximo (lejano):</white> <good>{0:n0}</good><gray>/disparo (</gray><good>{1:n0}</good><gray>/s)</gray>"
+	ArcEnergyConversionRateFmt = "<white>Ratio de conversión:</white> <good>{0:0}</good> <gray>baterías por</gray> <good>{1:0}</good> <gray>energía de arco</gray>"
+//	ArcEnergyConversionTimeFmt = "<white>Velocidad de conversión:</white> <good>{0:0}</good> <gray>por segundo</gray>"
+	ScatterFmt = "<white>Rayos:</white> <good>{0:0}</good>"
+	LifeTimeFmt = "<white>Tiempo de vida:</white> <good>{0:0.##}</good> <gray> a </gray><good>{1:0.##}</good><gray> segundos</gray>"
+	DistancePenetratedFmt = "<white>Distancia penetrada:</white> <good>{0:0.##}</good> <gray> a </gray><good>{1:0.##}</good> <gray> metros</gray>"
+	DamagePerTileFmt = "<white>Daño:</white> <good>{0:0.##}</good> <gray>por mosaico penetrado</gray>"
+}
+
+PartToggles
+{
+	MissileType_Cluster = "<b>Misil de Racimo</b>\n\n"\
+	"Lanza un misil grande que se rompe en misiles más pequeños diseñados para abrumar a la Defensa Puntual.\n\n"\
+	"Hotkey: <btn id='PartToggles.missile_type_cluster_sunflowercorp'/>"
+}
+
+Inputs
+{
+	PartToggles
+	{
+		missile_type_cluster_sunflowercorp = "Tipo de Lanzador: Racimo"
+	}
+}
+
+Resource
+{
+	ArcEnergy = "Energía de Arco"
+}

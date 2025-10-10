@@ -1,0 +1,35 @@
+IDL_2x2
+[
+	[steel, 32]
+	[coil2, 4]
+]
+
+IDL_2x3_wedge
+[
+	[steel, 24]
+	[coil2, 3]
+]
+
+IDL_2x4_wedge
+[
+	[steel, 32]
+	[coil2, 4]
+]
+
+IDL_3x2
+[
+	[steel, 48]
+	[coil2, 6]
+]
+
+IDL_tri
+[
+	[steel, 8]
+	[coil2, 1]
+]
+
+IDL_wedge
+[
+	[steel, 16]
+	[coil2, 2]
+]

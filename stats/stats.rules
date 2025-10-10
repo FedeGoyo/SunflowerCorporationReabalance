@@ -1,0 +1,47 @@
+Stats
+[
+	{
+		ID = ArcEnergyGeneration
+		FormatKey = "StatCategories/ArcEnergyGenerationFmt"
+	}
+	{
+		ID = ShotContinuousDamageNear
+		FormatKey = "StatCategories/ShotContinuousDamageNearFmt"
+	}
+	{
+		ID = ShotContinuousDamageFar
+		FormatKey = "StatCategories/ShotContinuousDamageFarFmt"
+	}
+	{
+		ID = ArcEnergyUsed
+		FormatKey = "StatCategories/ArcEnergyUsedFmt"
+	}
+	{
+		ID = DamageArcNear
+		FormatKey = "StatCategories/DamageArcNearFmt"
+	}
+	{
+		ID = DamageArcFar
+		FormatKey = "StatCategories/DamageArcFarFmt"
+	}
+	{
+		ID = Scatter
+		FormatKey = "StatCategories/ScatterFmt"
+	}
+	{
+		ID = LifeTime
+		FormatKey = "StatCategories/LifeTimeFmt"
+	}
+	{
+		ID = DistancePenetrated
+		FormatKey = "StatCategories/DistancePenetratedFmt"
+	}
+	{
+		ID = DamagePerTile
+		FormatKey = "StatCategories/DamagePerTileFmt"
+	}
+	{
+		ID = PowerDrainAttack
+		FormatKey = "Stats/PowerDrainAttackFmt"
+	}
+]

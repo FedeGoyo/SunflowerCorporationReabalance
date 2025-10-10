@@ -1,0 +1,573 @@
+Part : <./Data/ships/terran/base_part_terran.rules>/Part
+{
+	NameKey = "Parts/ArcEmitterName"
+	IconNameKey = "Parts/ArcEmitterIcon"
+	ID = enderluck.drone_launcher // Part IDs must always be in the form of "author_name.part_name". If making your own mod, do *not* use "cosmoteer" as your author name, because it may conflict with future vanilla parts.
+	OtherIDs = [drone_launcher]
+	EditorGroup = "WeaponsEnergy"
+	DescriptionKey = "Parts/ArcEmitterDesc"
+	Resources
+	[
+		[steel, 80]
+		[coil, 20]
+		[coil2, 40]
+		[tristeel, 50]
+	]
+	Size = [3, 3]
+	PhysicalRect = [0, 0, 3, 3]
+	SaveRect = &PhysicalRect
+	SelectionPriority = 1
+	MaxHealth = 8000
+	TypeCategories = [weapon, uses_power, is_crewed, arc, arc_emitter]
+	ReceivableBuffs : ^/0/ReceivableBuffs [Arc_Emitter_Shot]
+	ProhibitedBy : ^/0/ProhibitedBy [tall]
+	ForceManhattanPathInPart = true
+	BlockedTravelCells
+	[
+		[1, 1]
+	]
+	AllowedDoorLocations
+	[
+		[-1, 1]
+		[3, 1]
+		[1, -1]
+		[1, 3]
+	]
+
+	EditorIcon: &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/EditorIcon
+
+	Components : &<./Data/ships/terran/base_part_terran.rules>/Part/Components // ^/0/Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle, PartCrew]
+			Mode = All
+		}
+
+		OperationalWithPower
+		{
+			Type = MultiToggle
+			Toggles = [ArcEmitterStorageProxy, IsOperational]
+			Mode = All
+		}
+
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+			RequiresCommand = false
+		}
+
+		CommandConsumer
+		{
+			Type = CommandConsumer
+			OperationalToggle = PowerToggle
+			CommandPoints = 4
+		}
+
+		FireModeToggle
+		{
+			Type = UIToggle
+			ToggleID = "fire_mode"
+			Default = 1
+			AvailableChoices = [-1, 1]
+			ToggledOnChoices = [0, 1, 2]
+		}
+		AutoFireToggle
+		{
+			Type = ModeToggle
+			Mode = FireModeToggle
+			OnMode = 2
+		}
+		
+
+		BuffProvider
+		{
+			Type = GridBuffProvider
+			BuffType = Arc_Emitter_Capacity
+			GridDistance = 1
+			OperationalToggle = IsOperational
+		}
+		ArcEmitterStorageProxy
+		{
+			Type = MultiResourceStorage
+			OperationalToggle = IsOperational
+			ResourceType = arc_energy
+			ToggleOnResources = 0
+			ProvidedValueRange = 0
+			ProvidedValuePerResource = 1/2000
+			IsDrainable = false
+			ResourceStorages = []
+			ViaBuffs
+			{
+				OutgoingBuffProviders = [BuffProvider]
+				ComponentID = TransformerArcEnergyStorage
+			}
+			AddMode = PrioritizeLeastResources
+			ReceiveResourceMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+		}
+
+		Weapon
+		{
+			Type = TurretWeapon
+			Location = [1.5, 1.5]// Relative to upper-left corner of unrotated part.
+			Rotation = -90d// Relative to unrotated part.
+			OperationalToggle = OperationalWithPower
+			AutoFireToggle = AutoFireToggle
+			FirePermissionToggle = FireModeToggle
+			TargetingArc = 360d
+			TargetingRange = 300
+			FiringArc = 360d
+			RotateSpeed = 2080d
+			FireThresholdAngle = 1d
+			FireInterval = 2
+			AIFirepowerRating = 400
+			Emitter = BulletEmitter
+			IgnoreFriendlyShipLowLOSChecks = true
+			IgnoreFriendlyShipHighLOSChecks = true
+			IgnoreJunkLOSChecks = true
+			ReturnToCenter = false
+//			AllowFireWithBlockedLOS = true
+			HoldTargetAfterCancel = &../BulletEmitter/FireDelay
+			AutoTargetCrewSafetyDist = 8
+
+			AutoTargets
+			[
+				{
+					TargetType = ShipParts
+					Toggle = AutoTargetToggle
+				}
+			]
+
+		}
+
+		ReloadProgressBar
+		{
+			Type = ProgressBar
+			OperationalToggle = IsOperational
+			ShowProgressFor = Weapon
+		}
+
+		BulletEmitter
+		{
+			Type = BulletEmitter
+			ChainedTo = Weapon
+			FireTrigger = Weapon
+			GetTargetFrom = Weapon
+			Location = [0, 0]
+			OperationalToggle = IsOperational
+			FireDelay = 1
+			Bullet = &<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>
+			ResourceStorage = ArcEmitterStorageProxy
+			ResourcesUsed = 1000
+			MinResourcesUsed = 1000
+		}
+
+		TurnTimer
+		{
+			Type = Timer
+			OperationalToggle = IsOperational
+			Duration = 1.1
+			StartTrigger = Weapon
+			AutoStart = true
+		}
+		
+
+		TurretCollider
+		{
+			Type = CircleCollider
+			Location = &../Weapon/Location
+			Radius = 1.5
+			IsHigh = true
+		}
+
+		CrewLocation1
+		{
+			Type = CrewLocation
+			Location = [1.5, 2.3]
+			Rotation = 0d
+		}
+		CrewLocation2
+		{
+			Type = CrewLocation
+			Location = [.7, 1.5]
+			Rotation = 90d
+		}
+		CrewLocation3
+		{
+			Type = CrewLocation
+			Location = [1.5, .7]
+			Rotation = 180d
+		}
+		CrewLocation4
+		{
+			Type = CrewLocation
+			Location = [2.3, 1.5]
+			Rotation = -90d
+		}
+		CrewLocation5
+		{
+			Type = CrewLocation
+			Location = [.5, .5]
+			Rotation = -45d
+		}
+		CrewLocation6
+		{
+			Type = CrewLocation
+			Location = [2.5, .5]
+			Rotation = 45d
+		}
+		CrewLocation7
+		{
+			Type = CrewLocation
+			Location = [.5, 2.5]
+			Rotation = -135d
+		}
+		CrewLocation8
+		{
+			Type = CrewLocation
+			Location = [2.5, 2.5]
+			Rotation = 135d
+		}
+		PartCrew
+		{
+			Type = PartCrew
+			Crew = 4
+			DefaultPriority = &/PRIORITIES/Weapon_Crew
+			PrerequisitesBeforeCrewing = [PowerToggle]
+			CrewDestinations
+			[
+				[1.5, 2.3]
+				[.7, 1.5]
+				[1.5, .7]
+				[2.3, 1.5]
+				[.5, .5]
+				[2.5, .5]
+				[.5, 2.5]
+				[2.5, 2.5]
+			]
+			CrewLocations
+			[
+				CrewLocation1
+				CrewLocation2
+				CrewLocation3
+				CrewLocation4
+				CrewLocation5
+				CrewLocation6
+				CrewLocation7
+				CrewLocation8
+			]
+			SwitchLocationInterval = [5, 10]
+		}
+
+		Graphics: "&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Components/Graphics"
+		
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [1.5, 1.5]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/PowerOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/PowerOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/BigPartDestroyed
+			Location = [1.5, 1.5]
+		}
+
+		Indicators: "&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Indicators"
+		
+		Blueprints: "&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Blueprint"
+
+		// Begin Buffs Based On Power Level...
+		ThresholdToggle1
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 1
+			MaxAmount = 1
+		}
+		ThresholdToggler1
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle1
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider1
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=1; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+		ThresholdToggle2
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 2
+			MaxAmount = 2
+		}
+		ThresholdToggler2
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle2
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider2
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=2; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+		ThresholdToggle3
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 3
+			MaxAmount = 3
+		}
+		ThresholdToggler3
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle3
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider3
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=3; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+		ThresholdToggle4
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 4
+			MaxAmount = 4
+		}
+		ThresholdToggler4
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle4
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider4
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=4; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+		ThresholdToggle5
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 5
+			MaxAmount = 5
+		}
+		ThresholdToggler5
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle5
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider5
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=5; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+		ThresholdToggle6
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 6
+			MaxAmount = 6
+		}
+		ThresholdToggler6
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle6
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider6
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=6; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+		ThresholdToggle7
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 7
+			MaxAmount = 7
+		}
+		ThresholdToggler7
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle7
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider7
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=7; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+		ThresholdToggle8
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 8
+			MaxAmount = 8
+		}
+		ThresholdToggler8
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle8
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider8
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=8; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+		ThresholdToggle9
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 9
+			MaxAmount = 9
+		}
+		ThresholdToggler9
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle9
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider9
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=9; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+		ThresholdToggle10
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 10
+			MaxAmount = 10
+		}
+		ThresholdToggler10
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle10
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider10
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=10; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+		ThresholdToggle11
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 11
+			MaxAmount = 11
+		}
+		ThresholdToggler11
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle11
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider11
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=11; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+		ThresholdToggle12
+		{
+			Type = ThresholdToggle
+			AmountFrom = ArcEmitterStorageProxy
+			MinAmount = 12
+			MaxAmount = 12
+		}
+		ThresholdToggler12
+		{
+			Type = ToggledComponents
+			Toggle = ThresholdToggle12
+			IncludeInBlueprints = false;
+			Components
+			{
+				ShotBuffProvider12
+				{
+					Type = SelfBuffProvider
+					BuffType = Arc_Emitter_Shot
+					BuffAmount = { BaseValue=12; BuffType=Arc_Emitter_Shot; BuffMode=Replace; }
+				}
+			}
+		}
+
+	}
+
+	Stats
+	{
+		CrewRequired = &~/Part/Components/PartCrew/Crew
+	}
+
+	StatsByCategory
+	[
+		{
+			NameKey = "StatCategories/ArcBeam"
+			Stats
+			{
+				Range = &~/Part/Components/ArcEmitter/Range
+				Arc = 360
+				ShotSpeed = Infinity
+				PowerPerShot = Infinity
+			}
+		}
+	]
+}

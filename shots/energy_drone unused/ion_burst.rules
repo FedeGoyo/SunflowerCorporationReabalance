@@ -1,0 +1,107 @@
+ID = "enderluck.ion_burst"
+Range = 300
+IdealRange = [200, 300]
+IdealRadius = 180
+Speed = 0
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.1
+		Density = 0.0001
+	}
+
+	Targetable
+	{
+		Type = Targetable
+		Health = 5000
+		TargetCategory = "laser"
+	}
+
+	DeathByLifetime
+	{
+		Type = DeathByLifetime
+		Lifetime = 0.1
+		HasTarget = true
+		OnDeath = &../Hit/HitFriendly
+	}
+	
+	Hit
+	{
+		Type = SimpleHit
+		SourcePartCollisionDelay = 1.5/30
+
+		HitShield = &HitOperational
+		HitOperational
+		{
+			HitEffects
+			[
+				{
+					Type = ExplosiveDamage
+					TotalDamage = 10000
+					Radius = 3
+					ExpandDuration = .5
+					ExpandStartRadius = 0
+					ExpandLoss = 100%
+					ImpulsePerNDamage = 10
+					NDamage = 1000
+					Filter
+					{
+						OperationalHealth = true
+						StructuralHealth = false
+						Friendlies = true
+					}
+				}
+				{
+					Type = ExplosiveDamage
+					TotalDamage = 6000
+					Radius = 3
+					ExpandDuration = .5
+					ExpandStartRadius = 0
+					ExpandLoss = 100%
+					ImpulsePerNDamage = 10
+					NDamage = 1000
+					Filter
+					{
+						OperationalHealth = false
+						StructuralHealth = true
+						Friendlies = true
+					}
+				}
+				{
+					Type = Impulse;
+					Impulse = 100;
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/ion_burst_bolts.rules>
+				&<particles/ion_burst_lightning.rules>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "ion_burst_hit.wav"
+					Volume = 1
+					SpeedVariation = .2
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .05
+					Duration = .75
+				}
+			]
+		}
+		HitStructural = &HitOperational
+		HitFriendly
+		{
+			HitEffects
+			[
+
+			]
+		}
+	}
+}

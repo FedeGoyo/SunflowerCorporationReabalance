@@ -1,0 +1,198 @@
+Resources	// Reduce cost
+[
+	[steel, 36]
+	[coil2, 22]
+	[processor, 3]
+]
+
+Components
+{
+/*	Does't work as the Arc Emitter completely ignore it
+	EmpAbsorber
+		{
+			Type = ExplosiveResourceDrainSink
+			ResourceType = battery
+			AbsorbsResourceDrain = 5000
+			RecoveryRate = (&AbsorbsResourceDrain) * 0.1
+		}
+*/
+
+
+
+/*	NotReadyToggle	// Required to make it shot only at full capacity
+	{
+		Type = MultiToggle
+		Toggles = [PowerToggle, { Toggle = TransformerArcEnergyStorage; Invert = true} ]
+		Mode = All
+	}
+*/
+
+	// Add crew requirement
+	CrewLocation1
+	{
+		Type = CrewLocation
+		Location = [1.5, 2.3]
+		Rotation = 0d
+	}
+	CrewLocation2
+	{
+		Type = CrewLocation
+		Location = [.7, 1.5]
+		Rotation = 90d
+	}
+	CrewLocation3
+	{
+		Type = CrewLocation
+		Location = [1.5, .7]
+		Rotation = 180d
+	}
+	CrewLocation4
+	{
+		Type = CrewLocation
+		Location = [2.3, 1.5]
+		Rotation = -90d
+	}
+	PartCrew
+	{
+		Type = PartCrew
+		Crew = 1
+		DefaultPriority = &/PRIORITIES/Weapon_Crew
+		PrerequisitesBeforeCrewing = [PowerToggle]
+		CrewDestinations
+		[
+			[1.5, 2.3]
+			[.7, 1.5]
+			[1.5, .7]
+			[2.3, 1.5]
+		]
+		CrewLocations
+		[
+			CrewLocation1
+			CrewLocation2
+			CrewLocation3
+			CrewLocation4
+		]
+		SwitchLocationInterval = [5, 10]
+	}
+}
+
+TransformerArcEnergyStorage
+{
+	ToggleOnResources = 4000
+	ToggleOffResources = 0
+}
+
+ConvertFromBatteryToArcEnergy
+{
+	From
+	[
+		{
+			Storage = BatteryStorage
+			Quantity = 2000	// Increase quantity
+			MinQuantityForConversion = 2000	// Increase minimum quantity
+		}
+	]
+	ToQuantity = 1000	// Increase quantity
+	Interval = 1.25	// Increase interval
+}
+
+BatteryStorage
+{
+	ToggleOnResources = 2000
+	ToggleOffResources = 1999
+}
+	
+BatterySprites	// Change graphic
+{
+	ResourceLevels
+	[
+		{
+			File = "arc_transformer_power_1.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_power_2.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_power_3.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_power_4.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_power_5.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_power_6.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_power_7.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_power_8.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_power_9.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_power_10.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_power_11.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_power_12.png"
+			Size = [3, 3]
+		}
+	]
+	
+}
+
+ArcEnergySprites	// Change graphic
+{
+	ResourceLevels
+	[
+		{
+			File = "arc_transformer_arc_1.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_arc_2.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_arc_3.png"
+			Size = [3, 3]
+		}
+		{
+			File = "arc_transformer_arc_4.png"
+			Size = [3, 3]
+		}
+	]
+}
+
+Stats
+{
+	CrewRequired = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/PartCrew/Crew)
+	RecPower = (&PowerUsageContinuous)
+	RecCrew = (&CrewRequired) + (&RecPower) * 4
+
+	Interval = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/Interval)
+	ArcEnergy = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/ToQuantity) / 1000
+	Power = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/From/0/Quantity) / 1000
+	ArcEnergyGeneration = (&ArcEnergy) / (&Interval)
+	ArcEnergyCapacity = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/MaxResources) / 1000
+	PowerUsageContinuous = (&Power) / (&Interval)
+
+//	ArcEnergyConversionRate = [(&ArcEnergy), (&Power)]
+}

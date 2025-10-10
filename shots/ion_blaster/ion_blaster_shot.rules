@@ -1,0 +1,11 @@
+HitEffects
+[
+	{
+		Type = SpawnBullets
+		Bullet = &<ion_scatter_ray.rules>
+		Count = 5
+		Arc = [-45d, 90d]
+		InheritVelocity = false
+		ScaleHealth = false
+	}
+]

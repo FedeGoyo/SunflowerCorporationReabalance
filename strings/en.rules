@@ -1,0 +1,115 @@
+Parts
+{
+	TestCannonName = "Test Cannon"
+	TestCannonIcon = &TestCannonName
+	TestCannonDesc = "This is a test cannon. It fires whatever we're testing today."
+
+	IonBlasterName = "Ion Blaster"
+	IonBlasterIcon = &IonBlasterName
+	IonBlasterDesc = "Fires a guided burst of ions away from the turret, then directs the burst to its target. Great at diagonal fire.\n\n"\
+				"When colliding, the ions burst into a cone of energy that damages internal components and causes short-circuits, stunning crew and causing fire. It moves through armor with ease but is entirely absorbed by shields."
+	IonBlasterTechDescription = &IonBlasterDesc
+
+	HeavyIonBlasterName = "Heavy Ion Blaster"
+	HeavyIonBlasterIcon = &HeavyIonBlasterName
+	HeavyIonBlasterDesc = "Fires a massive, but slow, guided burst of ions away from the turret, then directs the burst to its target. Great at diagonal fire.\n\n"\
+				"When colliding, the ions burst into a cone of energy that damages internal components and causes short-circuits, stunning crew and causing fire. It moves through armor with ease but is entirely absorbed by shields."
+	HeavyIonBlasterTechDescription = &HeavyIonBlasterDesc
+
+	GalvanicArmorName = "Galvanic Armor"
+	GalvanicArmorIcon = &GalvanicArmorName
+	GalvanicArmorDesc = "A wide, armored plate with two charged coils on the outside that will shock nearby enemies and projectiles, dealing more damage as they get closer."
+	GalvanicArmorTechDescription = "A wide, armored plate with two charged coils on the outside. Can serve as a close-range Point-Defense alternative. Deals more damage to closer targets."
+
+	ArcEmitterName = "Arc Emitter"
+	ArcEmitterIcon = &ArcEmitterName
+	ArcEmitterDesc = "A dangerous tesla coil that is mounted on top of the ship instead of the side for extra stability. Each strike fires a so massive bolt of lightning that it drains power from nearby systems. Each Arc Emitter requires one or more adjacent Arc Transformers."
+	ArcEmitterTechDescription = "Drains nearby Arc Transformers channeling it into a massive burst of electricity."
+
+	ArcTransformerName = "Arc Transformer"
+	ArcTransformerIcon = &ArcTransformerName
+	ArcTransformerDesc = "Converts power into arc energy to be used by Arc Emitters and Galvanic Armor."
+	ArcTransformerTechDescription = "Converts power into an an efficient but non-portable energy form called Arc Energy. This is automatically supplied to nearby modules."
+
+	// Armor / Ion Diffusion Lattice
+	IonDiffusionLattice2x2 = "Ion Diffusion Lattice 2x2"
+	IonDiffusionLattice2x2Icon = "Ion Diff. Lattice 2x2"
+	IonDiffusionLattice2x2Desc = "Contains a special arrangement of ion reflectors that act sort of like a laser and a sponge simultaneously. Absorbs ion energy and expels it in small beams."
+	IonDiffusionLatticeTechName = "Ion Diffusion Lattice"
+	IonDiffusionLatticeTechDescription = &IonDiffusionLattice2x2Desc
+
+	IonDiffusionLattice3x2 = "Ion Diffusion Lattice 3x2"
+	IonDiffusionLattice3x2Icon = "Ion Diff. Lattice 3x2"
+	IonDiffusionLattice3x2Desc = &IonDiffusionLattice2x2Desc
+
+	IonDiffusionLattice2x3Wedge = "Ion Diffusion Lattice 2x3 Wedge"
+	IonDiffusionLattice2x3WedgeIcon = "Ion Diff. Lattice 2x3 Wedge"
+	IonDiffusionLattice2x3WedgeDesc = &IonDiffusionLattice2x2Desc
+
+	IonDiffusionLattice2x4Wedge = "Ion Diffusion Lattice 2x4 Wedge"
+	IonDiffusionLattice2x4WedgeIcon = "Ion Diff. Lattice 2x4 Wedge"
+	IonDiffusionLattice2x4WedgeDesc = &IonDiffusionLattice2x2Desc
+
+	IonDiffusionLatticeWedge = "Ion Diffusion Lattice Wedge"
+	IonDiffusionLatticeWedgeIcon = "Ion Diff. Lattice Wedge"
+	IonDiffusionLatticeWedgeDesc = &IonDiffusionLattice2x2Desc
+
+	IonDiffusionLatticeTri = "Ion Diffusion Lattice Triangle"
+	IonDiffusionLatticeTriIcon = "Ion Diff. Lattice Triangle"
+	IonDiffusionLatticeTriDesc = &IonDiffusionLattice2x2Desc
+}
+
+Stats
+{
+	ArcNotes = "<gray>NOTE: Fire Rate is increased with each additional Arc Transformer.</gray>"
+	PowerDrainAttackFmt = "<white>Power Drain On Attack:</white> <good>{0:0.##}</good><gray>/shot (</gray><good>{1:0.##}</good><gray>/sec)</gray>"
+	// Vanila modified
+	CrewStunDurationFmt = "<white>Crew Stun Time:</white> <good>{0:0.##}-{1:0.##}</good> <gray>seconds</gray>"
+}
+
+StatCategories
+{
+	// Names
+	GalvanicBolt = "Galvanic Bolt"
+	HeavyIonBlasterShot = "Heavy Ion Bolt"
+	HeavyIonBlasterScatter = "Heavy Ion Rays"
+	IonBlasterScatter = "Ion Rays"
+	IonBlasterShot = "Ion Bolt"
+	MissileCluster = "Cluster Missile"
+	ArcBeam = "Arc Beam"
+
+	// Formatters, Technically, this are the Stats, but Fariel put them all in StatCategories
+	ArcEnergyGenerationFmt = "<white>Arc Energy Generation:</white> <good>{0:0.##}</good><gray>/sec</gray>"
+	ArcEnergyCapacityFmt = "<white>Arc Energy Capacity:</white> <good>{0:0.##}</good>"
+	ShotContinuousDamageNearFmt = "<white>Dmg vs Shot (Near):</white> <good>{0:n0}</good><gray>/sec</gray>"
+	ShotContinuousDamageFarFmt = "<white>Dmg vs Shot (Far):</white> <good>{0:n0}</good><gray>/sec</gray>"
+	ArcEnergyUsedFmt = "<white>Arc Energy Use:</white> <good>{0:n0}</good><gray>/shot (</gray><good>{1:n0}</good><gray>/sec)</gray>"
+	DamageArcNearFmt = "<white>Max Dmg (Near):</white> <good>{0:n0}</good><gray>/shot (</gray><good>{1:n0}</good><gray>/sec)</gray>"
+	DamageArcFarFmt = "<white>Max Dmg (Far):</white> <good>{0:n0}</good><gray>/shot (</gray><good>{1:n0}</good><gray>/sec)</gray>"
+	ArcEnergyConversionRateFmt = "<white>Conversion Rate:</white> <good>{0:0}</good> <gray>power per</gray> <good>{1:0}</good> <gray>arc energy</gray>"
+//	ArcEnergyConversionTimeFmt = "<white>Conversion Speed:</white> <good>{0:0}</good> <gray>per second</gray>"
+	ScatterFmt = "<white>Rays:</white> <good>{0:0}</good>"
+	LifeTimeFmt = "<white>Lifespan:</white> <good>{0:0.##}</good> <gray> to </gray><good>{1:0.##}</good><gray> second</gray>"
+	DistancePenetratedFmt = "<white>Distance Penetrated:</white> <good>{0:0.##}</good> <gray> to </gray><good>{1:0.##}</good> <gray> meters</gray>"
+	DamagePerTileFmt = "<white>Damage:</white> <good>{0:0.##}</good> <gray>per tile penetrated</gray>"
+}
+
+PartToggles
+{
+	MissileType_Cluster = "<b>Cluster Missiles</b>\n\n"\
+	"Launches a large missile that breaks in to smaller missiles designed to overwhelm Point Defense.\n\n"\
+	"Hotkey: <btn id='PartToggles.missile_type_cluster_sunflowercorp'/>"
+}
+
+Inputs
+{
+	PartToggles
+	{
+		missile_type_cluster_sunflowercorp = "Launcher Type: Cluster"
+	}
+}
+
+Resource
+{
+	ArcEnergy = "Arc Energy"
+}

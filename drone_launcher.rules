@@ -1,0 +1,48 @@
+Weapon
+	{
+		Type = TurretWeapon
+		Location = [1.5, 1.5]// Relative to upper-left corner of unrotated part.
+		Rotation = -90d// Relative to unrotated part.
+		OperationalToggle = OperationalWithPower
+		AutoFireToggle = AutoFireToggle
+		FirePermissionToggle = FireModeToggle
+		TargetingArc = 360d
+		TargetingRange = 300
+		FiringArc = 360d
+		RotateSpeed = 2080d
+		FireThresholdAngle = 1d
+		FireInterval = 2
+		AIFirepowerRating = 400
+		Emitter = BulletEmitter
+		IgnoreFriendlyShipLowLOSChecks = true
+		IgnoreFriendlyShipHighLOSChecks = true
+		IgnoreJunkLOSChecks = true
+		ReturnToCenter = false
+//			AllowFireWithBlockedLOS = true
+		HoldTargetAfterCancel = &../BulletEmitter/FireDelay
+		AutoTargetCrewSafetyDist = 8
+
+		AutoTargets
+		[
+			{
+				TargetType = ShipParts
+				Toggle = AutoTargetToggle
+			}
+		]
+
+	}
+		
+	BulletEmitter
+	{
+		Type = BulletEmitter
+		ChainedTo = Weapon
+		FireTrigger = Weapon
+		GetTargetFrom = Weapon
+		Location = [0, 0]
+		OperationalToggle = IsOperational
+		FireDelay = 1
+		Bullet = &<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>
+		ResourceStorage = ArcEmitterStorageProxy
+		ResourcesUsed = 1000
+		MinResourcesUsed = 1000
+	}

@@ -1,0 +1,7 @@
+HitEffects
+[
+	{
+		TotalDamage = 12000	// Increase base damage
+		Radius = 5	// Increase base radius
+	}
+]
