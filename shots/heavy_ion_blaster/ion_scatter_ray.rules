@@ -1,7 +1,7 @@
 Hit
 {
 	Type = PenetratingHit
-	Penetration = 10000 // 21
+	Penetration = infinity
 	PenetratesShields = false
 	PenetrationSpeed = 5
 

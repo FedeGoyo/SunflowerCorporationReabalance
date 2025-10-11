@@ -21,7 +21,7 @@ Components : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_i
 	Hit
 	{
 		Type = PenetratingHit
-		Penetration = 10000 // 14
+		Penetration = infinity
 		PenetratesShields = false
 		PenetrationSpeed = 5
 
