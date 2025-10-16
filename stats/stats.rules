@@ -17,14 +17,6 @@ Stats
 		FormatKey = "StatCategories/ArcEnergyUsedFmt"
 	}
 	{
-		ID = DamageArcNear
-		FormatKey = "StatCategories/DamageArcNearFmt"
-	}
-	{
-		ID = DamageArcFar
-		FormatKey = "StatCategories/DamageArcFarFmt"
-	}
-	{
 		ID = Scatter
 		FormatKey = "StatCategories/ScatterFmt"
 	}

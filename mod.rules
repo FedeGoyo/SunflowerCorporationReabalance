@@ -41,7 +41,13 @@ Actions
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
-		Overrides = &<parts/arc_emitter/arc_emitter.rules>/ArcEmitter	//	Reduce resource used and minimum resource used
+		Overrides = &<parts/arc_emitter/arc_emitter.rules>/ArcEmitter	//	Reduce resource used and minimum resource used, increase duration
+	}
+	{
+		Action = Add
+		AddTo = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy"
+		Name = RemoveMode
+		ToAdd = DistributeProportionallyByAvailable
 	}
 /*	Used to make it only shot at full capacity. Requires to also activate some things in arc_emitter.rules and arc_transformer.rules
 	{
@@ -59,11 +65,6 @@ Actions
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/ProvidedValueRange"
 		With = [2, 2]	// Set the value to be always 2. Remove this if you want to make it shot only at full capacity. It is needed cause at 1 the graphic is almost invisible
-	}
-	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitInterval"
-		With = 1/30	// Reduced hit interval
 	}
 	{
 		Action = Replace
@@ -111,6 +112,14 @@ Actions
 		Action = RemoveMany
 		RemoveMany = 
 		[
+			// Unused
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/AddMode
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Weapon/AllowRotationToggle
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ValueScaleFactor
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourceScaleFactor
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/TurnTimer
+			
+		
 			// Unused Buff
 // CRASH	"<../../../workshop/content/799600/2995534359/buffs/buffs.rules>/Arc_Emitter_Shot"
 //			"<../../../workshop/content/799600/2995534359/buffs/buffs.rules>/Arc_Emitter_Shot/Multiplier"
@@ -118,6 +127,7 @@ Actions
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/StatsByCategory/0/Stats/DamagePerShot"
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/StatsByCategory/0/Stats/DamagePerSecond"
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/StatsByCategory/0/Stats/Damage"
+			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/StatsByCategory/0/Stats/BaseDamage"
 			// No longer destroy shields
 //			"<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitNothing/HitEffects/0/TreatShieldAsPart"
 			// To add targeting

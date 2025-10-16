@@ -256,9 +256,9 @@ Components
 
 Weapon
 {
-	FireInterval = 0.5	// To use Arc Transformers when shooting only at full capacity, set this to 0
+	FireInterval = 5/6	// To use Arc Transformers when shooting only at full capacity, set this to 0
 	CanBeGivenExplicitTarget = true	// Add targeting
-	AllowDirectControl = true	// Add tafrgeting
+	AllowDirectControl = true	// Add targeting
 
 	AutoTargets	// Add targeting
 	[
@@ -272,6 +272,7 @@ ArcEmitter
 {
 	ResourcesUsed = 4000	// Reduce resource used
 	MinResourcesUsed = 4000	// Reduce minimum resource used
+	Duration = 5/6
 }
 Stats	// New stats
 {
@@ -289,26 +290,35 @@ StatsArcBeam	// New stats
 	Duration = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/Duration)
 	// Path modified
 	ROF = 1 / (&Reload)
-	BaseDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/TotalDamage/BaseValue)
+//	BaseDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/TotalDamage/BaseValue)
 //	BaseDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/Damage/BaseValue)
 	// New
 	Reload = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyCapacity) / (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyGeneration)
 	ArcEnergyShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourcesUsed) / 1000
 	ArcEnergyPerSecond = (&ArcEnergyShot) * (&ROF)
 	ArcEnergyUsed = [&../ArcEnergyShot, &../ArcEnergyPerSecond]
-	DamageArea = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/Radius)
+//	DamageArea = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/Radius)
 	NearScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitEffectsScaleOverRange/0)
 	FarScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitEffectsScaleOverRange/1)
-	DamageArc = (&BaseDamage) / (&HitInterval) * (&Duration)
-	DamagePerShot = (&DamageArc) * (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/ProvidedValueRange/0)
-	DamagePerSecond = (&DamagePerShot) * (&ROF)
-	DamageArcNearPerShot = (&DamagePerShot) * (&NearScale)
-	DamageArcNearPerSecond = (&DamagePerSecond) * (&NearScale)
-	DamageArcNear = [&../DamageArcNearPerShot, &../DamageArcNearPerSecond]
-	DamageArcFarPerShot = (&DamagePerShot) * (&FarScale)
-	DamageArcFarPerSecond = (&DamagePerSecond) * (&FarScale)
-	DamageArcFar = [&../DamageArcFarPerShot, &../DamageArcFarPerSecond]
+//	DamageArc = (&BaseDamage) / (&HitInterval) * (&Duration)
+//	DamagePerShot = (&DamageArc) * (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/ProvidedValueRange/0)
+//	DamagePerSecond = (&DamagePerShot) * (&ROF)
+//	DamageArcNearPerShot = (&DamagePerShot) * (&NearScale)
+//	DamageArcNearPerSecond = (&DamagePerSecond) * (&NearScale)
+//	DamageArcNear = [&../DamageArcNearPerShot, &../DamageArcNearPerSecond]
+//	DamageArcFarPerShot = (&DamagePerShot) * (&FarScale)
+//	DamageArcFarPerSecond = (&DamagePerSecond) * (&FarScale)
+//	DamageArcFar = [&../DamageArcFarPerShot, &../DamageArcFarPerSecond]
 //	FireChance = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/1/FireChance) // (&<./Data/../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitNothing/HitEffects/1/FireChance) * 100
+
+
+	LightningRange = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/InitialRadius)
+	LightningMaxChain = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/MaxChainLength/1)
+	LightningChainStrikeCountRange = [(&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/ChainStrikes/0), (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/ChainStrikes/1)]
+	LightningDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/HitEffects/0/Damage/BaseValue)
+	// Add near and far
+
+
 
 /*	Used when it only shots at full capacity
 	DamagePerShot = (&DamageArc) * (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyCapacity)
