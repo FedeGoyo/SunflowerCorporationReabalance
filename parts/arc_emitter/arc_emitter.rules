@@ -1,9 +1,19 @@
-Resources // Reduce cost
-[
-	[steel, 44]
-	[coil2, 38]
-	[processor, 5]
-]
+ReceivableBuffs = ElectronBuff
+CommandPoints = 5
+StatsNotesKey = "Stats/ArcNotes"	// Add stats note
+
+Part
+{
+	Resources // Reduce cost
+	[
+		[steel, 44]
+		[coil2, 38]
+		[processor, 5]
+	]
+	
+	StatsNotesKey = "Stats/ArcNotes"	// Add stats note
+}
+
 Components
 {
 //	Used to put an AoE energy drain, similar to AoE stun of Deck Cannon
@@ -254,6 +264,11 @@ Components
 */
 }
 
+ArcEmitterStorageProxy
+{
+	RemoveMode = DistributeProportionallyByAvailable	// So that they can all start to reload
+	ProvidedValueRange = [2, 2]	// Set the value to be always 2. Remove this if you want to make it shot only at full capacity. It is needed cause at 1 the graphic is almost invisible
+}
 Weapon
 {
 	FireInterval = 5/6	// To use Arc Transformers when shooting only at full capacity, set this to 0
@@ -281,7 +296,6 @@ Stats	// New stats
 //	PowerDrainAttackSec = (&PowerDrainAttackSingle) * (&../StatsArcBeam/ROF)
 //	PowerDrainAttack = [&../PowerDrainAttackSingle, &../PowerDrainAttackSec]
 //	PowerDrainArea = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/DrainEffect/HitEffects/0/TotalDrain)
-	
 }
 StatsArcBeam	// New stats
 {

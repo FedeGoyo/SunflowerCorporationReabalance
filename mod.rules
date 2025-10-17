@@ -13,20 +13,42 @@ Actions
 [
 	
 // Rebalance Arc Emitter
+	// Start Add Overclock
 	{
-		Action = AddMany
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/ReceivableBuffs"
-		ManyToAdd = [ElectronBuff]	// Adds ElectroBuff
+		Action = RemoveMany
+		RemoveMany = 
+		[
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/SalvagedEffects
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ConstructionStructureSprites
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ConstructionProgressSprites
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ConstructionProgressAnimationSprites
+		]
 	}
 	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Resources"
-		With = &<parts/arc_emitter/arc_emitter.rules>/Resources	// Reduce cost
+		Action = AddBase
+		AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part"
+		BaseToAdd = &<./Data/ships/terran/base_med_part_terran_overclock.rules>/Part
+	}
+	{
+		Action = AddBase
+		AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components"
+		BaseToAdd = &<./Data/ships/terran/base_med_part_terran_overclock.rules>/Part/Components
+	}
+	// End Adding Overclock
+	{
+		Action = Add
+		AddTo = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/ReceivableBuffs"
+		ToAdd = &<parts/arc_emitter/arc_emitter.rules>/ReceivableBuffs	// Adds ElectroBuff
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part"
+		Overrides = &<parts/arc_emitter/arc_emitter.rules>/Part	// Reduce cost and add stat note
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/CommandConsumer/CommandPoints"
-		With = 5	// Increase command points cost
+		With = &<parts/arc_emitter/arc_emitter.rules>/CommandPoints	// Increase command points cost
 	}
 	{
 		Action = Overrides
@@ -44,10 +66,9 @@ Actions
 		Overrides = &<parts/arc_emitter/arc_emitter.rules>/ArcEmitter	//	Reduce resource used and minimum resource used, increase duration
 	}
 	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy"
-		Name = RemoveMode
-		ToAdd = DistributeProportionallyByAvailable
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy"
+		Overrides = &<parts/arc_emitter/arc_emitter.rules>/ArcEmitterStorageProxy
 	}
 /*	Used to make it only shot at full capacity. Requires to also activate some things in arc_emitter.rules and arc_transformer.rules
 	{
@@ -63,19 +84,13 @@ Actions
 */
 	{
 		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/ProvidedValueRange"
-		With = [2, 2]	// Set the value to be always 2. Remove this if you want to make it shot only at full capacity. It is needed cause at 1 the graphic is almost invisible
-	}
-	{
-		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitNothing/HitEffects"
 		With = &<shots/lightning_bolt/lightning_bolt.rules>/HitEffects	// Replace normal damage with explosive damage, reduce damage, add fire chance and ElectronBuff
 	}
 	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>"
-		Name = HitEffectsScaleOverRange
-		ToAdd = [1, 0.8]	// Add damage reduction over distance
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>"
+		Overrides = &<shots/lightning_bolt/lightning_bolt.rules>/Base	// Add damage reduction over distance
 	}
 	{
 		Action = Overrides
@@ -87,12 +102,6 @@ Actions
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/StatsByCategory/0/Stats"
 		Overrides = &<parts/arc_emitter/arc_emitter.rules>/StatsArcBeam	// Add shot stats
 	}
-	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part"
-		Name = StatsNotesKey
-		ToAdd = "Stats/ArcNotes"	// Add stats note
-	}
 /*	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/buffs/buffs.rules>/Arc_Emitter_Shot"
@@ -102,24 +111,10 @@ Actions
 			BaseValue = 100%
 		}
 	}*/
-/*	{	CRASH
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/ReceivableBuffs"
-		With = <./Data/ships/terran/base_part_terran.rules>/Part/ReceivableBuffs
-	}*/
-	
 	{
 		Action = RemoveMany
 		RemoveMany = 
 		[
-			// Unused
-			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/AddMode
-			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Weapon/AllowRotationToggle
-			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ValueScaleFactor
-			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourceScaleFactor
-			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/TurnTimer
-			
-		
 			// Unused Buff
 // CRASH	"<../../../workshop/content/799600/2995534359/buffs/buffs.rules>/Arc_Emitter_Shot"
 //			"<../../../workshop/content/799600/2995534359/buffs/buffs.rules>/Arc_Emitter_Shot/Multiplier"
@@ -133,8 +128,11 @@ Actions
 			// To add targeting
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/FireModeToggle/AvailableChoices"
 			// Unused Components
-			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/ProvidedValueRange"
-//			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/ProvidedValuePerResource"
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/AddMode
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Weapon/AllowRotationToggle
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ValueScaleFactor
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourceScaleFactor
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/TurnTimer
 			// Fix beam graphic
 			"<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/BeamMediaEffects/0/MinIntensity"
 			"<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/BeamMediaEffects/1/MinIntensity"
@@ -229,6 +227,9 @@ Actions
 		Action = RemoveMany
 		RemoveMany = 
 		[
+			// Unused Components
+			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/ProvidedValueRange"
+//			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/ProvidedValuePerResource"
 			// Unused stats
 //			"<../../../workshop/content/799600/2995534359/stats/stats.rules>/Stats/2"	// Gives error if I try to remove them
 //			"<../../../workshop/content/799600/2995534359/stats/stats.rules>/Stats/1"	// Gives error if I try to remove them
