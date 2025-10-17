@@ -1,6 +1,18 @@
-ReceivableBuffs = ElectronBuff
-CommandPoints = 5
-StatsNotesKey = "Stats/ArcNotes"	// Add stats note
+OVERCLOCK
+{
+	HEAT_PER_SHOT = 1000
+	ARC_ENERGY_FACTOR = 12000 / 4000
+	FIRE_INTERVAL = 7.5
+	FIRE_INTERVAL_FACTOR = (&FIRE_INTERVAL) / (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Weapon/FireInterval/BaseValue)
+	
+	DURATION = 1
+	DURATION_FACTOR = (&DURATION) / (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/Duration/BaseValue)
+}
+
+HEAT_TO_RESOURCE = &<./Data/statuses/heat/heat.rules>/STATUS_TO_RESOURCE_RATIO
+HEAT_TO_STATUS = &<./Data/statuses/heat/heat.rules>/RESOURCE_TO_STATUS_RATIO
+
+ReceivableBuffs : &<./Data/ships/base_part_overclock.rules>/Part/ReceivableBuffs [ElectronBuff, Arc_Emitter_Chain_Length, Arc_Energy]	// Add Buffs
 
 Part
 {
@@ -12,10 +24,141 @@ Part
 	]
 	
 	StatsNotesKey = "Stats/ArcNotes"	// Add stats note
+	
+	SecondaryToolTip	// Add overclock stats
+	{
+		TitleKey = "StatCategories/Overclocked"
+		DescriptionKey = "Parts/ArcEmitterOverclockDesc"
+		StatsByCategory
+		[
+			{
+				NameKey = "StatCategories/ArcBeamOverclock"
+				Stats
+				{
+					HeatPerShot = (&~/OVERCLOCK/HEAT_PER_SHOT)
+					HitInterval = (&<./Data/../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitInterval)
+					Duration = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/Duration/BaseValue) * (&~/OVERCLOCK/DURATION_FACTOR)
+
+					ArcEnergyShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourcesUsed/BaseValue) * (&~/OVERCLOCK/ARC_ENERGY_FACTOR) / 1000
+					ArcEnergyPerSecond = (&ArcEnergyShot) * (&~/StatsArcBeam/ROF)
+					ArcEnergyUsed = [&../ArcEnergyShot, &../ArcEnergyPerSecond]
+					
+					LightningDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/HitEffects/0/Damage/BaseValue) * (&<../../shots/lightning_bolt/lightning_bolt.rules>/OVERCLOCK/DAMAGE_FACTOR)
+					LightningStrikeCountRange = [(&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/ChainStrikes/0), (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/InitialStrikes/1/BaseValue) * (&<../../shots/lightning_bolt/lightning_bolt.rules>/OVERCLOCK/MAX_INITIAL_STRIKES_FACTOR)]
+				}
+			}
+		]
+	}
 }
 
 Components
 {
+	IsOperational	// Shall I add Arc Energy as a requisite as if it were BatteryStorage?
+	{
+		Type = MultiToggle
+		Toggles = [PowerToggle, PartCrew, ScorchedToggle, &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/OVERCLOCK_OPERATIONAL]
+		Mode = All
+	}
+
+	CommandConsumptionToggle
+	{
+		Type = MultiToggle
+		Toggles = [PowerToggle, ScorchedToggle]
+		Mode = All
+	}
+	
+	ScorchedToggle
+	{
+		Type = StatusToggle
+		StatusType = cosmoteer.scorched
+		MinStatusValue = 1
+		Invert = true
+	}
+
+	CommandConsumer
+	{
+		Type = CommandConsumer
+		OperationalToggle = CommandConsumptionToggle
+		CommandPoints = 5
+	}
+
+	OverclockStateValue
+	{
+		Type = ToggleValueSelector
+		Toggle = OverclockModeToggle
+		ToggleOffValue = Zero
+		ToggleOnValue = One
+	}
+
+	Zero { Type = StaticValue; Value = 0; }
+	One { Type = StaticValue; Value = 1; }
+
+	Overclock_ArcEmitter
+	{
+		Type = TriggerProxy
+		ComponentID = ArcEmitter
+		ProxyToggle = IsOverclocked
+	}
+
+/*	Overclock_ShotHeatProducer
+	{
+		Type = ResourceChange
+		ResourceStorage = <./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/HEAT_TARGET_STORAGE // &~/Part/^/0/HEAT_TARGET_STORAGE
+		Trigger = Overclock_ArcEmitter
+		Amount = (&~/OVERCLOCK/HEAT_PER_SHOT) * (&~/HEAT_TO_RESOURCE)
+	}*/
+
+	Port_Thermal_Left : <./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/BASE_THERMAL_PORT
+	{
+		Location = [0, 1]
+		Direction = Left
+	}
+	Port_Thermal_Up : Port_Thermal_Left
+	{
+		Location = [1, 0]
+		Direction = Up
+	}
+	Port_Thermal_Right : Port_Thermal_Left
+	{
+		Location = [2, 1]
+		Direction = Right
+	}
+	Port_Thermal_Down : Port_Thermal_Left
+	{
+		Location = [1, 2]
+		Direction = Down
+	}
+	
+	ScorchedTrigger
+	{
+		Type = ToggleTrigger
+		Toggle = ScorchedToggle
+		TriggerWhenOn = false
+	}
+
+	ScorchedEffects
+	{
+		Type = TriggeredEffects
+		Trigger = ScorchedTrigger
+		Location = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/DestroyedEffects/Location
+		MediaEffects = &/COMMON_EFFECTS/BigPartScorched
+	}
+
+	PeakHeatGenerationValue
+	{
+		Type = StaticValue
+		SHOT_HEAT_PER_SECOND = (&~/OVERCLOCK/HEAT_PER_SHOT) //* (&~/Part/StatsByCategory/0/Stats/ROF)
+		Value = (&SHOT_HEAT_PER_SECOND)
+	}
+	HeatGenerationStatProvider
+	{
+		Type = StatProvider
+		Stat = HeatGeneration
+		OperationalToggle = OverclockModeToggle
+		ValueFrom = PeakHeatGenerationValue
+	}
+
+
 //	Used to put an AoE energy drain, similar to AoE stun of Deck Cannon
 	DrainEffect
 	{
@@ -57,7 +200,6 @@ Components
 		]
 	}
 
-
 	AutoTargetToggle // Add targeting
 	{
 		Type = ModeToggle
@@ -93,7 +235,6 @@ Components
 		Mode = All
 	}
 */
-	
 	ReloadProgressBar
 	{
 		Type = ProgressBar
@@ -127,151 +268,90 @@ Components
 		OperationalToggle = PowerToggle
 	}*/
 	
+	DelayWeapon
+	{
+		Type = DelayTrigger
+		Trigger = Weapon
+		Delay = (&~/ArcEmitter/Duration/BaseValue) * (&~/OVERCLOCK/DURATION_FACTOR)
+	}
 	
-/*
-	BuffToggle1
+	ArcEmitterStorageBuff
 	{
-		Type = ThresholdToggle
-		AmountFrom = ArcEmitterStorageProxy
-		MinAmount = 1
-		MaxAmount = 4
+		Type = SelfBuffProvider
+		BuffType = Arc_Energy
+		BuffAmount = 1
+		BuffMultiplier = ArcEmitterStorageProxy
 	}
-	Buff1
+	
+	UpdateTrigger
 	{
-		Type = ToggledComponents
-		Toggle = BuffToggle1
-		IncludeInBlueprints = false;
-		Components
-		{
-			ShotBuffProvider1
+		Type = Timer
+		Duration = 1/30
+		AutoStart = true
+		Repeats = true
+	}
+	
+	StoredArcEnergy
+	{
+		Type = ValueAccumulator
+		OperationalToggle = ArcEmitter
+		InvertOperationalToggle = true
+		AccumulationTriggers
+		[
 			{
-				Type = SelfBuffProvider
-				BuffType = Arc_Emitter_Shot
-				BuffAmount = 1
+				Trigger = UpdateTrigger
+				Operation = 2
+				Value = {BaseValue = 1, BuffType = Arc_Energy, BuffMode = Multiply}
+				AllowWhenNonOperational = false
 			}
-		}
-	}
-	BuffToggle2
-	{
-		Type = ThresholdToggle
-		AmountFrom = ArcEmitterStorageProxy
-		MinAmount = 5
-		MaxAmount = 8
-	}
-	Buff2
-	{
-		Type = ToggledComponents
-		Toggle = BuffToggle2
-		IncludeInBlueprints = false;
-		Components
-		{
-			ShotBuffProvider2
 			{
-				Type = SelfBuffProvider
-				BuffType = Arc_Emitter_Shot
-				BuffAmount = 2
+				Trigger = DelayWeapon
+				Operation = 2
+				Value = 0
 			}
-		}
+		]
 	}
-	BuffToggle3
+	
+	ShotBuffProvider_MaxChainLength
 	{
-		Type = ThresholdToggle
-		AmountFrom = ArcEmitterStorageProxy
-		MinAmount = 9
-		MaxAmount = 12
+		Type = SelfBuffProvider
+		OperationalToggle = IsOperationalOverclocked
+		BuffType = Arc_Emitter_Chain_Length
+		BuffAmount = 1
+		BuffMultiplier = StoredArcEnergy
 	}
-	Buff3
+	ShotBuffProvider_Damage
 	{
-		Type = ToggledComponents
-		Toggle = BuffToggle3
-		IncludeInBlueprints = false;
-		Components
-		{
-			ShotBuffProvider3
-			{
-				Type = SelfBuffProvider
-				BuffType = Arc_Emitter_Shot
-				BuffAmount = 3
-			}
-		}
+		Type = SelfBuffProvider
+		OperationalToggle = IsOperationalOverclocked
+		BuffType = Arc_Emitter_Shot
+		BuffAmount = 1
+		BuffMultiplier = StoredArcEnergy
 	}
-	BuffToggle4
-	{
-		Type = ThresholdToggle
-		AmountFrom = ArcEmitterStorageProxy
-		MinAmount = 13
-		MaxAmount = 16
-	}
-	Buff4
-	{
-		Type = ToggledComponents
-		Toggle = BuffToggle4
-		IncludeInBlueprints = false;
-		Components
-		{
-			ShotBuffProvider4
-			{
-				Type = SelfBuffProvider
-				BuffType = Arc_Emitter_Shot
-				BuffAmount = 4
-			}
-		}
-	}
-	BuffToggle5
-	{
-		Type = ThresholdToggle
-		AmountFrom = ArcEmitterStorageProxy
-		MinAmount = 17
-		MaxAmount = 20
-	}
-	Buff5
-	{
-		Type = ToggledComponents
-		Toggle = BuffToggle5
-		IncludeInBlueprints = false;
-		Components
-		{
-			ShotBuffProvider5
-			{
-				Type = SelfBuffProvider
-				BuffType = Arc_Emitter_Shot
-				BuffAmount = 5
-			}
-		}
-	}
-	BuffToggle6
-	{
-		Type = ThresholdToggle
-		AmountFrom = ArcEmitterStorageProxy
-		MinAmount = 21
-		MaxAmount = 26
-	}
-	Buff6
-	{
-		Type = ToggledComponents
-		Toggle = BuffToggle6
-		IncludeInBlueprints = false;
-		Components
-		{
-			ShotBuffProvider6
-			{
-				Type = SelfBuffProvider
-				BuffType = Arc_Emitter_Shot
-				BuffAmount = 6
-			}
-		}
-	}
-*/
 }
 
 ArcEmitterStorageProxy
 {
 	RemoveMode = DistributeProportionallyByAvailable	// So that they can all start to reload
-	ProvidedValueRange = [2, 2]	// Set the value to be always 2. Remove this if you want to make it shot only at full capacity. It is needed cause at 1 the graphic is almost invisible
+	ProvidedValuePerResource = 1/12000	// Reduce value, only used when overclocked
+//	ProvidedValueRange = [2, 2]	// Set the value to be always 2. Remove this if you want to make it shot only at full capacity. It is needed cause at 1 the graphic is almost invisible
 }
 Weapon
 {
-	FireInterval = 5/6	// To use Arc Transformers when shooting only at full capacity, set this to 0
+	FireInterval // To use Arc Transformers when shooting only at full capacity, set this to 0
+	{
+		BaseValue = 5/6	// Reduce fire interval
+		Modifiers
+		[
+			{
+				Type = BuffRemap
+				BuffType = Overclock
+				ModificationMode = Multiply
+				RemapFrom = [0, 1]
+				RemapTo = [1, (&~/OVERCLOCK/FIRE_INTERVAL_FACTOR)]
+			}
+		]
+	}
 	CanBeGivenExplicitTarget = true	// Add targeting
 	AllowDirectControl = true	// Add targeting
 
@@ -283,12 +363,102 @@ Weapon
 		}
 	]
 }
+
 ArcEmitter
 {
-	ResourcesUsed = 4000	// Reduce resource used
-	MinResourcesUsed = 4000	// Reduce minimum resource used
-	Duration = 5/6
+	ResourcesUsed	// Reduce resource used
+	{
+		BaseValue = 4000	// Reduce energy used
+		Modifiers
+		[
+			{
+				Type = BuffRemap
+				BuffType = Overclock
+				ModificationMode = Multiply
+				RemapFrom = [0, 1]
+				RemapTo = [1, infinity]
+			}
+		]
+	}
+	MinResourcesUsed	// Reduce minimum resource used
+	{
+		BaseValue = 4000	// Increase energy used
+		Modifiers
+		[
+			{
+				Type = BuffRemap
+				BuffType = Overclock
+				ModificationMode = Multiply
+				RemapFrom = [0, 1]
+				RemapTo = [1, &~/OVERCLOCK/ARC_ENERGY_FACTOR]
+			}
+		]
+	}
+	Duration
+	{
+		BaseValue = 5/6	// Increase duration
+		Modifiers
+		[
+			{
+				Type = BuffRemap
+				BuffType = Overclock
+				ModificationMode = Multiply
+				RemapFrom = [0, 1]
+				RemapTo = [1, (&~/OVERCLOCK/DURATION_FACTOR)]
+			}
+		]
+	}
 }
+Indicators	// Add indicators
+[
+	// Scorched
+	{
+		Toggle = ScorchedToggle
+		AtlasSprite = &/INDICATORS/Scorched
+		HidesIndicators = [1,2,3,4]
+	}
+	// Turned off.
+	{
+		Toggle = PowerToggle
+		AtlasSprite
+		{
+			File = &/INDICATORS/PowerOff
+			Size = [1, 1]
+		}
+		HidesIndicators = [2,3,4]
+	}
+
+	// Out of power.
+	{
+		Toggle = ArcEmitterStorageProxy
+		Delay = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Weapon/FireInterval/BaseValue
+		AtlasSprite
+		{
+			File = "./Data/../../../workshop/content/799600/2995534359/buffs/arc_energy_red.png"
+			Size = [1, 1]
+		}
+	}
+
+	// Resetting from overclock
+	{
+		Toggle = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/OVERCLOCK_OPERATIONAL
+		AtlasSprite : /INDICATORS/OverclockReset
+		{
+			Size = [1, 1]
+		}
+		HidesIndicators = [4]
+	}
+				
+	// No crew.
+	{
+		Toggle = PartCrew
+		AtlasSprite
+		{
+			File = &/INDICATORS/NoCrew
+			Size = [1, 1]
+		}
+	}
+]
 Stats	// New stats
 {
 	RecCrew = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/PartCrew/Crew)
@@ -301,41 +471,17 @@ StatsArcBeam	// New stats
 {
 	// Not modified
 	HitInterval = (&<./Data/../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitInterval)
-	Duration = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/Duration)
+	Duration = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/Duration/BaseValue)
 	// Path modified
 	ROF = 1 / (&Reload)
-//	BaseDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/TotalDamage/BaseValue)
-//	BaseDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/Damage/BaseValue)
 	// New
 	Reload = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyCapacity) / (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyGeneration)
-	ArcEnergyShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourcesUsed) / 1000
+	ArcEnergyShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourcesUsed/BaseValue) / 1000
 	ArcEnergyPerSecond = (&ArcEnergyShot) * (&ROF)
 	ArcEnergyUsed = [&../ArcEnergyShot, &../ArcEnergyPerSecond]
-//	DamageArea = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/Radius)
-	NearScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitEffectsScaleOverRange/0)
-	FarScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitEffectsScaleOverRange/1)
-//	DamageArc = (&BaseDamage) / (&HitInterval) * (&Duration)
-//	DamagePerShot = (&DamageArc) * (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/ProvidedValueRange/0)
-//	DamagePerSecond = (&DamagePerShot) * (&ROF)
-//	DamageArcNearPerShot = (&DamagePerShot) * (&NearScale)
-//	DamageArcNearPerSecond = (&DamagePerSecond) * (&NearScale)
-//	DamageArcNear = [&../DamageArcNearPerShot, &../DamageArcNearPerSecond]
-//	DamageArcFarPerShot = (&DamagePerShot) * (&FarScale)
-//	DamageArcFarPerSecond = (&DamagePerSecond) * (&FarScale)
-//	DamageArcFar = [&../DamageArcFarPerShot, &../DamageArcFarPerSecond]
-//	FireChance = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/1/FireChance) // (&<./Data/../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitNothing/HitEffects/1/FireChance) * 100
-
 
 	LightningRange = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/InitialRadius)
-	LightningMaxChain = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/MaxChainLength/1)
+	LightningMaxChain = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/MaxChainLength/1/BaseValue)
 	LightningChainStrikeCountRange = [(&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/ChainStrikes/0), (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/ChainStrikes/1)]
 	LightningDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/HitEffects/0/Damage/BaseValue)
-	// Add near and far
-
-
-
-/*	Used when it only shots at full capacity
-	DamagePerShot = (&DamageArc) * (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyCapacity)
-	ArcEnergyShot = Infinity
-*/
 }

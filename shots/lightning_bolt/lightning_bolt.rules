@@ -1,17 +1,41 @@
-Base
+Volumen = 2
+
+OVERCLOCK
 {
-	HitEffectsScaleOverRange = [1, 0.8]	// Add damage reduction over distance
+	MAX_INITIAL_STRIKES_FACTOR = 200%
+	DAMAGE = 400
+	DAMAGE_FACTOR = (&DAMAGE) / (&~/HitEffects/0/HitEffects/0/Damage/BaseValue)
 }
+
+INITIAL_STRIKES_1_MODIFIERS
+[
+	{
+		Type = BuffRemap
+		BuffType = Overclock
+		ModificationMode = Multiply
+		RemapFrom = [0, 1]
+		RemapTo = [1, (&~/OVERCLOCK/MAX_INITIAL_STRIKES_FACTOR)]
+	}
+]
+
+MAX_CHAIN_LENGTH_1_MODIFIERS
+[
+	{
+		Type = Buff
+		BuffType = Arc_Emitter_Chain_Length
+		ModificationMode = Add
+	}
+]
 
 HitEffects
 [
 	{
 		Type = ChainLightning
-		MaxChainLength = [3, 3]
+		MaxChainLength = [3, {BaseValue = 3, Modifiers = &~/MAX_CHAIN_LENGTH_1_MODIFIERS}]
 		InitialRadius = 1.5
 		ChainRadius = 1.5
 		InitialChance = 100%
-		InitialStrikes = [1, 1]
+		InitialStrikes = [1, {BaseValue = 1, Modifiers = &~/INITIAL_STRIKES_1_MODIFIERS}]
 		InitialStrikeRandomOffsetRadius = 0
 		RaycastInitialTargets = true
 		ChainChance = 100%
@@ -24,7 +48,35 @@ HitEffects
 		[
 			{
 				Type = Damage
-				Damage = { BaseValue=250; BuffType=ElectronBuff; BuffMode=Multiply } // ; EffectScaleExponent=1; }
+				Damage
+				{
+					BaseValue = 250
+					Modifiers
+					[
+						{
+							Type = BuffRemap
+							BuffType = Overclock
+							ModificationMode = Multiply
+							RemapFrom = [0, 1]
+							RemapTo = [1, (&~/OVERCLOCK/DAMAGE_FACTOR)]
+						}
+						{
+							Type = Buff
+							BuffType = Arc_Emitter_Shot	// Only when Overclocked
+							ModificationMode = Multiply
+						}
+						{
+							Type = Buff
+							BuffType = ElectronBuff
+							ModificationMode = Multiply
+						}
+						{
+							Type = EffectScale
+							ModificationMode = Multiply
+						}
+						
+					]
+				}
 				Filter
 				{
 					Self = true

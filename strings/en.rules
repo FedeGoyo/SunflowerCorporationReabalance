@@ -23,7 +23,8 @@ Parts
 
 	ArcEmitterName = "Arc Emitter"
 	ArcEmitterIcon = &ArcEmitterName
-	ArcEmitterDesc = "A dangerous tesla coil that is mounted on top of the ship instead of the side for extra stability. Each strike fires a so massive bolt of lightning that it drains power from nearby systems. Each Arc Emitter requires one or more adjacent Arc Transformers."
+	ArcEmitterDesc = "A dangerous tesla coil that is mounted on top of the ship instead of the side for extra stability. Each strike fires a so massive bolt of lightning that it drains power from nearby systems. Each Arc Emitter requires one or more adjacent Arc Transformers. The more Arc Transformers, the faster it can shoot."
+	ArcEmitterOverclockDesc = "The Arc Emitter shoots slower but with damage and lightning strikes based on the arc energy drained from nearby Arc Transformers."
 	ArcEmitterTechDescription = "Drains nearby Arc Transformers channeling it into a massive burst of electricity."
 
 	ArcTransformerName = "Arc Transformer"
@@ -61,7 +62,7 @@ Parts
 
 Stats
 {
-	ArcNotes = "<gray>NOTE: Fire Rate is increased with each additional Arc Transformer.</gray>"
+	ArcNotes = "<gray>NOTE: It will only shoot when having the required Arc Energy. Therefore, additional Arc Transformers are required to achieve full Fire Rate.</gray>"
 	PowerDrainAttackFmt = "<white>Power Drain On Attack:</white> <good>{0:0.##}</good><gray>/shot (</gray><good>{1:0.##}</good><gray>/sec)</gray>"
 	// Vanila modified
 	CrewStunDurationFmt = "<white>Crew Stun Time:</white> <good>{0:0.##}-{1:0.##}</good> <gray>seconds</gray>"
@@ -77,6 +78,7 @@ StatCategories
 	IonBlasterShot = "Ion Bolt"
 	MissileCluster = "Cluster Missile"
 	ArcBeam = "Arc Beam"
+	ArcBeamOverclock = "Arc Beam (Overclocked)"
 
 	// Formatters, Technically, this are the Stats, but Fariel put them all in StatCategories
 	ArcEnergyGenerationFmt = "<white>Arc Energy Generation:</white> <good>{0:0.##}</good><gray>/sec</gray>"

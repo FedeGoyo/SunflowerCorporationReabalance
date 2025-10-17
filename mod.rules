@@ -11,9 +11,16 @@ Description = "This mod rebalances Fariel's Sunflower Corporation mod and theref
 
 Actions
 [
+// Add new stuff
+	{
+		Action = Overrides
+		CreateIfNotExisting = true
+		OverrideIn = "<buffs/buffs.rules>" 
+		Overrides = &<buffs/buffs.rules>	// Add Buffs
+	}
 	
 // Rebalance Arc Emitter
-	// Start Add Overclock
+	// Start adding base for Overclock
 	{
 		Action = RemoveMany
 		RemoveMany = 
@@ -34,41 +41,41 @@ Actions
 		AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components"
 		BaseToAdd = &<./Data/ships/terran/base_med_part_terran_overclock.rules>/Part/Components
 	}
-	// End Adding Overclock
 	{
-		Action = Add
+		Action = AddMany
 		AddTo = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/ReceivableBuffs"
-		ToAdd = &<parts/arc_emitter/arc_emitter.rules>/ReceivableBuffs	// Adds ElectroBuff
+		ManyToAdd = &<parts/arc_emitter/arc_emitter.rules>/ReceivableBuffs
 	}
+	// End adding base for Overclock
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part"
-		Overrides = &<parts/arc_emitter/arc_emitter.rules>/Part	// Reduce cost and add stat note
-	}
-	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/CommandConsumer/CommandPoints"
-		With = &<parts/arc_emitter/arc_emitter.rules>/CommandPoints	// Increase command points cost
+		Overrides = &<parts/arc_emitter/arc_emitter.rules>/Part
 	}
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components"
-		Overrides = &<parts/arc_emitter/arc_emitter.rules>/Components	// Add targeting
+		Overrides = &<parts/arc_emitter/arc_emitter.rules>/Components
 	}
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Weapon"
-		Overrides = &<parts/arc_emitter/arc_emitter.rules>/Weapon	// Add targering. (can remove firerate to use Arc Transforers instead)
+		Overrides = &<parts/arc_emitter/arc_emitter.rules>/Weapon
 	}
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter"
-		Overrides = &<parts/arc_emitter/arc_emitter.rules>/ArcEmitter	//	Reduce resource used and minimum resource used, increase duration
+		Overrides = &<parts/arc_emitter/arc_emitter.rules>/ArcEmitter
 	}
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy"
 		Overrides = &<parts/arc_emitter/arc_emitter.rules>/ArcEmitterStorageProxy
+	}
+	{
+		Action = Replace
+		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Indicators/Indicators"
+		With = &<parts/arc_emitter/arc_emitter.rules>/Indicators
 	}
 /*	Used to make it only shot at full capacity. Requires to also activate some things in arc_emitter.rules and arc_transformer.rules
 	{
@@ -83,60 +90,43 @@ Actions
 	}
 */
 	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitNothing/HitEffects"
-		With = &<shots/lightning_bolt/lightning_bolt.rules>/HitEffects	// Replace normal damage with explosive damage, reduce damage, add fire chance and ElectronBuff
-	}
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>"
-		Overrides = &<shots/lightning_bolt/lightning_bolt.rules>/Base	// Add damage reduction over distance
-	}
-	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Stats"
-		Overrides = &<parts/arc_emitter/arc_emitter.rules>/Stats	// Add stats
+		Overrides = &<parts/arc_emitter/arc_emitter.rules>/Stats
 	}
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/StatsByCategory/0/Stats"
-		Overrides = &<parts/arc_emitter/arc_emitter.rules>/StatsArcBeam	// Add shot stats
+		Overrides = &<parts/arc_emitter/arc_emitter.rules>/StatsArcBeam
 	}
-/*	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/buffs/buffs.rules>/Arc_Emitter_Shot"
-		Overrides	// Fix buff amount, no longer used, can be removed
-		{
-//			CombineMode = Add // Max
-			BaseValue = 100%
-		}
-	}*/
+	// Modify shot
+	{
+		Action = Replace
+		Replace = "<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitNothing/HitEffects"
+		With = &<shots/lightning_bolt/lightning_bolt.rules>/HitEffects	// Replace normal damage with explosive damage, reduce damage, add fire chance and ElectronBuff
+	}
+	// Remove stuff
 	{
 		Action = RemoveMany
 		RemoveMany = 
 		[
-			// Unused Buff
-// CRASH	"<../../../workshop/content/799600/2995534359/buffs/buffs.rules>/Arc_Emitter_Shot"
-//			"<../../../workshop/content/799600/2995534359/buffs/buffs.rules>/Arc_Emitter_Shot/Multiplier"
 			// Unused Stats
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/StatsByCategory/0/Stats/DamagePerShot"
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/StatsByCategory/0/Stats/DamagePerSecond"
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/StatsByCategory/0/Stats/Damage"
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/StatsByCategory/0/Stats/BaseDamage"
-			// No longer destroy shields
-//			"<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitNothing/HitEffects/0/TreatShieldAsPart"
 			// To add targeting
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/FireModeToggle/AvailableChoices"
+			// Fix beam graphic
+			"<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/BeamMediaEffects/0/MinIntensity"
+			"<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/BeamMediaEffects/1/MinIntensity"
 			// Unused Components
+//			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/EffectsScaleFactor"
 			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/AddMode
 			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Weapon/AllowRotationToggle
 			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ValueScaleFactor
 			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourceScaleFactor
 			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/TurnTimer
-			// Fix beam graphic
-			"<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/BeamMediaEffects/0/MinIntensity"
-			"<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/BeamMediaEffects/1/MinIntensity"
-			// Unused Toggles
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle1"
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler1"
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle2"
@@ -161,9 +151,6 @@ Actions
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler11"
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggle12"
 			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ThresholdToggler12"
-//			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/EffectsScaleFactor"
-//			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourceScaleFactor"	// Add this if you want to make it shot at full capacity
-			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/ProvidedValuePerResource"	// Remove this if you want to make it shot only at full capacity
 		]
 	}
 

@@ -23,7 +23,7 @@ Parts
 
 	ArcEmitterName = "Emisor de Arco"
 	ArcEmitterIcon = &ArcEmitterName
-	ArcEmitterDesc = "Una peligrosa bobina de Tesla que se monta en la parte superior de la nave en lugar de en el costado para lograr una mayor estabilidad. Cada impacto dispara un rayo tan grande que drena la energía de los sistemas cercanos. Cada emisor de arco requiere uno o más transformadores de arco adyacentes."
+	ArcEmitterDesc = "Una peligrosa bobina de Tesla que se monta en la parte superior de la nave en lugar de en el costado para lograr una mayor estabilidad. Cada impacto dispara un rayo tan grande que drena la energía de los sistemas cercanos. Cada emisor de arco requiere uno o más transformadores de arco adyacentes. Cuantos más transformadores de arcos, más rápido podrá disparar."
 	ArcEmitterTechDescription = "Drena los Transformadores de Arco cercanos y los canaliza en una explosión masiva de electricidad."
 
 	ArcTransformerName = "Transformador de Arco"
@@ -61,7 +61,7 @@ Parts
 
 Stats
 {
-	ArcNotes = "<gray>Nota: La Velocidad de Disparo se incrementan por cada Transformador de Arco adicional.</gray>"
+	ArcNotes = "<gray>Nota: Solo disparará cuando tenga la Energía de Arco necesaria. Por lo tanto, se requieren Transformadores de Arco adicionales para alcanzar la Velocidad de Disparo completa..</gray>"
 	PowerDrainAttackFmt = "<white>Agotamiento de Energy por Ataque:</white> <good>{0:0.##}</good><gray>/disparo (</gray><good>{1:0.##}</good><gray>/seg)</gray>"
 	// Vanila modified
 	CrewStunDurationFmt = "<white>Tiempo de Aturdimiento de los Tripulantes:</white> <good>{0:0.##}-{1:0.##}</good> <gray>s</gray>"
@@ -77,6 +77,7 @@ StatCategories
 	IonBlasterShot = "Descarga de iones"
 	MissileCluster = "Misil de racimo"
 	ArcBeam = "Haz de arco"
+	ArcBeamOverclocked = "Haz de arco (sobrecalentado)"
 
 	// Formatters, Technically, this are the Stats, but Fariel put them all in StatCategories
 	ArcEnergyGenerationFmt = "<white>Producción de energía de arco:</white> <good>{0:0.##}</good><gray>/s</gray>"
