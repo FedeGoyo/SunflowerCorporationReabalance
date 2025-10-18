@@ -33,3 +33,5 @@ IDL_wedge
 	[steel, 16]
 	[coil2, 2]
 ]
+
+FireInterval = 2
