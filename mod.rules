@@ -156,67 +156,55 @@ Actions
 
 // Rebalance Arc Transformer
 	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Resources"
-		With = &<parts/arc_transformer/arc_transformer.rules>/Resources	// Reduce cost
+		Action = AddMany
+		AddTo = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/ReceivableBuffs"
+		ManyToAdd = &<parts/arc_transformer/arc_transformer.rules>/ReceivableBuffs
 	}
 	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/CommandConsumer/CommandPoints"
-		With = 4	// Increase command points cost
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part"
+		Overrides = &<parts/arc_transformer/arc_transformer.rules>/Part
 	}
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components"
-		Overrides = &<parts/arc_transformer/arc_transformer.rules>/Components	// Add crew requirement. Also, can add a toggle to make Arc Emitter only shot when at full power
-	}
-	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/IsOperational/Toggles"
-		With = [PowerToggle, BatteryStorage, PartCrew]	// Add crew requirement
-	}
-/*	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage"
-		Overrides = &<parts/arc_transformer/arc_transformer.rules>/TransformerArcEnergyStorage	// Modify the component as a toggle to make it shot only when at full capacity.
-	}*/
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy"
-		Overrides = &<parts/arc_transformer/arc_transformer.rules>/ConvertFromBatteryToArcEnergy	// Increase energy consumed, arc energy generated, interval
-	}
-	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/BatteryStorage/MaxResources"
-		With = 12000	// Increase maximum power stored
+		Overrides = &<parts/arc_transformer/arc_transformer.rules>/Components
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/MaxResources"
-		With = 4000	// Reduce maximum arc energy stored
+		With = &<parts/arc_transformer/arc_transformer.rules>/TransformerArcEnergyStorage_MaxResources
 	}
 	{
 		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/BatterySprites/ResourceLevels"
-		With = &<parts/arc_transformer/arc_transformer.rules>/BatterySprites/ResourceLevels	// Change battery graphics
+		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/BatteryStorage/MaxResources"
+		With = &<parts/arc_transformer/arc_transformer.rules>/BatteryStorage_MaxResources
 	}
 	{
 		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ArcEnergySprites/ResourceLevels"
-		With = &<parts/arc_transformer/arc_transformer.rules>/ArcEnergySprites/ResourceLevels	// Change arc energy graphics
+		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/BatteryConsumer/Storage"
+		With = &<parts/arc_transformer/arc_transformer.rules>/BatteryConsumer_Storage
+	}
+	{
+		Action = Replace
+		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/Indicators/Indicators"
+		With = &<parts/arc_transformer/arc_transformer.rules>/Indicators
 	}
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats"
-		Overrides = &<parts/arc_transformer/arc_transformer.rules>/Stats	// Add stats
+		Overrides = &<parts/arc_transformer/arc_transformer.rules>/Stats
 	}
+	// Remove stuff
 	{
 		Action = RemoveMany
 		RemoveMany = 
 		[
 			// Unused Components
-			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/ProvidedValueRange"
+//			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/ProvidedValueRange"
 //			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/ProvidedValuePerResource"
+			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/BatterySprites"
+			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ArcEnergySprites"
 			// Unused stats
 //			"<../../../workshop/content/799600/2995534359/stats/stats.rules>/Stats/2"	// Gives error if I try to remove them
 //			"<../../../workshop/content/799600/2995534359/stats/stats.rules>/Stats/1"	// Gives error if I try to remove them

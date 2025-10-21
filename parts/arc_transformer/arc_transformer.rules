@@ -1,23 +1,179 @@
-Resources	// Reduce cost
-[
-	[steel, 36]
-	[coil2, 22]
-	[processor, 3]
-]
+OVERCLOCK
+{
+	BATTERY_CAPACITY_FACTOR = 300%
+	ARC_CAPACITY_FACTOR = 300%
+	ARC_INTERVAL_FACTOR = 50%	// Double speed
+}
+HEAT_TO_RESOURCE = &<./Data/statuses/heat/heat.rules>/STATUS_TO_RESOURCE_RATIO
+HEAT_TO_STATUS = &<./Data/statuses/heat/heat.rules>/RESOURCE_TO_STATUS_RATIO
+
+BatteryStorage_MaxResources = 4000	// Reduce energy storage
+TransformerArcEnergyStorage_MaxResources = 4000	// Increase arc storage
+ReceivableBuffs = [Overclock]	// Add buffs
+BatteryConsumer_Storage = Combined_BatteryStorage
+
+Part
+{
+	Resources	// Reduce cost
+	[
+		[steel, 36]
+		[coil2, 22]
+		[processor, 3]
+	]
+
+	SecondaryToolTip	// Add overclock stats
+	{
+		TitleKey = "StatCategories/Overclocked"
+		DescriptionKey = "Parts/ArcTransformerOverclockDesc"
+		StatsByCategory
+		[
+			{
+				NameKey = "StatCategories/ArcBeamOverclock"
+				Stats
+				{
+//					HeatPerShot = (&~/OVERCLOCK/HEAT_PER_SHOT)
+					PowerCapacity = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/BatteryStorage/MaxResources) / 1000 * (&~/OVERCLOCK/BATTERY_CAPACITY_FACTOR)
+					Interval = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/Interval/BaseValue) * (&~/OVERCLOCK/ARC_INTERVAL_FACTOR)
+					ArcEnergy = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/ToQuantity) / 1000
+					Power = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/From/0/Quantity) / 1000
+					ArcEnergyGeneration = (&ArcEnergy) / (&Interval)
+					ArcEnergyCapacity = 1//(&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/MaxResources) / 1000 * (&~/OVERCLOCK/ARC_CAPACITY_FACTOR)
+					PowerUsageContinuous = (&Power) / (&Interval)
+				}
+			}
+		]
+	}
+}
 
 Components
 {
-/*	Does't work as the Arc Emitter completely ignore it
-	EmpAbsorber
+	IsOperational	
+	{
+		Type = MultiToggle
+		Toggles = [PowerToggle, BatteryStorage, PartCrew, ScorchedToggle]
+		Mode = All
+	}
+
+	CommandConsumptionToggle
+	{
+		Type = MultiToggle
+		Toggles = [PowerToggle, ScorchedToggle]
+		Mode = All
+	}
+	
+	ScorchedToggle
+	{
+		Type = StatusToggle
+		StatusType = cosmoteer.scorched
+		MinStatusValue = 1
+		Invert = true
+	}
+
+	CommandConsumer
+	{
+		Type = CommandConsumer
+		OperationalToggle = CommandConsumptionToggle
+		CommandPoints = 4	// Increase command points cost
+	}
+	
+	ModularOverclockStateValue
+	{
+		Type = MultiValue
+		ViaBuffs
 		{
-			Type = ExplosiveResourceDrainSink
-			ResourceType = battery
-			AbsorbsResourceDrain = 5000
-			RecoveryRate = (&AbsorbsResourceDrain) * 0.1
+			IncomingBuffTypes = [Arc_Emitter_Capacity]
+			ComponentIDs = [OverclockStateValue]
 		}
-*/
+		Mode = Max
+	}
+	IsOverclocked
+	{
+		Type = ThresholdToggle
+		ValueFrom = ModularOverclockStateValue
+		MinAmount = 0
+		MaxAmount = 0
+		Invert = true
+	}
+	
+	OverclockBuff
+	{
+		Type = SelfBuffProvider
+		OperationalToggle = IsOverclocked
+		BuffType = Overclock
+		BuffMultiplier = ModularOverclockStateValue
+	}
+	
+	OverflowHeatStorage : <./Data/ships/terran/base_part_terran_overclock.rules>/Part/Components/OverflowHeatStorage {}	// The game ask for it though I can't find were
+	HeatDistributionStorage : <./Data/ships/terran/base_part_terran_overclock.rules>/Part/Components/HeatDistributionStorage	// Is HEAT_TARGET_STORAGE
+	{
+		ResourceStorages = [/*Overclock_CombinedHeatInput,*/ OverflowHeatStorage]
+	}
+	NetworkHeatInput : <./Data/ships/terran/base_part_terran_overclock.rules>/Part/Components/NetworkHeatInput {}	// Is HEAT_NETWORK_INPUT
+	
+	Overclock_ArcEmitter
+	{
+		Type = TriggerProxy
+		ComponentID = ArcEmitter
+		ProxyToggle = IsOverclocked
+	}
 
+/*	Overclock_ShotHeatProducer
+	{
+		Type = ResourceChange
+		ResourceStorage = <./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/HEAT_TARGET_STORAGE // &~/Part/^/0/HEAT_TARGET_STORAGE
+		Trigger = Overclock_ArcEmitter
+		Amount = (&~/OVERCLOCK/HEAT_PER_SHOT) * (&~/HEAT_TO_RESOURCE)
+	}*/
 
+/*	Port_Thermal_Left : <./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/BASE_THERMAL_PORT
+	{
+		Location = [0, 1]
+		Direction = Left
+	}
+	Port_Thermal_Up : Port_Thermal_Left
+	{
+		Location = [1, 0]
+		Direction = Up
+	}
+	Port_Thermal_Right : Port_Thermal_Left
+	{
+		Location = [2, 1]
+		Direction = Right
+	}
+	Port_Thermal_Down : Port_Thermal_Left
+	{
+		Location = [1, 2]
+		Direction = Down
+	}*/
+	
+	ScorchedTrigger
+	{
+		Type = ToggleTrigger
+		Toggle = ScorchedToggle
+		TriggerWhenOn = false
+	}
+
+	ScorchedEffects
+	{
+		Type = TriggeredEffects
+		Trigger = ScorchedTrigger
+		Location = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/DestroyedEffects/Location
+		MediaEffects = &/COMMON_EFFECTS/BigPartScorched
+	}
+
+/*	PeakHeatGenerationValue
+	{
+		Type = StaticValue
+		SHOT_HEAT_PER_SECOND = (&~/OVERCLOCK/HEAT_PER_SHOT) //* (&~/Part/StatsByCategory/0/Stats/ROF)
+		Value = (&SHOT_HEAT_PER_SECOND)
+	}
+	HeatGenerationStatProvider
+	{
+		Type = StatProvider
+		Stat = HeatGeneration
+		OperationalToggle = OverclockModeToggle
+		ValueFrom = PeakHeatGenerationValue
+	}*/
 
 /*	NotReadyToggle	// Required to make it shot only at full capacity
 	{
@@ -26,6 +182,36 @@ Components
 		Mode = All
 	}
 */
+
+	ConvertFromBatteryToArcEnergy
+	{
+		Type = ResourceConverter
+		OperationalToggle = IsOperational
+		From
+		[
+			{
+				Storage = Combined_BatteryStorage
+				Quantity = 1000	// Increase quantity
+				MinQuantityForConversion = 1000	// Increase minimum quantity
+			}
+		]
+		ToStorage = Combined_TransformerArcEnergyStorage
+		ToQuantity = 1000	// Increase quantity
+		Interval
+		{
+			BaseValue = 1.5 // Increase interval
+			Modifiers
+			[
+				{
+					Type = BuffRemap
+					BuffType = Overclock
+					ModificationMode = Multiply
+					RemapFrom = [0, 1]
+					RemapTo = [1, &~/OVERCLOCK/ARC_INTERVAL_FACTOR]
+				}
+			]
+		}
+	}
 
 	// Add crew requirement
 	CrewLocation1
@@ -74,112 +260,307 @@ Components
 		]
 		SwitchLocationInterval = [5, 10]
 	}
-}
-
-TransformerArcEnergyStorage
-{
-	ToggleOnResources = 4000
-	ToggleOffResources = 0
-}
-
-ConvertFromBatteryToArcEnergy
-{
-	From
-	[
-		{
-			Storage = BatteryStorage
-			Quantity = 2000	// Increase quantity
-			MinQuantityForConversion = 2000	// Increase minimum quantity
-		}
-	]
-	ToQuantity = 1000	// Increase quantity
-	Interval = 1.25	// Increase interval
-}
-
-BatteryStorage
-{
-	ToggleOnResources = 2000
-	ToggleOffResources = 1999
-}
 	
-BatterySprites	// Change graphic
-{
-	ResourceLevels
-	[
+	Overclock_ToggledTransformerArcEnergyStorage
+	{
+		Type = ToggledComponents
+		Toggle = IsOverclocked
+		Components
 		{
-			File = "arc_transformer_power_1.png"
-			Size = [3, 3]
+			Overclock_TransformerArcEnergyStorage
+			{
+				Type = ResourceStorage
+				ResourceType = arc_energy
+				MaxResources = "ceil((&~/TransformerArcEnergyStorage_MaxResources) * ((&~/OVERCLOCK/ARC_CAPACITY_FACTOR) - 1))"
+			}
 		}
-		{
-			File = "arc_transformer_power_2.png"
-			Size = [3, 3]
-		}
-		{
-			File = "arc_transformer_power_3.png"
-			Size = [3, 3]
-		}
-		{
-			File = "arc_transformer_power_4.png"
-			Size = [3, 3]
-		}
-		{
-			File = "arc_transformer_power_5.png"
-			Size = [3, 3]
-		}
-		{
-			File = "arc_transformer_power_6.png"
-			Size = [3, 3]
-		}
-		{
-			File = "arc_transformer_power_7.png"
-			Size = [3, 3]
-		}
-		{
-			File = "arc_transformer_power_8.png"
-			Size = [3, 3]
-		}
-		{
-			File = "arc_transformer_power_9.png"
-			Size = [3, 3]
-		}
-		{
-			File = "arc_transformer_power_10.png"
-			Size = [3, 3]
-		}
-		{
-			File = "arc_transformer_power_11.png"
-			Size = [3, 3]
-		}
-		{
-			File = "arc_transformer_power_12.png"
-			Size = [3, 3]
-		}
-	]
+	}
+	Overclock_TransformerArcEnergyStorage_Proxy
+	{
+		Type = ResourceStorageProxy
+		ResourceType = arc_energy
+		ProxyToggle = IsOverclocked
+		ComponentID = Overclock_TransformerArcEnergyStorage
+	}
 	
+	Combined_TransformerArcEnergyStorage
+	{
+		Type = MultiResourceStorage
+		ResourceType = arc_energy
+		ResourceStorages = [ TransformerArcEnergyStorage, Overclock_TransformerArcEnergyStorage_Proxy ]
+		AddMode = InOrder
+		RemoveMode = InReverseOrder
+	}
+	
+	Overclock_ToggledBatteryStorage
+	{
+		Type = ToggledComponents
+		Toggle = IsOverclocked
+		Components
+		{
+			Overclock_BatteryStorage
+			{
+				Type = ResourceStorage
+				ResourceType = battery
+				MaxResources = "ceil((&~/BatteryStorage_MaxResources) * ((&~/OVERCLOCK/BATTERY_CAPACITY_FACTOR) - 1))"
+			}
+		}
+	}
+	Overclock_BatteryStorage_Proxy
+	{
+		Type = ResourceStorageProxy
+		ResourceType = battery
+		ProxyToggle = IsOverclocked
+		ComponentID = Overclock_BatteryStorage
+	}
+	
+	Combined_BatteryStorage
+	{
+		Type = MultiResourceStorage
+		ResourceType = battery
+		ResourceStorages = [ BatteryStorage, Overclock_BatteryStorage_Proxy ]
+		AddMode = InOrder
+		RemoveMode = InReverseOrder
+	}
+	
+	// Graphics
+	
+	NonOverclocked
+	{
+		Type = MultiToggle
+		Toggles = [IsOverclocked]
+		Invert = true
+		Mode = All
+	}
+	
+	Toggled_NonOverclocked	// Change graphic
+	{
+		Type = ToggledComponents
+		Toggle = NonOverclocked
+		Components
+		{
+			BatterySprites
+			{
+				Type = ResourceSprites
+				Location = [1.5, 1.5]
+				ResourceStorage = Combined_BatteryStorage
+				Layer = "doodads_low"
+				ResourceLevels
+				[
+					{
+						File = "arc_transformer_power_3.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_6.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_9.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_12.png"
+						Size = [3, 3]
+					}
+				]
+			}
+			
+			ArcEnergySprites
+			{
+				Type = ResourceSprites
+				Location = [1.5, 1.5]
+				ResourceStorage = Combined_TransformerArcEnergyStorage
+				Layer = "doodads_low"
+				ResourceLevels
+				[
+					{
+						File = "arc_transformer_arc_3.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_6.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_9.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_12.png"
+						Size = [3, 3]
+					}
+				]
+			}
+		}
+	}
+	
+	Toggled_IsOverclocked	// Add Overclock graphic
+	{
+		Type = ToggledComponents
+		Toggle = IsOverclocked
+		Components
+		{
+			Overclocked_BatterySprites	
+			{
+				Type = ResourceSprites
+				Location = [1.5, 1.5]
+				ResourceStorage = Combined_BatteryStorage
+				Layer = "doodads_low"
+				ResourceLevels
+				[
+					{
+						File = "arc_transformer_power_1.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_2.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_3.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_4.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_5.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_6.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_7.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_8.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_9.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_10.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_11.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_power_12.png"
+						Size = [3, 3]
+					}
+				]
+			}
+			
+			Overclock_ArcEnergySprites
+			{
+				Type = ResourceSprites
+				Location = [1.5, 1.5]
+				ResourceStorage = Combined_TransformerArcEnergyStorage
+				Layer = "doodads_low"
+				ResourceLevels
+				[
+					{
+						File = "arc_transformer_arc_1.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_2.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_3.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_4.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_5.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_6.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_7.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_8.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_9.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_10.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_11.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_12.png"
+						Size = [3, 3]
+					}
+				]
+			}
+		}
+	}
 }
 
-ArcEnergySprites	// Change graphic
-{
-	ResourceLevels
-	[
+Indicators	// Add indicators
+[
+	// Scorched
+	{
+		Toggle = ScorchedToggle
+		AtlasSprite = &/INDICATORS/Scorched
+		HidesIndicators = [1,2,3]
+	}
+	// Turned off.
+	{
+		Toggle = PowerToggle
+		AtlasSprite
 		{
-			File = "arc_transformer_arc_1.png"
-			Size = [3, 3]
+			File = &/INDICATORS/PowerOff
+			Size = [1, 1]
 		}
+		HidesIndicators = [2,3]
+	}
+
+	// Out of power.
+	{
+		Toggle = BatteryStorage
+		AtlasSprite
 		{
-			File = "arc_transformer_arc_2.png"
-			Size = [3, 3]
+			File = &/INDICATORS/NoPower
+			Size = [1, 1]
 		}
+	}
+				
+	// No crew.
+	{
+		Toggle = PartCrew
+		AtlasSprite
 		{
-			File = "arc_transformer_arc_3.png"
-			Size = [3, 3]
+			File = &/INDICATORS/NoCrew
+			Size = [1, 1]
 		}
-		{
-			File = "arc_transformer_arc_4.png"
-			Size = [3, 3]
-		}
-	]
-}
+	}
+]
 
 Stats
 {
@@ -187,7 +568,7 @@ Stats
 	RecPower = (&PowerUsageContinuous)
 	RecCrew = (&CrewRequired) + (&RecPower) * 4
 
-	Interval = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/Interval)
+	Interval = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/Interval/BaseValue)
 	ArcEnergy = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/ToQuantity) / 1000
 	Power = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/From/0/Quantity) / 1000
 	ArcEnergyGeneration = (&ArcEnergy) / (&Interval)
