@@ -101,6 +101,11 @@ Actions
 	}
 	// Modify shot
 	{
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>"
+		Overrides = &<shots/lightning_bolt/lightning_bolt.rules>/Base	// Modify range when overclocked
+	}
+	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitNothing/HitEffects"
 		With = &<shots/lightning_bolt/lightning_bolt.rules>/HitEffects	// Replace normal damage with explosive damage, reduce damage, add fire chance and ElectronBuff

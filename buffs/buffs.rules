@@ -1,16 +1,9 @@
 Arc_Emitter_Shot
 {
 	CombineMode = Add
-	Multiplier = 25%
-	BaseValue = 1
-	Exponent = 0.5
-}
-
-Arc_Emitter_Chain_Length
-{
-	CombineMode = Add
-	Multiplier = 1
+	Multiplier = 100%
 	BaseValue = 0
+	Exponent = 0.5
 }
 
 Arc_Energy
@@ -19,3 +12,4 @@ Arc_Energy
 	Multiplier = 1
 	BaseValue = 0
 }
+
