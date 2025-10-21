@@ -154,49 +154,7 @@ Components
 		OperationalToggle = OverclockModeToggle
 		ValueFrom = PeakHeatGenerationValue
 	}
-
-/*
-//	Used to put an AoE energy drain, similar to AoE stun of Deck Cannon
-	DrainEffect
-	{
-		Type = TriggeredEffects
-		Location = [1.5, 1.5]
-		Trigger = ArcEmitter
-
-		HitEffects
-		[
-			{
-				Type = ExplosiveResourceDrain
-				ResourceType = battery
-				TotalDrain = 15000 // { BaseValue=2500; BuffType=Arc_Emitter_Shot; BuffMode=Multiply; }
-				Radius = 10
-//				Slices = 1
-				Filter
-				{
-					Friendlies=true;
-					IgnoreInvulnerability=true;
-					ExcludePartCategories = [fariel.arc_transformer]
-				}
-				
-				MediaEffectsOnDrainFactor = .0005
-				MediaEffectsOnDrain : &<./Data/shots/missile_emp/missile_emp.rules>/Components/Hit/HitOperational/HitEffects/0/MediaEffectsOnDrain
-				[]
-				[
-					&<particles/missile_emp_hit_sizzle.rules>
-					&<particles/missile_emp_lightning.rules>
-					&<particles/missile_emp_drain.rules>
-
-					: /BASE_SOUNDS/AudioExterior
-					{
-						Sound = "../disruptor_bolt/discharge.wav"
-						Volume = 1
-						SpeedVariation = .2
-					}
-				]
-			}
-		]
-	}
-*/
+	
 	AutoTargetToggle // Add targeting
 	{
 		Type = ModeToggle
@@ -445,10 +403,6 @@ Indicators	// Add indicators
 Stats	// New stats
 {
 	RecCrew = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/PartCrew/Crew)
-//	PowerDrainAttackSingle = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/DrainEffect/HitEffects/0/Radius) / 1000
-//	PowerDrainAttackSec = (&PowerDrainAttackSingle) * (&../StatsArcBeam/ROF)
-//	PowerDrainAttack = [&../PowerDrainAttackSingle, &../PowerDrainAttackSec]
-//	PowerDrainArea = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/DrainEffect/HitEffects/0/TotalDrain)
 }
 StatsArcBeam	// New stats
 {

@@ -62,7 +62,6 @@ Parts
 Stats
 {
 	ArcNotes = "<gray>Nota: Solo disparará cuando tenga la Energía de Arco necesaria. Por lo tanto, se requieren Transformadores de Arco adicionales para alcanzar la Velocidad de Disparo completa..</gray>"
-	PowerDrainAttackFmt = "<white>Agotamiento de Energy por Ataque:</white> <good>{0:0.##}</good><gray>/disparo (</gray><good>{1:0.##}</good><gray>/seg)</gray>"
 	// Vanila modified
 	CrewStunDurationFmt = "<white>Tiempo de Aturdimiento de los Tripulantes:</white> <good>{0:0.##}-{1:0.##}</good> <gray>s</gray>"
 }

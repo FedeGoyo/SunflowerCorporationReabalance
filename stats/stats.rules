@@ -32,8 +32,4 @@ Stats
 		ID = DamagePerTile
 		FormatKey = "StatCategories/DamagePerTileFmt"
 	}
-	{
-		ID = PowerDrainAttack
-		FormatKey = "Stats/PowerDrainAttackFmt"
-	}
 ]
