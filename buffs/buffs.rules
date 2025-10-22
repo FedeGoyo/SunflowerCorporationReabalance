@@ -13,3 +13,9 @@ Arc_Energy
 	BaseValue = 0
 }
 
+Arc_Energy_Heat_Multiplier
+{
+	CombineMode = Add
+	Multiplier = 1
+	BaseValue = 0
+}

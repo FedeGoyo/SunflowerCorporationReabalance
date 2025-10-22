@@ -1,6 +1,8 @@
 OVERCLOCK
 {
-	HEAT_PER_SHOT = 1000
+	HEAT_PER_ARC = 1000
+	HEAT_PER_SHOT = (&HEAT_PER_ARC) / 1000 / (&~/ArcEmitterStorageProxy/ProvidedValuePerResource)
+
 	ARC_ENERGY_FACTOR = 12000 / 4000
 	FIRE_INTERVAL = 9
 	FIRE_INTERVAL_FACTOR = (&FIRE_INTERVAL) / (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Weapon/FireInterval/BaseValue)
@@ -9,7 +11,7 @@ OVERCLOCK
 HEAT_TO_RESOURCE = &<./Data/statuses/heat/heat.rules>/STATUS_TO_RESOURCE_RATIO
 HEAT_TO_STATUS = &<./Data/statuses/heat/heat.rules>/RESOURCE_TO_STATUS_RATIO
 
-ReceivableBuffs : &<./Data/ships/base_part_overclock.rules>/Part/ReceivableBuffs [ElectronBuff, Arc_Energy]	// Add Buffs
+ReceivableBuffs : &<./Data/ships/base_part_overclock.rules>/Part/ReceivableBuffs [ElectronBuff, Arc_Energy, Arc_Energy_Heat_Multiplier]	// Add Buffs
 
 Part
 {
@@ -97,13 +99,24 @@ Components
 		ProxyToggle = IsOverclocked
 	}
 
-/*	Overclock_ShotHeatProducer
+	Overclock_ShotHeatProducer
 	{
 		Type = ResourceChange
-		ResourceStorage = <./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/HEAT_TARGET_STORAGE // &~/Part/^/0/HEAT_TARGET_STORAGE
+		ResourceStorage = HeatDistributionStorage
 		Trigger = Overclock_ArcEmitter
-		Amount = (&~/OVERCLOCK/HEAT_PER_SHOT) * (&~/HEAT_TO_RESOURCE)
-	}*/
+		Amount
+		{
+			BaseValue = (&~/OVERCLOCK/HEAT_PER_SHOT) * (&~/HEAT_TO_RESOURCE)
+			Modifiers
+			[
+				{
+					Type = Buff
+					BuffType = Arc_Energy_Heat_Multiplier
+					ModificationMode = Multiply
+				}
+			]
+		}
+	}
 
 	Port_Thermal_Left : <./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/BASE_THERMAL_PORT
 	{
@@ -144,7 +157,7 @@ Components
 	PeakHeatGenerationValue
 	{
 		Type = StaticValue
-		SHOT_HEAT_PER_SECOND = (&~/OVERCLOCK/HEAT_PER_SHOT) //* (&~/Part/StatsByCategory/0/Stats/ROF)
+		SHOT_HEAT_PER_SECOND = (&~/OVERCLOCK/HEAT_PER_SHOT) * (&~/Part/SecondaryToolTip/StatsByCategory/0/Stats/ROF)
 		Value = (&SHOT_HEAT_PER_SECOND)
 	}
 	HeatGenerationStatProvider
@@ -257,7 +270,16 @@ Components
 			}
 		]
 	}
-		
+	
+	BuffProvider_Heat
+	{
+		Type = SelfBuffProvider
+		OperationalToggle = IsOperationalOverclocked
+		BuffType = Arc_Energy_Heat_Multiplier
+		BuffAmount = 1
+		BuffMultiplier = StoredArcEnergy
+	}
+	
 	BuffProvider_Shot
 	{
 		Type = SelfBuffProvider
@@ -277,7 +299,6 @@ ArcEmitterStorageProxy
 		OutgoingBuffProviders = [BuffProvider]
 		ComponentID = Combined_TransformerArcEnergyStorage
 	}
-//	ProvidedValueRange = [2, 2]	// Set the value to be always 2. Remove this if you want to make it shot only at full capacity. It is needed cause at 1 the graphic is almost invisible
 }
 Weapon
 {
