@@ -117,6 +117,21 @@ Components
 			]
 		}
 	}
+	
+	ArcHeatCollectionStorage
+	{
+		Type = ResourceStorageProxy
+		ResourceType = heat
+		ComponentID = HeatDistributionStorage
+	}
+
+	Overclock_HeatCollectionBuffProvider
+	{
+		Type = GridBuffProvider
+		BuffType = ArcHeatCollector
+		GridDistance = 1
+		OperationalToggle = IsOperationalOverclocked
+	}
 
 	Port_Thermal_Left : <./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/BASE_THERMAL_PORT
 	{

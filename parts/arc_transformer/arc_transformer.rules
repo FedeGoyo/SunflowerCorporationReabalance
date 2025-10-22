@@ -3,13 +3,17 @@ OVERCLOCK
 	BATTERY_CAPACITY_FACTOR = 300%
 	ARC_CAPACITY_FACTOR = 300%
 	ARC_INTERVAL_FACTOR = 50%	// Double speed
+	
+	HEAT_PER_ARC = 1200
+	HEAT_PER_SECOND = (&HEAT_PER_ARC) / ((&~/Components/ConvertFromBatteryToArcEnergy/Interval/BaseValue) * (&ARC_INTERVAL_FACTOR))
+	
 }
 HEAT_TO_RESOURCE = &<./Data/statuses/heat/heat.rules>/STATUS_TO_RESOURCE_RATIO
 HEAT_TO_STATUS = &<./Data/statuses/heat/heat.rules>/RESOURCE_TO_STATUS_RATIO
 
 BatteryStorage_MaxResources = 4000	// Reduce energy storage
 TransformerArcEnergyStorage_MaxResources = 4000	// Increase arc storage
-ReceivableBuffs = [Overclock]	// Add buffs
+ReceivableBuffs = [Overclock, ArcHeatCollector]	// Add buffs
 BatteryConsumer_Storage = Combined_BatteryStorage
 
 Part
@@ -31,7 +35,7 @@ Part
 				NameKey = "StatCategories/ArcBeamOverclock"
 				Stats
 				{
-//					HeatPerShot = (&~/OVERCLOCK/HEAT_PER_SHOT)
+					PowerHeatGeneration = [&~/OVERCLOCK/HEAT_PER_ARC, &~/OVERCLOCK/HEAT_PER_SECOND]
 					PowerCapacity = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/BatteryStorage/MaxResources) / 1000 * (&~/OVERCLOCK/BATTERY_CAPACITY_FACTOR)
 					Interval = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/Interval/BaseValue) * (&~/OVERCLOCK/ARC_INTERVAL_FACTOR)
 					ArcEnergy = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/ToQuantity) / 1000
@@ -95,6 +99,17 @@ Components
 		Invert = true
 	}
 	
+	ModularOverclockModeToggle
+	{
+		Type = MultiToggle
+		ViaBuffs
+		{
+			IncomingBuffTypes = [Arc_Emitter_Capacity]
+			ComponentIDs = [OverclockModeToggle]
+		}
+		Mode = Any
+	}
+	
 	OverclockBuff
 	{
 		Type = SelfBuffProvider
@@ -106,45 +121,37 @@ Components
 	OverflowHeatStorage : <./Data/ships/terran/base_part_terran_overclock.rules>/Part/Components/OverflowHeatStorage {}	// The game ask for it though I can't find were
 	HeatDistributionStorage : <./Data/ships/terran/base_part_terran_overclock.rules>/Part/Components/HeatDistributionStorage	// Is HEAT_TARGET_STORAGE
 	{
-		ResourceStorages = [/*Overclock_CombinedHeatInput,*/ OverflowHeatStorage]
+		ResourceStorages = [Overclock_CombinedHeatInput, OverflowHeatStorage]
 	}
 	NetworkHeatInput : <./Data/ships/terran/base_part_terran_overclock.rules>/Part/Components/NetworkHeatInput {}	// Is HEAT_NETWORK_INPUT
 	
-	Overclock_ArcEmitter
+	Overclock_ArcGenerationTrigger
 	{
-		Type = TriggerProxy
-		ComponentID = ArcEmitter
-		ProxyToggle = IsOverclocked
+		Type = ValueChangeTrigger
+		OperationalToggle = IsOverclocked
+		ValueSource = Combined_TransformerArcEnergyStorage
+		TriggerOnDecrease = false
 	}
 
-/*	Overclock_ShotHeatProducer
+	Overclock_GenerationHeatProducer
 	{
 		Type = ResourceChange
-		ResourceStorage = <./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/HEAT_TARGET_STORAGE // &~/Part/^/0/HEAT_TARGET_STORAGE
-		Trigger = Overclock_ArcEmitter
-		Amount = (&~/OVERCLOCK/HEAT_PER_SHOT) * (&~/HEAT_TO_RESOURCE)
-	}*/
-
-/*	Port_Thermal_Left : <./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/BASE_THERMAL_PORT
-	{
-		Location = [0, 1]
-		Direction = Left
+		ResourceStorage = HeatDistributionStorage
+		Trigger = Overclock_ArcGenerationTrigger
+		Amount { BaseValue=ceil((&~/OVERCLOCK/HEAT_PER_ARC) * (&~/HEAT_TO_RESOURCE)); EffectScaleExponent=1 }
 	}
-	Port_Thermal_Up : Port_Thermal_Left
+	
+	Overclock_CombinedHeatInput
 	{
-		Location = [1, 0]
-		Direction = Up
+		Type = MultiResourceStorage
+		ResourceType = heat
+		ResourceStorages = [ NetworkHeatInput ]
+		ViaBuffs
+		{
+			IncomingBuffTypes = [ ArcHeatCollector ]
+			ComponentIDs = [ ArcHeatCollectionStorage ]
+		}
 	}
-	Port_Thermal_Right : Port_Thermal_Left
-	{
-		Location = [2, 1]
-		Direction = Right
-	}
-	Port_Thermal_Down : Port_Thermal_Left
-	{
-		Location = [1, 2]
-		Direction = Down
-	}*/
 	
 	ScorchedTrigger
 	{
@@ -161,19 +168,18 @@ Components
 		MediaEffects = &/COMMON_EFFECTS/BigPartScorched
 	}
 
-/*	PeakHeatGenerationValue
+	PeakHeatGenerationStatValue
 	{
 		Type = StaticValue
-		SHOT_HEAT_PER_SECOND = (&~/OVERCLOCK/HEAT_PER_SHOT) //* (&~/Part/StatsByCategory/0/Stats/ROF)
-		Value = (&SHOT_HEAT_PER_SECOND)
+		Value = (&~/OVERCLOCK/HEAT_PER_SECOND)
 	}
 	HeatGenerationStatProvider
 	{
 		Type = StatProvider
 		Stat = HeatGeneration
-		OperationalToggle = OverclockModeToggle
-		ValueFrom = PeakHeatGenerationValue
-	}*/
+		OperationalToggle = ModularOverclockModeToggle
+		ValueFrom = PeakHeatGenerationStatValue
+	}
 
 /*	NotReadyToggle	// Required to make it shot only at full capacity
 	{
@@ -290,6 +296,8 @@ Components
 		ResourceStorages = [ TransformerArcEnergyStorage, Overclock_TransformerArcEnergyStorage_Proxy ]
 		AddMode = InOrder
 		RemoveMode = InReverseOrder
+		ProvidedValueRange = 0
+		ProvidedValuePerResource = 1/1000
 	}
 	
 	Overclock_ToggledBatteryStorage

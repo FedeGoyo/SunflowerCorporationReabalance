@@ -19,3 +19,5 @@ Arc_Energy_Heat_Multiplier
 	Multiplier = 1
 	BaseValue = 0
 }
+
+ArcHeatCollector	{}
