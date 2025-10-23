@@ -23,12 +23,16 @@ Parts
 
 	ArcEmitterName = "Emisor de Arco"
 	ArcEmitterIcon = &ArcEmitterName
-	ArcEmitterDesc = "Una peligrosa bobina de Tesla que se monta en la parte superior de la nave en lugar de en el costado para lograr una mayor estabilidad. Cada impacto dispara un rayo tan grande que drena la energía de los sistemas cercanos. Cada emisor de arco requiere uno o más transformadores de arco adyacentes. Cuantos más transformadores de arcos, más rápido podrá disparar."
+	ArcEmitterDesc = "Una peligrosa bobina de Tesla que se monta en la parte superior de la nave en lugar de en el costado para lograr una mayor estabilidad. Cada emisor de arco requiere uno o más transformadores de arco adyacentes. Cuantos más transformadores de arcos, más rápido podrá disparar."
+	ArcEmitterNameOverclock = "Emisor de Arco Sobrecalentado"
+	ArcEmitterOverclockDesc = "El Emisor de Arco dispara más lento y drena toda la energía de arco disponible de los Transformadores de Arco adjacentes, pero sus rayos se vuelven más grandes y aumentan su daño y duración en función de la energía de arco consumida. Al dispararlo, se genera calor residual."
 	ArcEmitterTechDescription = "Drena los Transformadores de Arco cercanos y los canaliza en una explosión masiva de electricidad."
 
 	ArcTransformerName = "Transformador de Arco"
 	ArcTransformerIcon = &ArcTransformerName
 	ArcTransformerDesc = "Convierte las baterías en energía de arco para ser utilizada por Emisores de Arco y Armaduras Galvánicas."
+	ArcTransformerNameOverclock = "Transformador de Arco Sobrecalentado"
+	ArcTransformerOverclockDesc = "Triplica la capacidad energética y la capacidad de energía de arco. Al producir energía de arco, se genera calor residual."	
 	ArcTransformerTechDescription = "Convierte las baterías en una forma de energía eficiente pero no portátil llamada energía de arco. Esta se suministra automáticamente a los módulos cercanos."
 
 	// Armor / Ion Diffusion Lattice
@@ -61,7 +65,8 @@ Parts
 
 Stats
 {
-	ArcNotes = "<gray>Nota: Solo disparará cuando tenga la Energía de Arco necesaria. Por lo tanto, se requieren Transformadores de Arco adicionales para alcanzar la Velocidad de Disparo completa..</gray>"
+	ArcNotes = "<gray><sup>[1]</sup> Basado en el número de Transformadores de Arco utilizados.</gray>"
+	ArcOverclockNotes = "<gray><sup>[1]</sup> Aumenta según el valor de amplificación elevado a la potencia relevante.</gray>"
 	// Vanila modified
 	CrewStunDurationFmt = "<white>Tiempo de Aturdimiento de los Tripulantes:</white> <good>{0:0.##}-{1:0.##}</good> <gray>s</gray>"
 }
@@ -79,13 +84,26 @@ StatCategories
 	ArcBeamOverclocked = "Haz de arco (sobrecalentado)"
 
 	// Formatters, Technically, this are the Stats, but Fariel put them all in StatCategories
+	
+	// Arc Transformer
 	ArcEnergyGenerationFmt = "<white>Producción de energía de arco:</white> <good>{0:0.##}</good><gray>/s</gray>"
 	ArcEnergyCapacityFmt = "<white>Capacidad de energía de arco:</white> <good>{0:0.##}</good>"
+	HeatGenerationPerArcFmt = "<white>Generación de calor:</white> <good>{0:#,0.##}</good> <gray>MJ/energía de arco (</gray><good>{1:#,0.##}</good> <gray>MJ/s)</gray>"
+	// Galvanic Armor
 	ShotContinuousDamageNearFmt = "<white>Daño vs disparos (Cerca):</white> <good>{0:n0}</good><gray>/s</gray>"
 	ShotContinuousDamageFarFmt = "<white>Daño vs disparos (Lejos):</white> <good>{0:n0}</good><gray>/s</gray>"
-	ArcEnergyUsedFmt = "<white>Energía de arco usada:</white> <good>{0:n0}</good><gray>/disparo (</gray><good>{1:.##}</good><gray>/s)</gray>"
 	ArcEnergyConversionRateFmt = "<white>Ratio de conversión:</white> <good>{0:0}</good> <gray>baterías por</gray> <good>{1:0}</good> <gray>energía de arco</gray>"
 //	ArcEnergyConversionTimeFmt = "<white>Velocidad de conversión:</white> <good>{0:0}</good> <gray>por segundo</gray>"
+	// Arc Emitter
+	ArcEnergyUsedRangeFmt = "<white>Energía de arco usada::</white> <good>{0:n0}</good> <white> - </white> <good>{1:n0}</good> <gray>/disparo (</gray><good>{2:0.##}</good> <white> - </white> <good>{3:0.##}</good><gray>/s)</gray>"
+	ArcEnergyUsedScaledFmt = "<white>Energía de arco usada:</white> <good>{0:n0}</good><gray>/disparo (</gray><good>{1:0.##}</good> <white> - </white> <good>{2:0.##}</good><gray><sup>[1]</sup>/s)</gray>"
+	HeatPerShotPerArcFmt = "<white>Generación de calor:</white> <good>{0:#,0.##}</good> <gray>MJ/disparo por energía de arco consumida</gray>"
+	ArcROFRangeFmt = "<white>Cadencia de tiro:</white> <good>{0:0.##}</good><white> a </white><good>{1:0.##}</good><gray><sup>[1]</sup> disparos/s</gray>"
+	DurationHitsFmt = "<white>Duración:</white> <good>{0:0.##}</good><gray> s (</gray><good>{1:0.##}</good> <gray>impactos/s)</gray>"
+	ArcDurationHitsFmt = "<white>Duración:</white> <good>{0:0.##}</good><gray><sup>[1]</sup> s (</gray><good>{1:0.##}</good> <gray>impactos/s)</gray>"
+	ArcLightningDamageFmt = "<white>Daño del rayo:</white> <good>{0:0}</good><gray><sup>[1]</sup> por impacto</gray>"
+	ArcAmplificationFmt = "<white>Valor de amplificación del rayo:</white> <good>1/{0:n0}</good> <gray> por energía de arco consumida</gray>"
+	// Ion Blaster
 	ScatterFmt = "<white>Rayos:</white> <good>{0:0}</good>"
 	LifeTimeFmt = "<white>Tiempo de vida:</white> <good>{0:0.##}</good> <gray> a </gray><good>{1:0.##}</good><gray> segundos</gray>"
 	DistancePenetratedFmt = "<white>Distancia penetrada:</white> <good>{0:0.##}</good> <gray> a </gray><good>{1:0.##}</good> <gray> metros</gray>"

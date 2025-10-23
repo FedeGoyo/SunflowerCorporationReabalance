@@ -3,7 +3,8 @@ OVERCLOCK
 	HEAT_PER_ARC = 1000
 	HEAT_PER_SHOT = (&HEAT_PER_ARC) / 1000 / (&~/ArcEmitterStorageProxy/ProvidedValuePerResource)
 
-	ARC_ENERGY_FACTOR = 12000 / 4000
+	MIN_ARC_ENERGY_FACTOR = 12000 / 4000
+	ARC_ENERGY = infinity
 	FIRE_INTERVAL = 9
 	FIRE_INTERVAL_FACTOR = (&FIRE_INTERVAL) / (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Weapon/FireInterval/BaseValue)
 }
@@ -34,19 +35,21 @@ Part
 				NameKey = "StatCategories/ArcBeamOverclock"
 				Stats
 				{
-					HeatPerShot = (&~/OVERCLOCK/HEAT_PER_SHOT)
-					HitInterval = (&<./Data/../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitInterval)
-					Duration = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/Duration/BaseValue)
-
-					ArcEnergyShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourcesUsed/BaseValue) * (&~/OVERCLOCK/ARC_ENERGY_FACTOR) / 1000
-					ArcEnergyPerSecond = (&ArcEnergyShot) * (&~/StatsArcBeam/ROF)
-					ArcEnergyUsed = [&../ArcEnergyShot, &../ArcEnergyPerSecond]
-
+					HeatPerShotPerArc = (&~/OVERCLOCK/HEAT_PER_ARC)
+					ArcDurationHits = [ &~/ArcEmitter/Duration/BaseValue, 1 / (&~/StatsArcBeam/HitInterval)]
+					ROF = 1 / ((&~/Weapon/FireInterval/BaseValue) * (&~/OVERCLOCK/FIRE_INTERVAL_FACTOR))
+					ArcEnergyShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourcesUsed/BaseValue) * (&~/OVERCLOCK/MIN_ARC_ENERGY_FACTOR) / 1000
+					ArcEnergyPerSecond = (&ArcEnergyShot) * (&ROF)
+					ArcEnergyUsedRange = [&../ArcEnergyShot, &~/OVERCLOCK/ARC_ENERGY, &../ArcEnergyPerSecond, &~/OVERCLOCK/ARC_ENERGY]
 					LightningRange = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/InitialRadius/BaseValue) * (&<../../shots/lightning_bolt/lightning_bolt.rules>/OVERCLOCK/RADIUS_FACTOR)
 					LightningMaxChain = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/MaxChainLength/1/BaseValue) + (&<../../shots/lightning_bolt/lightning_bolt.rules>/OVERCLOCK/MAX_CHAIN_LENGTH_BONUS)				
+					ArcLightningDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/HitEffects/0/Damage/BaseValue)
+					ArcAmplification = 1 / (&~/ArcEmitterStorageProxy/ProvidedValuePerResource) / 1000
+					Range = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/Range/BaseValue) * (&<../../shots/lightning_bolt/lightning_bolt.rules>/OVERCLOCK/RANGE_FACTOR)
 				}
 			}
 		]
+		StatsNotesKey = "Stats/ArcOverclockNotes"
 	}
 }
 
@@ -355,7 +358,7 @@ ArcEmitter
 				BuffType = Overclock
 				ModificationMode = Multiply
 				RemapFrom = [0, 1]
-				RemapTo = [1, infinity]
+				RemapTo = [1, &~/OVERCLOCK/ARC_ENERGY]
 			}
 		]
 	}
@@ -369,7 +372,7 @@ ArcEmitter
 				BuffType = Overclock
 				ModificationMode = Multiply
 				RemapFrom = [0, 1]
-				RemapTo = [1, &~/OVERCLOCK/ARC_ENERGY_FACTOR]
+				RemapTo = [1, &~/OVERCLOCK/MIN_ARC_ENERGY_FACTOR]
 			}
 		]
 	}
@@ -444,17 +447,19 @@ StatsArcBeam	// New stats
 {
 	// Not modified
 	HitInterval = (&<./Data/../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitInterval)
-	Duration = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/Duration/BaseValue)
-	// Path modified
-	ROF = 1 / (&Reload)
 	// New
-	Reload = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyCapacity) / (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyGeneration)
-	ArcEnergyShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourcesUsed/BaseValue) / 1000
-	ArcEnergyPerSecond = (&ArcEnergyShot) * (&ROF)
-	ArcEnergyUsed = [&../ArcEnergyShot, &../ArcEnergyPerSecond]
-
+	RELOAD = (&~/ArcEmitter/MinResourcesUsed/BaseValue) / 1000 / (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/ArcEnergyGeneration)
+	ROF_MIN = 1 / (&RELOAD)
+	ROF_MAX = 1 / (&~/Weapon/FireInterval/BaseValue)
+	ArcROFRange = [ &../ROF_MIN, &../ROF_MAX]
+	ARC_ENERGY_SHOT = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/ResourcesUsed/BaseValue) / 1000
+	ARC_ENERGY_PER_SECOND_MIN = (&ARC_ENERGY_SHOT) * (&ROF_MIN)
+	ARC_ENERGY_PER_SECOND_MAX = (&ARC_ENERGY_SHOT) * (&ROF_MAX)
+	ArcEnergyUsedScaled = [&../ARC_ENERGY_SHOT, &../ARC_ENERGY_PER_SECOND_MIN , &../ARC_ENERGY_PER_SECOND_MAX]
+	DurationHits = [ &~/ArcEmitter/Duration/BaseValue, 1 / (&../HitInterval)]
 	LightningRange = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/InitialRadius/BaseValue)
 	LightningMaxChain = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/MaxChainLength/1/BaseValue)
 	LightningChainStrikeCountRange = [(&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/ChainStrikes/0), (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/ChainStrikes/1)]
 	LightningDamage = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/HitNothing/HitEffects/0/HitEffects/0/Damage/BaseValue)
+	Range = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/Range/BaseValue)
 }

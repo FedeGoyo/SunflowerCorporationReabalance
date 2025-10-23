@@ -1,9 +1,15 @@
 Stats
 [
+	// Arc Transformer
 	{
 		ID = ArcEnergyGeneration
 		FormatKey = "StatCategories/ArcEnergyGenerationFmt"
 	}
+	{
+		ID = HeatGenerationPerArc
+		FormatKey = "StatCategories/HeatGenerationPerArcFmt"
+	}
+	// Galvanic Armor
 	{
 		ID = ShotContinuousDamageNear
 		FormatKey = "StatCategories/ShotContinuousDamageNearFmt"
@@ -12,10 +18,40 @@ Stats
 		ID = ShotContinuousDamageFar
 		FormatKey = "StatCategories/ShotContinuousDamageFarFmt"
 	}
+	// Arc Emitter
 	{
-		ID = ArcEnergyUsed
-		FormatKey = "StatCategories/ArcEnergyUsedFmt"
+		ID = HeatPerShotPerArc
+		FormatKey = "StatCategories/HeatPerShotPerArcFmt"
 	}
+	{
+		ID = ArcROFRange
+		FormatKey = "StatCategories/ArcROFRangeFmt"
+	}
+	{
+		ID = ArcEnergyUsedScaled
+		FormatKey = "StatCategories/ArcEnergyUsedScaledFmt"
+	}
+	{
+		ID = ArcEnergyUsedRange
+		FormatKey = "StatCategories/ArcEnergyUsedRangeFmt"
+	}
+	{
+		ID = ArcAmplification
+		FormatKey = "StatCategories/ArcAmplificationFmt"
+	}
+	{
+		ID = DurationHits
+		FormatKey = "StatCategories/DurationHitsFmt"
+	}
+	{
+		ID = ArcDurationHits
+		FormatKey = "StatCategories/ArcDurationHitsFmt"
+	}
+	{
+		ID = ArcLightningDamage
+		FormatKey = "StatCategories/ArcLightningDamageFmt"
+	}
+	// Ion Blaster
 	{
 		ID = Scatter
 		FormatKey = "StatCategories/ScatterFmt"

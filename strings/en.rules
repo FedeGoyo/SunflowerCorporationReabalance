@@ -23,13 +23,16 @@ Parts
 
 	ArcEmitterName = "Arc Emitter"
 	ArcEmitterIcon = &ArcEmitterName
-	ArcEmitterDesc = "A dangerous tesla coil that is mounted on top of the ship instead of the side for extra stability. Each strike fires a so massive bolt of lightning that it drains power from nearby systems. Each Arc Emitter requires one or more adjacent Arc Transformers. The more Arc Transformers, the faster it can shoot."
-	ArcEmitterOverclockDesc = "The Arc Emitter shoots slower but with damage and lightning strikes based on the arc energy drained from nearby Arc Transformers."
+	ArcEmitterDesc = "A dangerous tesla coil that is mounted on top of the ship instead of the side for extra stability. Each Arc Emitter requires one or more adjacent Arc Transformers. The more Arc Transformers, the faster it can shoot."
+	ArcEmitterNameOverclock = "Overclocked Arc Emitter"
+	ArcEmitterOverclockDesc = "The Arc Emitter shoots slower and drains all available arc energy from adjacent Arc Transformers, but its lightning strikes become larger and increase their damage and duration based on the arc energy consumed. Produces waste heat when firing."
 	ArcEmitterTechDescription = "Drains nearby Arc Transformers channeling it into a massive burst of electricity."
 
 	ArcTransformerName = "Arc Transformer"
 	ArcTransformerIcon = &ArcTransformerName
 	ArcTransformerDesc = "Converts power into arc energy to be used by Arc Emitters and Galvanic Armor."
+	ArcTransformerNameOverclock = "Overclocked Arc Transformer"
+	ArcTransformerOverclockDesc = "Triples the power capacity and arc energy capacity. Produces waste heat while generating arc energy."
 	ArcTransformerTechDescription = "Converts power into an an efficient but non-portable energy form called Arc Energy. This is automatically supplied to nearby modules."
 
 	// Armor / Ion Diffusion Lattice
@@ -62,7 +65,8 @@ Parts
 
 Stats
 {
-	ArcNotes = "<gray>NOTE: It will only shoot when having the required Arc Energy. Therefore, additional Arc Transformers are required to achieve full Fire Rate.</gray>"
+	ArcNotes = "<gray><sup>[1]</sup> Based on the number of Arc Transformers used.</gray>"
+	ArcOverclockNotes = "<gray><sup>[1]</sup> Scaled by the square root of the amplification value.</gray>"
 	// Vanila modified
 	CrewStunDurationFmt = "<white>Crew Stun Time:</white> <good>{0:0.##}-{1:0.##}</good> <gray>seconds</gray>"
 }
@@ -80,13 +84,26 @@ StatCategories
 	ArcBeamOverclock = "Arc Beam (Overclocked)"
 
 	// Formatters, Technically, this are the Stats, but Fariel put them all in StatCategories
+	
+	// Arc Transformer
 	ArcEnergyGenerationFmt = "<white>Arc Energy Generation:</white> <good>{0:0.##}</good><gray>/sec</gray>"
 	ArcEnergyCapacityFmt = "<white>Arc Energy Capacity:</white> <good>{0:0.##}</good>"
+	HeatGenerationPerArcFmt = "<white>Heat Gen.:</white> <good>{0:#,0.##}</good> <gray>MJ/arc energy (</gray><good>{1:#,0.##}</good> <gray>MJ/sec)</gray>"
+	// Galvanic Armor
 	ShotContinuousDamageNearFmt = "<white>Dmg vs Shot (Near):</white> <good>{0:n0}</good><gray>/sec</gray>"
 	ShotContinuousDamageFarFmt = "<white>Dmg vs Shot (Far):</white> <good>{0:n0}</good><gray>/sec</gray>"
-	ArcEnergyUsedFmt = "<white>Arc Energy Use:</white> <good>{0:n0}</good><gray>/shot (</gray><good>{1:0.##}</good><gray>/sec)</gray>"
 	ArcEnergyConversionRateFmt = "<white>Conversion Rate:</white> <good>{0:0}</good> <gray>power per</gray> <good>{1:0}</good> <gray>arc energy</gray>"
 //	ArcEnergyConversionTimeFmt = "<white>Conversion Speed:</white> <good>{0:0}</good> <gray>per second</gray>"
+	// Arc Emitter
+	ArcEnergyUsedRangeFmt = "<white>Arc Energy Use:</white> <good>{0:n0}</good> <white> - </white> <good>{1:0}</good> <gray>/shot (</gray><good>{2:0.##}</good> <white> - </white> <good>{3:0}</good><gray>/sec)</gray>"
+	ArcEnergyUsedScaledFmt = "<white>Arc Energy Use:</white> <good>{0:n0}</good><gray>/shot (</gray><good>{1:0.##}</good> <white> - </white> <good>{2:0.##}</good><gray><sup>[1]</sup>/sec)</gray>"
+	HeatPerShotPerArcFmt = "<white>Heat Gen.:</white> <good>{0:#,0.##}</good> <gray>MJ/shot per arc energy consumed</gray>"
+	ArcROFRangeFmt = "<white>Rate of Fire:</white> <good>{0:0.##}</good><white> - </white><good>{1:0.##}</good><gray><sup>[1]</sup> shots/sec</gray>"
+	DurationHitsFmt = "<white>Duration:</white> <good>{0:0.##}</good><gray> seconds (</gray><good>{1:0.##}</good> <gray>hits/sec)</gray>"
+	ArcDurationHitsFmt = "<white>Duration:</white> <good>{0:0.##}</good><gray><sup>[1]</sup> seconds (</gray><good>{1:0.##}</good> <gray>hits/sec)</gray>"
+	ArcLightningDamageFmt = "<white>Lightning Damage:</white> <good>{0:0}</good><gray><sup>[1]</sup> per strike</gray>"
+	ArcAmplificationFmt = "<white>Lightning Amplification Value:</white> <good>1/{0:n0}</good> <gray> per arc energy consumed</gray>"
+	// Ion Blaster
 	ScatterFmt = "<white>Rays:</white> <good>{0:0}</good>"
 	LifeTimeFmt = "<white>Lifespan:</white> <good>{0:0.##}</good> <gray> to </gray><good>{1:0.##}</good><gray> second</gray>"
 	DistancePenetratedFmt = "<white>Distance Penetrated:</white> <good>{0:0.##}</good> <gray> to </gray><good>{1:0.##}</good> <gray> meters</gray>"

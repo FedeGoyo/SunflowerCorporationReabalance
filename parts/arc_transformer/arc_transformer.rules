@@ -29,23 +29,17 @@ Part
 	{
 		TitleKey = "StatCategories/Overclocked"
 		DescriptionKey = "Parts/ArcTransformerOverclockDesc"
-		StatsByCategory
-		[
-			{
-				NameKey = "StatCategories/ArcBeamOverclock"
-				Stats
-				{
-					PowerHeatGeneration = [&~/OVERCLOCK/HEAT_PER_ARC, &~/OVERCLOCK/HEAT_PER_SECOND]
-					PowerCapacity = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/BatteryStorage/MaxResources) / 1000 * (&~/OVERCLOCK/BATTERY_CAPACITY_FACTOR)
-					Interval = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/Interval/BaseValue) * (&~/OVERCLOCK/ARC_INTERVAL_FACTOR)
-					ArcEnergy = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/ToQuantity) / 1000
-					Power = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/From/0/Quantity) / 1000
-					ArcEnergyGeneration = (&ArcEnergy) / (&Interval)
-					ArcEnergyCapacity = 1//(&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/MaxResources) / 1000 * (&~/OVERCLOCK/ARC_CAPACITY_FACTOR)
-					PowerUsageContinuous = (&Power) / (&Interval)
-				}
-			}
-		]
+		Stats
+		{
+			HeatGenerationPerArc = [&~/OVERCLOCK/HEAT_PER_ARC, &~/OVERCLOCK/HEAT_PER_SECOND]
+			PowerCapacity = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/BatteryStorage/MaxResources) / 1000 * (&~/OVERCLOCK/BATTERY_CAPACITY_FACTOR)
+			Interval = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/Interval/BaseValue) * (&~/OVERCLOCK/ARC_INTERVAL_FACTOR)
+			ArcEnergy = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/ToQuantity) / 1000
+			Power = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/From/0/Quantity) / 1000
+			ArcEnergyGeneration = (&ArcEnergy) / (&Interval)
+			ArcEnergyCapacity = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/MaxResources) / 1000 * (&~/OVERCLOCK/ARC_CAPACITY_FACTOR)
+			PowerUsageContinuous = (&Power) / (&Interval)
+		}
 	}
 }
 
