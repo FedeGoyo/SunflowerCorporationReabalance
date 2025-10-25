@@ -1,16 +1,18 @@
 Part
 {
+	Resources	// Reduce cost
+	[
+		[steel, 24]
+		[coil2, 8]
+		[tristeel, 10]
+	]
 	InitialPenetrationResistance = 5	// Reduce penetration resistance
 	ExplosiveDamageResistance = 50%	// Increase explosive resistance
 }
-Resources	// Reduce cost
-[
-	[steel, 24]
-	[coil2, 8]
-	[tristeel, 10]
-]
-Components // Add preferred fire
+
+Components
 {
+	// Add preferred fire
 	FirePrefToggle
 	{
 		Type = UIToggle
@@ -50,6 +52,7 @@ TurretProxy	// Add targeting
 	AllowDirectControlToggle = FirePrefAttack
 	FirePermissionToggle = FireModeToggle
 	CanBeGivenExplicitTarget = true
+	TargetSearchesPerSecond = 15
 	
 	AutoTargets
 	[
@@ -69,19 +72,6 @@ TurretProxy	// Add targeting
 			Overridable = true
 		}
 	]
-}
-ConvertFromArcEnergyToBatter	// Increase energy production and interval
-{
-	From
-	[
-		{
-			Storage = ArcEmitterStorageProxy
-			Quantity = 1000
-			MinQuantityForConversion = 1000
-		}
-	]
-	Interval = 1.25
-	ToQuantity = 4000
 }
 BulletEmitter
 {

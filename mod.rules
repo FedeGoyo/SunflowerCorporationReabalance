@@ -232,44 +232,24 @@ Actions
 		ToAdd = ElectronBuff	// Adds ElectronBuff
 	}
 	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Resources"
-		With = &<parts/galvanic_armor/galvanic_armor.rules>/Resources	// Reduce cost
-	}
-	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part"
-		Overrides = &<parts/galvanic_armor/galvanic_armor.rules>/Part	// Reduce penetration resistance and increase explosive resistance
-	}
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/TurretProxy"
-		Overrides = &<parts/galvanic_armor/galvanic_armor.rules>/TurretProxy	// Add targeting
+		Overrides = &<parts/galvanic_armor/galvanic_armor.rules>/Part
 	}
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components"
-		Overrides = &<parts/galvanic_armor/galvanic_armor.rules>/Components	// Add preferred fire
+		Overrides = &<parts/galvanic_armor/galvanic_armor.rules>/Components
 	}
-/*	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/ArcEmitterStorageProxy/ProvidedValuePerResource"
-		With = 1/1000	// Reduce shared arc energy value. Actually not used
-	}*/
 	{
 		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/ConvertFromArcEnergyToBatter"
-		Overrides = &<parts/galvanic_armor/galvanic_armor.rules>/ConvertFromArcEnergyToBatter	// Increase energy production and interval
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/TurretProxy"
+		Overrides = &<parts/galvanic_armor/galvanic_armor.rules>/TurretProxy
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/FireTimer/Duration"
 		With = 1/30	// Increase fire rate
-	}
-	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/TurretProxy/TargetSearchesPerSecond"
-		With = 15	// Increase search per second
 	}
 	{
 		Action = AddBase
@@ -294,20 +274,27 @@ Actions
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/StatsByCategory/0/Stats"
-		Overrides = &<parts/galvanic_armor/galvanic_armor.rules>/Stats	// Add stats
+		Overrides = &<parts/galvanic_armor/galvanic_armor.rules>/Stats
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Stats/RecPower"
 		With = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/StatsByCategory/0/Stats/PowerUsageContinuous)
 	}
+	// Remove stuff
 	{
 		Action = RemoveMany
 		RemoveMany = 
 		[
-			// Unused cause now it is a beam, though the game still wants them... not sure if it is actually a beam...
-//			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/Bullet"
-//			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterRight/Bullet"
+			// To add targeting
+			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/FireModeToggle/AvailableChoices"
+			// No longer uses bullet
+			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/Bullet"
+			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterRight/Bullet"
+			// No longer can use Arc Energy
+			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BuffProvider"
+			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/ArcEmitterStorageProxy"
+			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/ConvertFromArcEnergyToBatter"
 			// Unused stats and pre-standarized stats
 			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/StatsByCategory/0/Stats/HitInterval"
 			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/StatsByCategory/0/Stats/DamagePerShotNear"
@@ -315,15 +302,7 @@ Actions
 			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/StatsByCategory/0/Stats/ShotDamage"
 			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/StatsByCategory/0/Stats/ShotPowerUsage"
 			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/StatsByCategory/0/Stats/PowerPerSecond"
-			// To add targeting
-			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/FireModeToggle/AvailableChoices"
-			// Bullet from BulletEmitter
-			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/Bullet"
-			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterRight/Bullet"
-			// Unused stuff that no idea why was added in the first place
-			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/ArcEmitterStorageProxy/ToggleOnResources"
-			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/ArcEmitterStorageProxy/ProvidedValueRange"
-			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/ArcEmitterStorageProxy/ProvidedValuePerResource"
+
 		]
 	}
 
