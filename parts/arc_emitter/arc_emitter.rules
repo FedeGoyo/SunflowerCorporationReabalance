@@ -219,32 +219,6 @@ Components
 		ShowProgressFor = Weapon // ArcEmitterStorageProxy
 	}
 	
-/*	ModularBatteryStorage
-	{
-		Type = MultiResourceStorage
-		OperationalToggle = IsOperational
-		ResourceType = battery
-		IsDrainable = false
-		ResourceStorages = []
-		ViaBuffs
-		{
-			OutgoingBuffProviders = [BuffProvider]
-			ComponentID = BatteryStorage
-		}
-		AddMode = PrioritizeLeastResources
-		ReceiveResourceMediaEffects = &/COMMON_EFFECTS/PowerDeliver
-	}
-
-	BatteryConsumer
-	{
-		Type = ResourceConsumer
-		ResourceType = battery
-		Storage = ModularBatteryStorage
-		DefaultPriority = &/PRIORITIES/Weapon_Supply
-		ResupplyThreshold = 500
-		OperationalToggle = PowerToggle
-	}*/
-	
 	DelayWeapon
 	{
 		Type = DelayTrigger
