@@ -19,6 +19,8 @@ Parts
 	GalvanicArmorName = "Galvanic Armor"
 	GalvanicArmorIcon = &GalvanicArmorName
 	GalvanicArmorDesc = "A wide, armored plate with two charged coils on the outside that will shock nearby enemies and projectiles, dealing more damage as they get closer."
+	GalvanicArmorIconOverclock = "Overclocked Galvanic Armor"
+	GalvanicArmorOverclockDesc = "Adds splash damage. Produces waste heat when firing."
 	GalvanicArmorTechDescription = "A wide, armored plate with two charged coils on the outside. Can serve as a close-range Point-Defense alternative. Deals more damage to closer targets."
 
 	ArcEmitterName = "Arc Emitter"

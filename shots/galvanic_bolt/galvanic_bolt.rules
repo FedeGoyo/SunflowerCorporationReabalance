@@ -1,22 +1,54 @@
 Range = 30 // using a path did't work &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Range
 HitEffectsScaleOverRange = [1, 0.5] // using a path didn't work
+ClipRangeToTarget = true
 
 BeamMediaEffects
 [
 
 ]
 	
-HitCrew = &HitOperational
+HitCrew = &HitNothing
 
-HitShield = &HitOperational
+HitShield = &HitNothing
 
-HitOperational
+HitOperational = &HitNothing
+
+HitStructural = &HitNothing
+
+HitBullet = &HitNothing
+
+HitNothing // : &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Components/Hit/HitBullet
 {
 	HitEffects
 	[
 		{
-			Type = Damage
-			Damage = { BaseValue = &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Components/Hit/HitOperational/HitEffects/0/Damage; BuffType=ElectronBuff; BuffMode=Multiply; }
+			Type = ExplosiveDamage
+			DamageType = default
+			TotalDamage = { BaseValue = &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Components/Hit/HitBullet/HitEffects/0/Damage; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1 }
+			Radius = 2
+            Slices = 1
+			Filter
+			{
+				Ships = false
+				Shields = false
+				Bullets = true
+				OnlyBulletCategories = [missile, laser, bullet, mine]
+				Crew = true
+			}
+		}
+		{
+			Type = ExplosiveDamage
+			DamageType = default
+			TotalDamage = { BaseValue = &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Components/Hit/HitOperational/HitEffects/0/Damage; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1 }
+			Radius = 2
+			Slices = 1
+			Filter
+			{
+				Ships = true
+				Shields = true
+				Bullets = false
+				Crew = false
+			}
 		}
 	]
 
@@ -25,35 +57,5 @@ HitOperational
 		&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/particles/galvanic_bolt_hit.rules>
 		&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/particles/galvanic_bolt_hit_sparks.rules>
 		&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/particles/galvanic_bolt_hit_light.rules>
-	]
-}
-
-HitStructural // : &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Components/Hit/HitStructural
-{
-	HitEffects
-	[
-		{
-			Type = Damage
-			Damage = { BaseValue = &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Components/Hit/HitStructural/HitEffects/0/Damage; BuffType=ElectronBuff; BuffMode=Multiply; }
-		}
-	]
-
-	MediaEffects: ~/HitOperational/MediaEffects
-	[
-	]
-}
-
-HitBullet // : &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Components/Hit/HitBullet
-{
-	HitEffects
-	[
-		{
-			Type = Damage
-			Damage = { BaseValue = &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Components/Hit/HitBullet/HitEffects/0/Damage; BuffType=ElectronBuff; BuffMode=Multiply; }
-		}
-	]
-
-	MediaEffects: ~/HitOperational/MediaEffects
-	[
 	]
 }

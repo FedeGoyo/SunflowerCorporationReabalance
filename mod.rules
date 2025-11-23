@@ -226,11 +226,23 @@ Actions
 	}
 
 // Rebalance Galvanic Armor
+	// Start adding base for Overclock
 	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/ReceivableBuffs"
-		ToAdd = ElectronBuff	// Adds ElectronBuff
+		Action = AddBase
+		AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part"
+		BaseToAdd = &<./Data/ships/terran/base_med_part_terran_overclock.rules>/Part
 	}
+	{
+		Action = AddBase
+		AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components"
+		BaseToAdd = &<./Data/ships/terran/base_med_part_terran_overclock.rules>/Part/Components
+	}
+	{
+		Action = AddMany
+		AddTo = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/ReceivableBuffs"
+		ManyToAdd = &<parts/galvanic_armor/galvanic_armor.rules>/ReceivableBuffs
+	}
+	// End adding base for Overclock
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part"
@@ -248,28 +260,8 @@ Actions
 	}
 	{
 		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/FireTimer/Duration"
-		With = 1/30	// Increase fire rate
-	}
-	{
-		Action = AddBase
-		AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft"
-		BaseToAdd = &<shots/galvanic_bolt/galvanic_bolt.rules>	// Add shield damage, required for beam
-	}
-	{
-		Action = AddBase
-		AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterRight"
-		BaseToAdd = &<shots/galvanic_bolt/galvanic_bolt.rules>	// Add shield damage, required for beam
-	}
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft"
-		Overrides = &<parts/galvanic_armor/galvanic_armor.rules>/BulletEmitter	// Replace bullet with beam and reduce resource used
-	}
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterRight"
-		Overrides = &<parts/galvanic_armor/galvanic_armor.rules>/BulletEmitter	// Replace bullet with beam and reduce resource used
+		Replace = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/Indicators/Indicators"
+		With = &<parts/galvanic_armor/galvanic_armor.rules>/Indicators
 	}
 	{
 		Action = Overrides
@@ -288,9 +280,6 @@ Actions
 		[
 			// To add targeting
 			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/FireModeToggle/AvailableChoices"
-			// No longer uses bullet
-			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/Bullet"
-			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterRight/Bullet"
 			// No longer can use Arc Energy
 			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BuffProvider"
 			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/ArcEmitterStorageProxy"

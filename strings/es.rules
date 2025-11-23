@@ -19,6 +19,8 @@ Parts
 	GalvanicArmorName = "Armadura Galvánica"
 	GalvanicArmorIcon = &GalvanicArmorName
 	GalvanicArmorDesc = "Una placa ancha y blindada con dos bobinas cargadas en el exterior que electrocutarán a los enemigos y proyectiles cercanos, causando más daño a medida que se acerquen."
+	GalvanicArmorIconOverclock = "Armadura Galvánica Sobrecalentada"
+	GalvanicArmorOverclockDesc = "Añade daño de área adicional. Al dispararlo, se genera calor residual."
 	GalvanicArmorTechDescription = "Una placa ancha y blindada con dos bobinas cargadas en el exterior. Puede servir como una alternativa a la Defensa Puntual de corto alcance. Inflige más daño a los objetivos más cercanos."
 
 	ArcEmitterName = "Emisor de Arco"

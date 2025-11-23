@@ -1,3 +1,12 @@
+OVERCLOCK
+{
+	HEAT_PER_SHOT = 10
+}
+HEAT_TO_RESOURCE = &<./Data/statuses/heat/heat.rules>/STATUS_TO_RESOURCE_RATIO
+HEAT_TO_STATUS = &<./Data/statuses/heat/heat.rules>/RESOURCE_TO_STATUS_RATIO
+
+ReceivableBuffs : &<./Data/ships/base_part_overclock.rules>/Part/ReceivableBuffs [ElectronBuff]	// Add Buffs
+
 Part
 {
 	Resources	// Reduce cost
@@ -8,10 +17,57 @@ Part
 	]
 	InitialPenetrationResistance = 5	// Reduce penetration resistance
 	ExplosiveDamageResistance = 50%	// Increase explosive resistance
+
+	SecondaryToolTip	// Add overclock stats
+	{
+		TitleKey = "StatCategories/Overclocked"
+		DescriptionKey = "Parts/GalvanicArmorOverclockDesc"
+		StatsByCategory
+		[
+			{
+				NameKey = "StatCategories/GalvanicArmorOverclock"
+				Stats
+				{
+					ROF = &~/Stats/ROF
+					HeatGeneration = (&~/OVERCLOCK/HEAT_PER_SHOT) * (&ROF)
+//					DamageArea = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/OverclockedComponents/Components/EmitterLeft/OVERCLOCK/RADIUS)
+				}
+			}
+		]
+	}
 }
 
 Components
 {
+	IsOperational
+	{
+		Type = MultiToggle
+		Toggles = [PowerToggle, BatteryStorage, PartCrew, ScorchedToggle, &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/OVERCLOCK_OPERATIONAL]
+		Mode = All
+	}
+
+	CommandConsumptionToggle
+	{
+		Type = MultiToggle
+		Toggles = [PowerToggle, ScorchedToggle]
+		Mode = All
+	}
+	
+	ScorchedToggle
+	{
+		Type = StatusToggle
+		StatusType = cosmoteer.scorched
+		MinStatusValue = 1
+		Invert = true
+	}
+
+	CommandConsumer
+	{
+		Type = CommandConsumer
+		OperationalToggle = CommandConsumptionToggle
+		CommandPoints = 5
+	}
+	
 	// Add preferred fire
 	FirePrefToggle
 	{
@@ -43,7 +99,144 @@ Components
 		Toggles = [AutoTargetToggle, FirePrefDefend]
 		Mode = All
 	}
+	
+	// Beam emitters
+	NonOverclockedComponents
+	{
+		Type = ToggledComponents
+		Toggle = IsOverclocked
+		Invert = true
+		IncludeInBlueprints = true
+		Components
+		{
+			EmitterLeft :	&<../../shots/galvanic_bolt/galvanic_bolt.rules>
+			{
+				Type = BeamEmitter	// Replace bullet with beam
+				FireTrigger = ShootLeftTrigger
+				ChainedTo = TurretLeft
+				GetTargetFrom = TurretLeft
+				Location = [0, 0]
+				OperationalToggle = IsOperational
+				FireDelay = 0
+				ResourceStorage = BatteryStorage
+				ResourcesUsed = 60	// Reduce resource used
+				MinResourcesUsed = 1
+			}
+
+			EmitterRight : EmitterLeft
+			{
+				FireTrigger = ShootRightTrigger
+				ChainedTo = TurretRight
+				GetTargetFrom = TurretRight
+			}
+		}
+	}
+
+	OverclockedComponents
+	{
+		Type = ToggledComponents
+		Toggle = IsOverclocked
+		Components
+		{
+			EmitterLeft :	&<../../shots/galvanic_bolt/overclock_galvanic_bolt.rules>
+			{
+				Type = BeamEmitter	// Replace bullet with beam
+				FireTrigger = ShootLeftTrigger
+				ChainedTo = TurretLeft
+				GetTargetFrom = TurretLeft
+				Location = [0, 0]
+				OperationalToggle = IsOperational
+				FireDelay = 0
+				ResourceStorage = BatteryStorage
+				ResourcesUsed = 60	// Reduce resource used
+				MinResourcesUsed = 1
+			}
+
+			EmitterRight : EmitterLeft
+			{
+				FireTrigger = ShootRightTrigger
+				ChainedTo = TurretRight
+				GetTargetFrom = TurretRight
+			}
+		}
+	}
+
+	BulletEmitterLeft	// Uses this name to replace the original
+	{
+		Type = EmitterProxy
+		ComponentID = EmitterLeft
+		ChainedTo = TurretLeft
+	}
+	BulletEmitterRight :	BulletEmitterLeft	// Uses this name to replace the original
+	{
+		ComponentID = EmitterRight
+		ChainedTo = TurretRight
+	}
+	
+	// Add Overclocked
+	OverclockStateValue
+	{
+		Type = ToggleValueSelector
+		Toggle = OverclockModeToggle
+		ToggleOffValue = Zero
+		ToggleOnValue = One
+	}
+
+	Zero { Type = StaticValue; Value = 0; }
+	One { Type = StaticValue; Value = 1; }
+
+	Overclock_BeamEmitter
+	{
+		Type = MultiTrigger
+		Triggers = [BulletEmitterLeft, BulletEmitterRight]
+		ProxyToggle = IsOverclocked
+	}
+
+	Overclock_ShotHeatProducer
+	{
+		Type = ResourceChange
+		ResourceStorage = HeatDistributionStorage
+		Trigger = Overclock_BeamEmitter
+		Amount = (&~/OVERCLOCK/HEAT_PER_SHOT) * (&~/HEAT_TO_RESOURCE)
+	}
+	
+	Port_Thermal_DownLeft : <./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/BASE_THERMAL_PORT
+	{
+		Location = [0, 1]
+		Direction = Down
+	}
+	Port_Thermal_DownRight : Port_Thermal_DownLeft	{ Location = [2, 1] }
+	
+	ScorchedTrigger
+	{
+		Type = ToggleTrigger
+		Toggle = ScorchedToggle
+		TriggerWhenOn = false
+	}
+
+	ScorchedEffects
+	{
+		Type = TriggeredEffects
+		Trigger = ScorchedTrigger
+		Location = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/DestroyedEffects/Location
+		MediaEffects = &/COMMON_EFFECTS/BigPartScorched
+	}
+
+	PeakHeatGenerationValue
+	{
+		Type = StaticValue
+		SHOT_HEAT_PER_SECOND = (&~/OVERCLOCK/HEAT_PER_SHOT) * (&~/Stats/ROF)
+		Value = (&SHOT_HEAT_PER_SECOND)
+	}
+	HeatGenerationStatProvider
+	{
+		Type = StatProvider
+		Stat = HeatGeneration
+		OperationalToggle = OverclockModeToggle
+		ValueFrom = PeakHeatGenerationValue
+	}
 }
+
 TurretProxy	// Add targeting
 {
 	AllowShipWideExplicitTargetsToggle = FirePrefAttack
@@ -52,7 +245,7 @@ TurretProxy	// Add targeting
 	AllowDirectControlToggle = FirePrefAttack
 	FirePermissionToggle = FireModeToggle
 	CanBeGivenExplicitTarget = true
-	TargetSearchesPerSecond = 15
+	TargetSearchesPerSecond = 15	// Increase searchs per second
 	
 	AutoTargets
 	[
@@ -73,25 +266,71 @@ TurretProxy	// Add targeting
 		}
 	]
 }
-BulletEmitter
-{
-	Type = BeamEmitter	// Replace bullet with beam
-	ResourcesUsed = 40	// Reduce resource used
-}
+
+Indicators	// Add indicators
+[
+	// Scorched
+	{
+		Toggle = ScorchedToggle
+		AtlasSprite = &/INDICATORS/Scorched
+		HidesIndicators = [1,2,3,4]
+	}
+	// Turned off.
+	{
+		Toggle = PowerToggle
+		AtlasSprite
+		{
+			File = &/INDICATORS/PowerOff
+			Size = [1, 1]
+		}
+		HidesIndicators = [2,3,4]
+	}
+
+	// Out of power.
+	{
+		Toggle = BatteryStorage
+		AtlasSprite
+		{
+			File = &/INDICATORS/NoPower
+			Size = [1, 1]
+		}
+	}
+
+	// Resetting from overclock
+	{
+		Toggle = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/OVERCLOCK_OPERATIONAL
+		AtlasSprite : /INDICATORS/OverclockReset
+		{
+			Size = [1, 1]
+		}
+		HidesIndicators = [4]
+	}
+				
+	// No crew.
+	{
+		Toggle = PartCrew
+		AtlasSprite
+		{
+			File = &/INDICATORS/NoCrew
+			Size = [1, 1]
+		}
+	}
+]
+
 Stats
 {
 	// Path modified
-	DamagePerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitOperational/HitEffects/0/Damage/BaseValue)
-	ShotDamagePerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitBullet/HitEffects/0/Damage/BaseValue)
-	Range = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/Range) //(&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Range)
+	DamagePerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/HitNothing/HitEffects/1/TotalDamage/BaseValue)
+	ShotDamagePerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/HitNothing/HitEffects/0/TotalDamage/BaseValue)
+	Range = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/Range) //(&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Range)
 	// Not modified
 	ROF = 1 / (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/FireTimer/Duration)
 	DamagePerSecond = (&DamagePerShot) * (&ROF)
 	ShotDamagePerSecond = (&ShotDamagePerShot) * (&ROF)
-	PowerPerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/ResourcesUsed) / 1000
+	PowerPerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/ResourcesUsed) / 1000
 	// Standarized
-	NearScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitEffectsScaleOverRange/0) // (&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/HitEffectsScaleOverRange/0)
-	FarScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitEffectsScaleOverRange/1) // (&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/HitEffectsScaleOverRange/1)
+	NearScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/HitEffectsScaleOverRange/0) // (&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/HitEffectsScaleOverRange/0)
+	FarScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/HitEffectsScaleOverRange/1) // (&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/HitEffectsScaleOverRange/1)
 	DamageContinuousNear = (&DamagePerSecond) * (&NearScale)
 	DamageContinuousFar = (&DamagePerSecond) * (&FarScale)
 	// New
