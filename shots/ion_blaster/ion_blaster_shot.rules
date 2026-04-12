@@ -1,3 +1,9 @@
+Base
+{
+	Range = 300
+	IdealRange = [200, 300]
+}
+
 HitEffects
 [
 	{

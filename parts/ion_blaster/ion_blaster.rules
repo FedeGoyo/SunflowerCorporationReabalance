@@ -1,8 +1,9 @@
 Turret	// Increase firing arc
 {
-	FiringArc = 220d
-	FireThresholdAngle = 220d
-	RotateSpeed = 90d
+	FiringArc = 220d	// Increase firing arc
+	FireThresholdAngle = 220d	// Increase firing arc
+	RotateSpeed = 90d	// Add rotation speed
+	FireInterval = 2	// Increase fire interval (slow down)
 }
 BaseStats
 {
@@ -12,7 +13,7 @@ IonBlasterShotStats
 {
 	Scatter = ("&<./Data/../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Count")
 }
-IonBlasterScatterStats
+StatsByCategory
 {
 	NameKey = "StatCategories/IonBlasterScatter"
 	Stats

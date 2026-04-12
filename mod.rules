@@ -309,14 +309,13 @@ Actions
 	}
 	{
 		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>"
-		Name = ReceivableBuffs
-		ToAdd = [ElectronBuff]	// Adds ElectronBuff
+		AddTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/ReceivableBuffs"
+		ToAdd = ElectronBuff	// Adds ElectronBuff
 	}
 	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Resources"
-		With = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Resources	// Reduce cost
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part"
+		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part
 	}
 	{
 		Action = Overrides
@@ -329,6 +328,29 @@ Actions
 		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Turret	// Increase firing arc
 	}
 	{
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/StatsByCategory/0/Stats"
+		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/HeavyIonBlasterShotStats	// Add stats
+	}
+	{
+		Action = Add
+		AddTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/StatsByCategory"
+		ToAdd = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/StatsByCategory	// Add stats
+	}
+	// Modify shot
+	{
+		Action = Add
+		AddTo = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>"
+		Name = ReceivableBuffs
+		ToAdd = [ElectronBuff]	// Adds ElectronBuff, not sure if needed as it does nothing here, but the spawned bullets do
+	}
+	{
+		Action = Add
+		AddTo = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>"
+		Name = ReceivableBuffs
+		ToAdd = [ElectronBuff]	// Adds ElectronBuff
+	}
+	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Targetable/Health"
 		With = 3000	// Reduce projectile HP
@@ -337,11 +359,6 @@ Actions
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitStructural/HitEffects/1/Impulse"
 		With = 25	// Reduce impact
-	}
-	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Components/Turret/FireInterval"
-		With = 2.5	// Reduce fire interval (speed up)
 	}
 	{
 		Action = Replace
@@ -358,17 +375,7 @@ Actions
 		Replace = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit"
 		With = &<shots/heavy_ion_blaster/ion_scatter_ray.rules>/Hit	// Added penetration, reduced damage and impulse, added effect on HitShield, add ElectronBuff
 	}
-	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/StatsByCategory/0/Stats"
-		Name = Scatter	// New stat
-		ToAdd = ("&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Count")
-	}
-	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/StatsByCategory"
-		ToAdd = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/StatsByCategory	// Add stats
-	}
+	// Remove stuff
 	{
 		Action = RemoveMany
 		RemoveMany
@@ -394,9 +401,8 @@ Actions
 	}
 	{
 		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>"
-		Name = ReceivableBuffs
-		ToAdd = [ElectronBuff]	// Adds ElectronBuff, not sure if needed as it does nothing here, but the spawned bullets do
+		AddTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/ReceivableBuffs"
+		ToAdd = ElectronBuff	// Adds ElectronBuff
 	}
 	{
 		Action = Add
@@ -406,28 +412,40 @@ Actions
 	}
 	{
 		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/Turret/FireInterval"
-		With = 2	// Increase fire interval (slow down)
-	}
-	{
-		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/BulletEmitter/ResourcesUsed"
 		With = 1333	// Increased resource used
 	}
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/Turret"
-		Overrides = &<parts/ion_blaster/ion_blaster.rules>/Turret	// Increase firing arc
+		Overrides = &<parts/ion_blaster/ion_blaster.rules>/Turret
 	}
 	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Range"
-		With = 300	// Increase range
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Stats"
+		Overrides = &<parts/ion_blaster/ion_blaster.rules>/BaseStats	// Add stats
 	}
 	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/IdealRange"
-		With = [200, 300]	// Increase range
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/StatsByCategory/0/Stats"
+		Overrides = &<parts/ion_blaster/ion_blaster.rules>/IonBlasterShotStats	// Add stats
+	}
+	{
+		Action = Add
+		AddTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/StatsByCategory"
+		ToAdd = &<parts/ion_blaster/ion_blaster.rules>/StatsByCategory	// Add stats
+	}
+	// Modify shot
+	{
+		Action = Add
+		AddTo = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>"
+		Name = ReceivableBuffs
+		ToAdd = [ElectronBuff]	// Adds ElectronBuff, not sure if needed as it does nothing here, but the spawned bullets do
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>"
+		Overrides = &<shots/ion_blaster/ion_blaster_shot.rules>/Base	// Modify range
 	}
 	{
 		Action = Replace
@@ -454,27 +472,7 @@ Actions
 		AddTo = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects"
 		ToAdd =	&<shots/ion_blaster/ion_blaster_shot.rules>/HitEffects/0	// Add scatter
 	}
-/*	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/StatsByCategory/0/Stats"
-		Name = Scatter	// New stat
-		Override = ("&<./Data/../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Count")
-	}	*/
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Stats"
-		Overrides = &<parts/ion_blaster/ion_blaster.rules>/BaseStats	// Add stats
-	}
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/StatsByCategory/0/Stats"
-		Overrides = &<parts/ion_blaster/ion_blaster.rules>/IonBlasterShotStats	// Add stats
-	}
-	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/StatsByCategory"
-		ToAdd = &<parts/ion_blaster/ion_blaster.rules>/IonBlasterScatterStats	// Add stats
-	}
+	// Remove stuff
 	{
 		Action = RemoveMany
 		RemoveMany

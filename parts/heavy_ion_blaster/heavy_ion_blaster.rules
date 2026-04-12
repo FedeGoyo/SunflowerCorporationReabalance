@@ -1,9 +1,12 @@
-Resources	// Reduce Cost
-[
-	[steel, 80]
-	[coil, 14]
-	[coil2, 22]
-]
+Part
+{
+	Resources	// Reduce Cost
+	[
+		[steel, 80]
+		[coil, 14]
+		[coil2, 22]
+	]
+}
 BulletEmitter
 {
 	ResourcesUsed = 3333	// Reduce resource used
@@ -11,8 +14,13 @@ BulletEmitter
 }
 Turret	// Increase firing arc
 {
-	FiringArc = 220d
-	FireThresholdAngle = 220d
+	FiringArc = 220d	// Increase firing arc
+	FireThresholdAngle = 220d	// Increase firing arc
+	FireInterval = 2.5	// Reduce fire interval (speed up)
+}
+HeavyIonBlasterShotStats
+{
+	Scatter = ("&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Count")
 }
 StatsByCategory	// New stats
 {
