@@ -1,3 +1,176 @@
+OVERCLOCK
+{
+	HEAT_PER_SHOT = 0
+}
+
+HEAT_TO_RESOURCE = &<./Data/statuses/heat/heat.rules>/STATUS_TO_RESOURCE_RATIO
+HEAT_TO_STATUS = &<./Data/statuses/heat/heat.rules>/RESOURCE_TO_STATUS_RATIO
+
+ReceivableBuffs : &<./Data/ships/base_part_overclock.rules>/Part/ReceivableBuffs [ElectronBuff]	// Add Buffs
+
+Components
+{
+	IsOperational
+	{
+		Type = MultiToggle
+		Toggles = [PowerToggle, BatteryStorage, PartCrew, ScorchedToggle, &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/OVERCLOCK_OPERATIONAL]
+		Mode = All
+	}
+
+	CommandConsumptionToggle
+	{
+		Type = MultiToggle
+		Toggles = [PowerToggle, ScorchedToggle]
+		Mode = All
+	}
+	
+	ScorchedToggle
+	{
+		Type = StatusToggle
+		StatusType = cosmoteer.scorched
+		MinStatusValue = 1
+		Invert = true
+	}
+
+	CommandConsumer
+	{
+		Type = CommandConsumer
+		OperationalToggle = CommandConsumptionToggle
+		CommandPoints = 3
+	}
+	
+	OverclockStateValue
+	{
+		Type = ToggleValueSelector
+		Toggle = OverclockModeToggle
+		ToggleOffValue = Zero
+		ToggleOnValue = One
+	}
+
+	Zero { Type = StaticValue; Value = 0; }
+	One { Type = StaticValue; Value = 1; }
+
+	Overclock_BulletEmitter
+	{
+		Type = TriggerProxy
+		ComponentID = BulletEmitter
+		ProxyToggle = IsOverclocked
+	}
+
+	Overclock_ShotHeatProducer
+	{
+		Type = ResourceChange
+		ResourceStorage = HeatDistributionStorage
+		Trigger = Overclock_BulletEmitter
+		Amount
+		{
+			BaseValue = (&~/OVERCLOCK/HEAT_PER_SHOT) * (&~/HEAT_TO_RESOURCE)
+			Modifiers
+			[
+				{
+					Type = Buff
+					BuffType = Arc_Energy_Heat_Multiplier
+					ModificationMode = Multiply
+				}
+			]
+		}
+	}
+	
+	Port_Thermal_Left : <./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/BASE_THERMAL_PORT
+	{
+		Location = [0, 2]
+		Direction = Left
+	}
+	Port_Thermal_Right : Port_Thermal_Left
+	{
+		Direction = Right
+	}
+	Port_Thermal_Down : Port_Thermal_Left
+	{
+		Direction = Down
+	}
+	
+	ScorchedTrigger
+	{
+		Type = ToggleTrigger
+		Toggle = ScorchedToggle
+		TriggerWhenOn = false
+	}
+
+	ScorchedEffects
+	{
+		Type = TriggeredEffects
+		Trigger = ScorchedTrigger
+		Location = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/DestroyedEffects/Location
+		MediaEffects = &/COMMON_EFFECTS/BigPartScorched
+	}
+
+	PeakHeatGenerationValue
+	{
+		Type = StaticValue
+		SHOT_HEAT_PER_SECOND = (&~/OVERCLOCK/HEAT_PER_SHOT) //* (&~/Part/SecondaryToolTip/StatsByCategory/0/Stats/ROF)
+		Value = (&SHOT_HEAT_PER_SECOND)
+	}
+	HeatGenerationStatProvider
+	{
+		Type = StatProvider
+		Stat = HeatGeneration
+		OperationalToggle = OverclockModeToggle
+		ValueFrom = PeakHeatGenerationValue
+	}
+}
+
+Indicators
+[
+	// Scorched
+	{
+		Toggle = ScorchedToggle
+		AtlasSprite = &/INDICATORS/Scorched
+		HidesIndicators = [1,2,3,4]
+	}
+	// Turned off.
+	{
+		Toggle = PowerToggle
+		AtlasSprite
+		{
+			File = &/INDICATORS/PowerOff
+			Size = [1, 1]
+		}
+		HidesIndicators = [2,3,4]
+	}
+
+	// Out of power.
+	{
+		Toggle = BatteryStorage
+		Delay = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/Turret/FireInterval
+		AtlasSprite
+		{
+			File = &/INDICATORS/NoPower
+			Size = [1, 1]
+		}
+	}
+	
+	// Resetting from overclock
+	{
+		Toggle = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/OVERCLOCK_OPERATIONAL
+		AtlasSprite : /INDICATORS/OverclockReset
+		{
+			Size = [1, 1]
+		}
+		HidesIndicators = [4]
+	}
+
+	// No crew.
+	{
+		Toggle = PartCrew
+		AtlasSprite
+		{
+			File = &/INDICATORS/NoCrew
+			Size = [1, 1]
+		}
+	}
+]
+
 Turret	// Increase firing arc
 {
 	FiringArc = 220d	// Increase firing arc

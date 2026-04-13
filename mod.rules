@@ -296,26 +296,32 @@ Actions
 	}
 
 // Rebalance Heavy Ion Blaster
+	// Start adding base for Overclock
 	{
-		Action = Add
+		Action = AddBase
+		AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part"
+		BaseToAdd = &<./Data/ships/terran/base_med_part_terran_overclock.rules>/Part
+	}
+	{
+		Action = AddBase
+		AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Components"
+		BaseToAdd = &<./Data/ships/terran/base_med_part_terran_overclock.rules>/Part/Components
+	}
+	{
+		Action = AddMany
 		AddTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/ReceivableBuffs"
-		ToAdd = ElectronBuff	// Adds ElectronBuff
+		ManyToAdd = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/ReceivableBuffs
 	}
-	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>"
-		Name = ReceivableBuffs
-		ToAdd = [ElectronBuff]	// Adds ElectronBuff, not sure if needed as it does nothing here, but the spawned bullets do
-	}
-	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/ReceivableBuffs"
-		ToAdd = ElectronBuff	// Adds ElectronBuff
-	}
+	// End adding base for Overclock
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part"
 		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Components"
+		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Components
 	}
 	{
 		Action = Overrides
@@ -326,6 +332,11 @@ Actions
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Components/Turret"
 		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Turret	// Increase firing arc
+	}
+	{
+		Action = Replace
+		Replace = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Components/Indicators/Indicators"
+		With = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Indicators
 	}
 	{
 		Action = Overrides
@@ -394,15 +405,27 @@ Actions
 	}
 
 // Rebalance Ion Blaster
+	// Start adding base for Overclock
 	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/ReceivableBuffs"
-		ToAdd = ElectronBuff	// Adds ElectronBuff
+		Action = AddBase
+		AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part"
+		BaseToAdd = &<./Data/ships/terran/base_med_part_terran_overclock.rules>/Part
 	}
 	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/ReceivableBuffs"
-		ToAdd = ElectronBuff	// Adds ElectronBuff
+		Action = AddBase
+		AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components"
+		BaseToAdd = &<./Data/ships/terran/base_med_part_terran_overclock.rules>/Part/Components
+	}
+	{
+		Action = AddMany
+		AddTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/ReceivableBuffs"
+		ManyToAdd = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/ReceivableBuffs
+	}
+	// End adding base for Overclock
+	{
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components"
+		Overrides = &<parts/ion_blaster/ion_blaster.rules>/Components
 	}
 	{
 		Action = Add
@@ -419,6 +442,11 @@ Actions
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/Turret"
 		Overrides = &<parts/ion_blaster/ion_blaster.rules>/Turret
+	}
+	{
+		Action = Replace
+		Replace = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/Indicators/Indicators"
+		With = &<parts/ion_blaster/ion_blaster.rules>/Indicators
 	}
 	{
 		Action = Overrides
