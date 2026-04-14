@@ -21,19 +21,19 @@ Parts
 	GalvanicArmorName = "Armadura Galvánica"
 	GalvanicArmorIcon = &GalvanicArmorName
 	GalvanicArmorDesc = "Una placa ancha y blindada con dos bobinas cargadas en el exterior que electrocutarán a los enemigos y proyectiles cercanos, causando más daño a medida que se acerquen."
-	GalvanicArmorOverclock = "Armadura Galvánica Sobrecalentada"
+	GalvanicArmorOverclock = "Armadura Galvánica Sobreacelerado"
 	GalvanicArmorOverclockDesc = "Mejora el alcance y el area de daño. Al dispararlo, se genera calor residual."
 
 	ArcEmitterName = "Emisor de Arco"
 	ArcEmitterIcon = &ArcEmitterName
 	ArcEmitterDesc = "Una peligrosa bobina de Tesla que se monta en la parte superior de la nave en lugar de en el costado para lograr una mayor estabilidad. Cada emisor de arco requiere uno o más transformadores de arco adyacentes. Cuantos más transformadores de arcos, más rápido podrá disparar."
-	ArcEmitterNameOverclock = "Emisor de Arco Sobrecalentado"
+	ArcEmitterNameOverclock = "Emisor de Arco Sobreacelerado"
 	ArcEmitterOverclockDesc = "El Emisor de Arco dispara más lento y drena toda la energía de arco disponible de los Transformadores de Arco adjacentes, pero su rango mejora, sus rayos se vuelven más grandes y aumentan su daño y duración en función de la energía de arco consumida. Al dispararlo, se genera calor residual."
 
 	ArcTransformerName = "Transformador de Arco"
 	ArcTransformerIcon = &ArcTransformerName
 	ArcTransformerDesc = "Convierte las baterías en energía de arco para ser utilizada por Emisores de Arco y Armaduras Galvánicas."
-	ArcTransformerNameOverclock = "Transformador de Arco Sobrecalentado"
+	ArcTransformerNameOverclock = "Transformador de Arco Sobreacelerado"
 	ArcTransformerOverclockDesc = "Triplica la capacidad energética y la capacidad de energía de arco. Al producir energía de arco, se genera calor residual."	
 
 	// Armor / Ion Diffusion Lattice
@@ -81,7 +81,8 @@ StatCategories
 	IonBlasterShot = "Descarga de iones"
 	MissileCluster = "Misil de racimo"
 	ArcBeam = "Haz de arco"
-	ArcBeamOverclocked = "Haz de arco (sobrecalentado)"
+	ArcBeamOverclocked = "Haz de arco (sobreacelerado)"
+	GalvanicBoltOverlock = "Descarga galvánica (sobreacelerado)"
 
 	// Formatters, Technically, this are the Stats, but Fariel put them all in StatCategories
 	

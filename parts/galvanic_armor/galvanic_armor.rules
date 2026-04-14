@@ -25,7 +25,7 @@ Part
 		StatsByCategory
 		[
 			{
-				NameKey = "StatCategories/GalvanicArmorOverclock"
+				NameKey = "StatCategories/GalvanicBoltOverlock"
 				Stats
 				{
 					ROF = &~/Stats/ROF

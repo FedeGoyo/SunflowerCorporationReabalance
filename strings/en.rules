@@ -82,6 +82,7 @@ StatCategories
 	MissileCluster = "Cluster Missile"
 	ArcBeam = "Arc Beam"
 	ArcBeamOverclock = "Arc Beam (Overclocked)"
+	GalvanicBoltOverlock = "Galvanic Bolt (Overclocked)"
 
 	// Formatters, Technically, this are the Stats, but Fariel put them all in StatCategories
 	
