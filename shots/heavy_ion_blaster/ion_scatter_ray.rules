@@ -60,10 +60,7 @@ Hit
 		]*/
 	}
 	PenetratingOperational = &HitOperational
-	PenetratingStructural
-	{
-		// No effect.
-	}
+	PenetratingStructural = &HitStructural
 	FinishedPenetratingOperational = &PenetratingOperational
 	FinishedPenetratingStructural = &PenetratingStructural
 }

@@ -79,10 +79,7 @@ Components : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_i
 			]*/
 		}
 		PenetratingOperational = &HitOperational
-		PenetratingStructural
-		{
-			// No effect.
-		}
+		PenetratingStructural = &HitStructural
 		FinishedPenetratingOperational = &PenetratingOperational
 		FinishedPenetratingStructural = &PenetratingStructural
 	}
