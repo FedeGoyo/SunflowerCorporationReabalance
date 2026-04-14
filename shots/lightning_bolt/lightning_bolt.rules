@@ -29,7 +29,7 @@ RANGE_MODIFIERS
 	}
 ]
 
-Base
+Base	// Increase range when overclocked
 {
 	Range = {BaseValue = 250, Modifiers = &~/MAX_CHAIN_LENGTH_1_MODIFIERS}
 	IdealRange = {BaseValue = 150, Modifiers = &~/MAX_CHAIN_LENGTH_1_MODIFIERS}
@@ -37,6 +37,7 @@ Base
 
 HitEffects
 [
+	// Replace normal damage with chainlightning
 	{
 		Type = ChainLightning
 		MaxChainLength = [{BaseValue = 3, Modifiers = &~/MAX_CHAIN_LENGTH_1_MODIFIERS}, {BaseValue = 3, Modifiers = &~/MAX_CHAIN_LENGTH_1_MODIFIERS}]

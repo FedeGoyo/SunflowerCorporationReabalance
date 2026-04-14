@@ -193,6 +193,11 @@ Turret
 	FireInterval = 2	// Increase fire interval (slow down)
 	Emitter = WeaponEmitterSelector
 }
+TurretCollider
+{
+	InitialPenetrationResistance = 5	// Add penetration resistance to the turret
+}
+
 BulletEmitter
 {
 	OperationalToggle = IsOperationalNonOverclocked	// Prevent firing when overclocked

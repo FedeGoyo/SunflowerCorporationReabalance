@@ -1,3 +1,5 @@
+Targetable_Health = 4800	// Reduce base hp
+
 HitEffects
 [
 	{

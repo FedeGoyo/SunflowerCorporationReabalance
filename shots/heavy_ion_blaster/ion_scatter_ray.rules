@@ -1,4 +1,11 @@
-Hit
+Base
+{
+	ReceivableBuffs = [ElectronBuff]
+}
+
+DeployDeath_Lifetime = [0.4, 1.2]	// Reduce projectile scatter lifetime
+
+Hit	// Add penetration
 {
 	Type = PenetratingHit
 	Penetration = infinity

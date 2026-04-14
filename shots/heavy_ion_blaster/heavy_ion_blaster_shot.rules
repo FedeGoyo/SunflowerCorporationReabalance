@@ -1,0 +1,8 @@
+Base
+{
+	ReceivableBuffs = [ElectronBuff]
+}
+
+Targetable_Health = 3000	// Reduce projectile HP
+HitStructural_Impulse = 25	// Reduce impact
+HitOperational_Arc = [-60d, 120d]	// Fix and increase arc spawn of scatter

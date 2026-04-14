@@ -1,10 +1,17 @@
+HitOperational_Impulse = 16	// Increase impulse
+HitStructural_Impulse = 8	// Increase impulse
+Physics_Radius = 0.1	// Increase size
+Targetable_Health = 600	// Increase projectile HP
+
 Base
 {
-	Range = 300
+	Range = 300	// Increase range
 	IdealRange = [200, 300]
+	ReceivableBuffs = [ElectronBuff]
+	
 }
 
-HitEffects
+HitEffects	// Adds scatter
 [
 	{
 		Type = SpawnBullets

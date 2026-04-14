@@ -108,12 +108,12 @@ Actions
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>"
-		Overrides = &<shots/lightning_bolt/lightning_bolt.rules>/Base	// Modify range when overclocked
+		Overrides = &<shots/lightning_bolt/lightning_bolt.rules>/Base
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/HitNothing/HitEffects"
-		With = &<shots/lightning_bolt/lightning_bolt.rules>/HitEffects	// Replace normal damage with explosive damage, reduce damage, add fire chance and ElectronBuff
+		With = &<shots/lightning_bolt/lightning_bolt.rules>/HitEffects
 	}
 	// Remove stuff
 	{
@@ -291,7 +291,6 @@ Actions
 			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/StatsByCategory/0/Stats/ShotDamage"
 			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/StatsByCategory/0/Stats/ShotPowerUsage"
 			"<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/StatsByCategory/0/Stats/PowerPerSecond"
-
 		]
 	}
 
@@ -326,12 +325,12 @@ Actions
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Components/BulletEmitter"
-		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/BulletEmitter	// Reduce resource used and reduce minimum resource use
+		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/BulletEmitter
 	}
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Components/Turret"
-		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Turret	// Increase firing arc
+		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Turret
 	}
 	{
 		Action = Replace
@@ -341,50 +340,48 @@ Actions
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/StatsByCategory/0/Stats"
-		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/HeavyIonBlasterShotStats	// Add stats
+		Overrides = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/HeavyIonBlasterShotStats
 	}
 	{
 		Action = Add
 		AddTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/StatsByCategory"
-		ToAdd = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/StatsByCategory	// Add stats
+		ToAdd = &<parts/heavy_ion_blaster/heavy_ion_blaster.rules>/StatsByCategory
 	}
 	// Modify shot
 	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>"
-		Name = ReceivableBuffs
-		ToAdd = [ElectronBuff]	// Adds ElectronBuff, not sure if needed as it does nothing here, but the spawned bullets do
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>"
+		Overrides = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Base
 	}
 	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>"
-		Name = ReceivableBuffs
-		ToAdd = [ElectronBuff]	// Adds ElectronBuff
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>"
+		Overrides = &<shots/heavy_ion_blaster/ion_scatter_ray.rules>/Base
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Targetable/Health"
-		With = 3000	// Reduce projectile HP
+		With = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Targetable_Health
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitStructural/HitEffects/1/Impulse"
-		With = 25	// Reduce impact
+		With = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/HitStructural_Impulse
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/2/Arc"
-		With = [-60d, 120d]	// Fix and increase arc spawn of scatter
+		With = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/HitOperational_Arc
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/Lifetime"
-		With = [0.4, 1.2]	// Reduce projectile scatter lifetime
+		With = &<shots/heavy_ion_blaster/ion_scatter_ray.rules>/DeployDeath_Lifetime
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit"
-		With = &<shots/heavy_ion_blaster/ion_scatter_ray.rules>/Hit	// Added penetration, reduced damage and impulse, added effect on HitShield, add ElectronBuff
+		With = &<shots/heavy_ion_blaster/ion_scatter_ray.rules>/Hit
 	}
 	// Remove stuff
 	{
@@ -428,10 +425,9 @@ Actions
 		Overrides = &<parts/ion_blaster/ion_blaster.rules>/Components
 	}
 	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/TurretCollider"
-		Name = InitialPenetrationResistance
-		ToAdd = 5	// Add penetration resistance to the turret
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/TurretCollider"
+		Overrides = &<parts/ion_blaster/ion_blaster.rules>/TurretCollider
 	}
 	{
 		Action = Overrides
@@ -451,54 +447,48 @@ Actions
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Stats"
-		Overrides = &<parts/ion_blaster/ion_blaster.rules>/BaseStats	// Add stats
+		Overrides = &<parts/ion_blaster/ion_blaster.rules>/BaseStats
 	}
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/StatsByCategory/0/Stats"
-		Overrides = &<parts/ion_blaster/ion_blaster.rules>/IonBlasterShotStats	// Add stats
+		Overrides = &<parts/ion_blaster/ion_blaster.rules>/IonBlasterShotStats
 	}
 	{
 		Action = Add
 		AddTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/StatsByCategory"
-		ToAdd = &<parts/ion_blaster/ion_blaster.rules>/StatsByCategory	// Add stats
+		ToAdd = &<parts/ion_blaster/ion_blaster.rules>/StatsByCategory
 	}
 	// Modify shot
 	{
-		Action = Add
-		AddTo = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>"
-		Name = ReceivableBuffs
-		ToAdd = [ElectronBuff]	// Adds ElectronBuff, not sure if needed as it does nothing here, but the spawned bullets do
-	}
-	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>"
-		Overrides = &<shots/ion_blaster/ion_blaster_shot.rules>/Base	// Modify range
+		Overrides = &<shots/ion_blaster/ion_blaster_shot.rules>/Base
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Impulse"
-		With = 16	// Increase impulse
+		With = &<shots/ion_blaster/ion_blaster_shot.rules>/HitOperational_Impulse
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitStructural/HitEffects/1/Impulse"
-		With = 8	// Increase impulse
+		With = &<shots/ion_blaster/ion_blaster_shot.rules>/HitStructural_Impulse
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Physics/Radius"
-		With = 0.1	// Increase size
+		With = &<shots/ion_blaster/ion_blaster_shot.rules>/Physics_Radius
 	}
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Targetable/Health"
-		With = 600	// Increase projectile HP
+		With = &<shots/ion_blaster/ion_blaster_shot.rules>/Targetable_Health
 	}
 	{
 		Action = Add
 		AddTo = "<../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects"
-		ToAdd =	&<shots/ion_blaster/ion_blaster_shot.rules>/HitEffects/0	// Add scatter
+		ToAdd =	&<shots/ion_blaster/ion_blaster_shot.rules>/HitEffects/0
 	}
 	// Remove stuff
 	{
@@ -520,7 +510,7 @@ Actions
 	{
 		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/shots/missile_cluster/missile_cluster_stage1.rules>/Components/Targetable/Health"
-		With = 4800	// Reduce base hp
+		With = &<shots/missile_cluster/missile_cluster_stage1.rules>/Targetable_Health
 	}
 	{
 		Action = Overrides
@@ -548,137 +538,96 @@ Actions
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x2/2x2.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x2	// Reduce cost
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x2_Resources
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x2/2x2.rules>/Part/InitialPenetrationResistance"
-		With = 7	// Reduce penetration resistance
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x2_InitialPenetrationResistance
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x2/2x2.rules>/Part/Components/Weapon/FireInterval"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval	// Remove inheritance from Arc Emitter
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval
 	}
 	// 2x3 wedge
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x3_wedge/2x3_wedge.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x3_wedge	// Reduce cost
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x3_wedge_Resources
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x3_wedge/2x3_wedge.rules>/Part/InitialPenetrationResistance"
-		With = 5	// Reduce penetration resistance
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x3_wedge_InitialPenetrationResistance
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x3_wedge/2x3_wedge.rules>/Part/Components/Weapon/FireInterval"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval	// Remove inheritance from Arc Emitter
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval
 	}
 	// 2x4 wedge
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x4_wedge/2x4_wedge.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x4_wedge	// Reduce cost
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x4_wedge_Resources
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x4_wedge/2x4_wedge.rules>/Part/InitialPenetrationResistance"
-		With = 5	// Reduce penetration resistance
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x4_wedge_InitialPenetrationResistance
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x4_wedge/2x4_wedge.rules>/Part/Components/Weapon/FireInterval"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval	// Remove inheritance from Arc Emitter
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval
 	}
 	// 3x2
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/3x2/3x2.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_3x2	// Reduce cost
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_3x2_Resources
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/3x2/3x2.rules>/Part/InitialPenetrationResistance"
-		With = 7	// Reduce penetration resistance
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_3x2_InitialPenetrationResistance
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/3x2/3x2.rules>/Part/Components/Weapon/FireInterval"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval	// Remove inheritance from Arc Emitter
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval
 	}
 	// Tri
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/tri/tri.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_tri	// Reduce cost
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_tri_Resources
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/tri/tri.rules>/Part/InitialPenetrationResistance"
-		With = 3	// Reduce penetration resistance
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_tri_InitialPenetrationResistance
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/tri/tri.rules>/Part/Components/Weapon/FireInterval"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval	// Remove inheritance from Arc Emitter
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval
 	}
 	// Wedge
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/wedge/wedge.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_wedge	// Reduce cost
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_wedge_Resources
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/wedge/wedge.rules>/Part/InitialPenetrationResistance"
-		With = 5	// Reduce penetration resistance
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_wedge_InitialPenetrationResistance
 	}
 	{
 		Action = Replace
 		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/wedge/wedge.rules>/Part/Components/Weapon/FireInterval"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval	// Remove inheritance from Arc Emitter
+		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/FireInterval
 	}
-
-// Add new stats
-	
-/*	
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/strings/en.rules>/Parts"
-		CreateIfNotExisting = true
-		Overrides = &<strings/en.rules>/Parts
-	}
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/strings/en.rules>/Stats"
-		CreateIfNotExisting = true
-		Overrides = &<strings/en.rules>/Stats
-	}
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/strings/en.rules>/StatCategories"
-		CreateIfNotExisting = true
-		Overrides = &<strings/en.rules>/StatCategories
-	}
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/strings/en.rules>/PartToggles"
-		CreateIfNotExisting = true
-		Overrides = &<strings/en.rules>/PartToggles
-	}
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/strings/en.rules>/Inputs"
-		CreateIfNotExisting = true
-		Overrides = &<strings/en.rules>/Inputs
-	}
-	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/strings/en.rules>/Resource"
-		CreateIfNotExisting = true
-		Overrides = &<strings/en.rules>/Resource
-	}
-	*/
 ]

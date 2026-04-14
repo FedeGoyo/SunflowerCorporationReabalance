@@ -1,37 +1,49 @@
-IDL_2x2
+IDL_2x2_Resources	// Reduce cost
 [
 	[steel, 32]
 	[coil2, 4]
 ]
 
-IDL_2x3_wedge
+IDL_2x2_InitialPenetrationResistance = 7	// Reduce penetration resistance
+
+IDL_2x3_wedge_Resources	// Reduce cost
 [
 	[steel, 24]
 	[coil2, 3]
 ]
 
-IDL_2x4_wedge
+IDL_2x3_wedge_InitialPenetrationResistance = 5	// Reduce penetration resistance
+
+IDL_2x4_wedge_Resources	// Reduce cost
 [
 	[steel, 32]
 	[coil2, 4]
 ]
 
-IDL_3x2
+IDL_2x4_wedge_InitialPenetrationResistance = 5	// Reduce penetration resistance
+
+IDL_3x2_Resources	// Reduce cost
 [
 	[steel, 48]
 	[coil2, 6]
 ]
 
-IDL_tri
+IDL_3x2_InitialPenetrationResistance = 7	// Reduce penetration resistance
+
+IDL_tri_Resources	// Reduce cost
 [
 	[steel, 8]
 	[coil2, 1]
 ]
 
-IDL_wedge
+IDL_tri_InitialPenetrationResistance = 3	// Reduce penetration resistance
+
+IDL_wedge_Resources	// Reduce cost
 [
 	[steel, 16]
 	[coil2, 2]
 ]
 
-FireInterval = 2
+IDL_wedge_InitialPenetrationResistance = 5	// Reduce penetration resistance
+
+FireInterval = 2	// Remove inheritance from Arc Emitter
