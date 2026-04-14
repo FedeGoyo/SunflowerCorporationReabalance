@@ -1,0 +1,108 @@
+BASE = &<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>
+
+ID = "fariel.ion_scatter_ray_overclock"
+Range = &BASE/Range
+IdealRange = &BASE/IdealRange
+IdealRadius = &BASE/IdealRadius
+Speed = 10
+ReceivableBuffs = &BASE/ReceivableBuffs
+
+Components : BASE/Components
+{
+	DeployDeath
+	{
+		Type = DeathByLifetime
+		Lifetime = 3
+	}
+	
+	DamagePool
+	{
+		Type = DamagePool
+		Damage = { BaseValue=2500; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1; }
+	}
+	
+	DeathByDamagePool
+	{
+		Type = DeathByDamagePool
+		DamagePool = DamagePool
+	}
+	
+	Hit : ^/0/Hit
+	{
+		Type = PenetratingHit
+		Penetration = infinity
+		PenetratesShields = false
+		PenetrationSpeed = 5
+		FactorEffectsWith = DamagePool
+
+		CrewCollisions = {Enemies=true; Junk=true}
+		PenetratesCrew = true
+		HitCrew = &HitOperational
+
+		HitShield = &HitOperational
+		HitOperational : ^/0/HitOperational
+		{
+			ReduceEffectsByPenetration = false
+			Offset = [-0.15, 0]
+
+			DamagePoolBulletSplitting
+			{
+				DamagePool = DamagePool
+				DamagePerSplit = 500
+				SpawnEffect
+				{
+					Bullet = &<heavy_ion_scatter_ray_overclock.rules>
+					Count = 5
+					Arc = [-20d,20d]
+					EffectScale = {BaseValue=1; EffectScaleExponent=1;}
+				}
+			}
+
+			HitEffects
+			[
+				{
+					Type = Damage
+					Damage = 0
+					DamagePool = DamagePool
+				}
+				{
+					Type = StatusApplication
+					StatusType = cosmoteer.fire
+					StatusChance = { BaseValue = .4; EffectScaleExponent = 1 }
+					ValueType = Interpolated
+				}
+				{
+					Type = AreaCrewStun
+					Duration = 0.5
+					Falloff = 1
+					Radius = 2
+					Cumulative = false
+					HitShipOnly = true
+				}
+				{
+					Type = Impulse;
+					Impulse = 2.5;
+				}
+			]
+
+			/*MediaEffects : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_burst.rules>/Components/Hit/HitOperational/MediaEffects"
+			[
+			]*/
+
+		}
+		HitStructural : ^/0/HitStructural
+		{
+			HitEffects : ^/0/HitEffects
+			[
+				{
+					Type = Impulse;
+					Impulse = 1.25;
+				}
+			]
+		}
+		PenetratingOperational = &HitOperational
+		PenetratingStructural = &HitStructural
+		FinishedPenetratingOperational = &PenetratingOperational
+		FinishedPenetratingStructural = &PenetratingStructural
+	}
+}

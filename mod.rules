@@ -434,9 +434,9 @@ Actions
 		ToAdd = 5	// Add penetration resistance to the turret
 	}
 	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/BulletEmitter/ResourcesUsed"
-		With = 1333	// Increased resource used
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/BulletEmitter"
+		Overrides = &<parts/ion_blaster/ion_blaster.rules>/BulletEmitter
 	}
 	{
 		Action = Overrides

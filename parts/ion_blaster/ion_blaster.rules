@@ -1,6 +1,6 @@
 OVERCLOCK
 {
-	HEAT_PER_SHOT = 0
+	HEAT_PER_SHOT = 750
 }
 
 HEAT_TO_RESOURCE = &<./Data/statuses/heat/heat.rules>/STATUS_TO_RESOURCE_RATIO
@@ -14,6 +14,13 @@ Components
 	{
 		Type = MultiToggle
 		Toggles = [PowerToggle, BatteryStorage, PartCrew, ScorchedToggle, &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/OVERCLOCK_OPERATIONAL]
+		Mode = All
+	}
+	
+	IsOperationalNonOverclocked
+	{
+		Type = MultiToggle
+		Toggles = [ IsOperational, { Toggle=IsOverclocked; Invert=true } ]
 		Mode = All
 	}
 
@@ -39,6 +46,20 @@ Components
 		CommandPoints = 3
 	}
 	
+	Overclock_BulletEmitter : <./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/BulletEmitter
+	{
+		OperationalToggle = IsOperationalOverclocked
+		Bullet = &<../../shots/ion_blaster/overclock/ion_blaster_shot_overclock.rules>
+	}
+	
+	WeaponEmitterSelector
+	{
+		Type = ToggleEmitterSelector
+		Toggle = IsOverclocked
+		ToggleOffEmitter = BulletEmitter
+		ToggleOnEmitter = Overclock_BulletEmitter
+	}
+
 	OverclockStateValue
 	{
 		Type = ToggleValueSelector
@@ -49,14 +70,7 @@ Components
 
 	Zero { Type = StaticValue; Value = 0; }
 	One { Type = StaticValue; Value = 1; }
-
-	Overclock_BulletEmitter
-	{
-		Type = TriggerProxy
-		ComponentID = BulletEmitter
-		ProxyToggle = IsOverclocked
-	}
-
+	
 	Overclock_ShotHeatProducer
 	{
 		Type = ResourceChange
@@ -171,13 +185,20 @@ Indicators
 	}
 ]
 
-Turret	// Increase firing arc
+Turret
 {
 	FiringArc = 220d	// Increase firing arc
 	FireThresholdAngle = 220d	// Increase firing arc
 	RotateSpeed = 90d	// Add rotation speed
 	FireInterval = 2	// Increase fire interval (slow down)
+	Emitter = WeaponEmitterSelector
 }
+BulletEmitter
+{
+	OperationalToggle = IsOperationalNonOverclocked	// Prevent firing when overclocked
+	ResourceUsed = 1333		// Increased resource used
+}
+
 BaseStats
 {
 	TurretPenResist = (&"<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/TurretCollider/InitialPenetrationResistance")

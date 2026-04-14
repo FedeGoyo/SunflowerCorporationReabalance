@@ -1,0 +1,67 @@
+BASE = &<./Data/../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>
+
+ID = "fariel.ion_blaster_shot_overclock"
+Range = &BASE/Range
+IdealRange = &BASE/IdealRange
+IdealRadius = &BASE/IdealRadius
+Speed = &BASE/Speed
+ReceivableBuffs = &Base/ReceivableBuffs
+
+Components : BASE/Components
+{
+	DeathByEnemyProximity
+	{
+		Type = DeathByEnemyProximity
+		Interval = 1/12
+		Range = 7.5
+		DetectsShips = true
+		DetectsBullets = false
+		StartDelay = 0
+
+		OnDeath
+		{
+			HitEffects
+			[
+				{
+					Type = SpawnBullets
+					Bullet = &<ion_scatter_ray_overclock.rules>
+					Count = 5
+					Arc = [-20d, 40d]
+					InheritVelocity = false
+					ScaleHealth = false
+				}
+			]
+		}
+	}
+
+/*	Hit : ^/0/Hit // I need this but doesn't work
+	{
+		HitCrew = &HitOperational
+
+		HitShield = &HitOperational
+		HitOperational : ^/0/HitOperational
+		{
+			Offset = [-0.15, 0]
+
+			HitEffects = &~/Components/DeathByEnemyProximity/OnDeath/HitEffects
+		}
+		HitStructural = &HitOperational
+		
+		PenetratingOperational
+		{
+			// No effect.
+		}
+		PenetratingStructural
+		{
+			// No effect.
+		}
+		FinishedPenetratingOperational
+		{
+			// No effect.
+		}
+		FinishedPenetratingStructural
+		{
+			// No effect.
+		}
+	}*/
+}
