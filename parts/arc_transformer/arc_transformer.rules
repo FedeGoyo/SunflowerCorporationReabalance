@@ -18,6 +18,8 @@ BatteryConsumer_Storage = Combined_BatteryStorage
 
 Part
 {
+	EditorParentParts = [ "fariel.arc_emitter" ]
+		
 	Resources	// Reduce cost
 	[
 		[steel, 36]

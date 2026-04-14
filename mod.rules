@@ -58,6 +58,15 @@ Actions
 			<../../../workshop/content/799600/2995534359/parts/techs.rules>/Techs/3
 		]
 	}*/
+	// Temporary solution
+	{
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/techs.rules>/Techs/3"
+		Overrides
+		{
+			EditorGroups = ["WeaponsEnergy", "Power"]
+		}
+	}
 	{
 		Action = AddMany
 		AddTo = "<modes/career/techs.rules>/Techs"
@@ -252,6 +261,8 @@ Actions
 		Action = RemoveMany
 		RemoveMany = 
 		[
+			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/EditorGroups"	// Hide from menu, now appears when clicking Arc Emitter
+			
 			// Unused Components
 //			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/ProvidedValueRange"
 //			"<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/TransformerArcEnergyStorage/ProvidedValuePerResource"
