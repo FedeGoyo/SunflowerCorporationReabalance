@@ -8,41 +8,39 @@ Parts
 	IonBlasterIcon = &IonBlasterName
 	IonBlasterDesc = "Fires a guided burst of ions away from the turret, then directs the burst to its target. Great at diagonal fire.\n\n"\
 				"When colliding, the ions burst into a cone of energy that damages internal components and causes short-circuits, stunning crew and causing fire. It moves through armor with ease but is entirely absorbed by shields."
-	IonBlasterTechDescription = &IonBlasterDesc
+	IonBlasterOverclock = "Overclocked Ion Blaster"
+	IonBlasterOverclockDesc = "Improves the damage and causes the ion to burst into a cone of energy before colliding, but causes the energy to fragment while penetrating and stop once its damage potential is exhausted. Produces waste heat when firing."
 
 	HeavyIonBlasterName = "Heavy Ion Blaster"
 	HeavyIonBlasterIcon = &HeavyIonBlasterName
 	HeavyIonBlasterDesc = "Fires a massive, but slow, guided burst of ions away from the turret, then directs the burst to its target. Great at diagonal fire.\n\n"\
 				"When colliding, the ions burst into a cone of energy that damages internal components and causes short-circuits, stunning crew and causing fire. It moves through armor with ease but is entirely absorbed by shields."
-	HeavyIonBlasterTechDescription = &HeavyIonBlasterDesc
+	HeavyIonBlasterOverclock = "Overclocked Heavy Ion Blaster"
+	HeavyIonBlasterOverclockDesc = "Improves the damage and causes the ion to burst into a cone of energy before colliding, but causes the energy to fragment while penetrating and stop once its damage potential is exhausted. Produces waste heat when firing."
 
 	GalvanicArmorName = "Galvanic Armor"
 	GalvanicArmorIcon = &GalvanicArmorName
 	GalvanicArmorDesc = "A wide, armored plate with two charged coils on the outside that will shock nearby enemies and projectiles, dealing more damage as they get closer."
-	GalvanicArmorIconOverclock = "Overclocked Galvanic Armor"
-	GalvanicArmorOverclockDesc = "Adds splash damage. Produces waste heat when firing."
-	GalvanicArmorTechDescription = "A wide, armored plate with two charged coils on the outside. Can serve as a close-range Point-Defense alternative. Deals more damage to closer targets."
+	GalvanicArmorOverclock = "Overclocked Galvanic Armor"
+	GalvanicArmorOverclockDesc = "Improves the firing range and damage radius. Produces waste heat when firing."
 
 	ArcEmitterName = "Arc Emitter"
 	ArcEmitterIcon = &ArcEmitterName
 	ArcEmitterDesc = "A dangerous tesla coil that is mounted on top of the ship instead of the side for extra stability. Each Arc Emitter requires one or more adjacent Arc Transformers. The more Arc Transformers, the faster it can shoot."
-	ArcEmitterNameOverclock = "Overclocked Arc Emitter"
-	ArcEmitterOverclockDesc = "The Arc Emitter shoots slower and drains all available arc energy from adjacent Arc Transformers, but its lightning strikes become larger and increase their damage and duration based on the arc energy consumed. Produces waste heat when firing."
-	ArcEmitterTechDescription = "Drains nearby Arc Transformers channeling it into a massive burst of electricity."
+	ArcEmitterOverclock = "Overclocked Arc Emitter"
+	ArcEmitterOverclockDesc = "The Arc Emitter shoots slower and drains all available arc energy from adjacent Arc Transformers, but its range increases, the lightning strikes become larger and increase their damage and duration based on the arc energy consumed. Produces waste heat when firing."
 
 	ArcTransformerName = "Arc Transformer"
 	ArcTransformerIcon = &ArcTransformerName
 	ArcTransformerDesc = "Converts power into arc energy to be used by Arc Emitters and Galvanic Armor."
 	ArcTransformerNameOverclock = "Overclocked Arc Transformer"
 	ArcTransformerOverclockDesc = "Triples the power capacity and arc energy capacity. Produces waste heat while generating arc energy."
-	ArcTransformerTechDescription = "Converts power into an an efficient but non-portable energy form called Arc Energy. This is automatically supplied to nearby modules."
 
 	// Armor / Ion Diffusion Lattice
 	IonDiffusionLattice2x2 = "Ion Diffusion Lattice 2x2"
 	IonDiffusionLattice2x2Icon = "Ion Diff. Lattice 2x2"
 	IonDiffusionLattice2x2Desc = "Contains a special arrangement of ion reflectors that act sort of like a laser and a sponge simultaneously. Absorbs ion energy and expels it in small beams."
 	IonDiffusionLatticeTechName = "Ion Diffusion Lattice"
-	IonDiffusionLatticeTechDescription = &IonDiffusionLattice2x2Desc
 
 	IonDiffusionLattice3x2 = "Ion Diffusion Lattice 3x2"
 	IonDiffusionLattice3x2Icon = "Ion Diff. Lattice 3x2"
@@ -130,4 +128,10 @@ Inputs
 Resource
 {
 	ArcEnergy = "Arc Energy"
+}
+
+MissileTypes
+{
+	Cluster = "Cluster Missiles"
+	ClusterDesc = "A huge missile that breaks apart into multiple guided missiles, overwhelming enemy defenses and causing damage in a small area."
 }

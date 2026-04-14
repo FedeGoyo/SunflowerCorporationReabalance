@@ -8,42 +8,40 @@ Parts
 	IonBlasterIcon = &IonBlasterName
 	IonBlasterDesc = "Dispara una ráfaga guiada de iones desde la torreta y luego dirige la ráfaga hacia su objetivo. Excelente para disparar en diagonal.\n\n"\
 					"Al chocar, los iones estallan en un cono de energía que daña los componentes internos y provoca cortocircuitos, aturdiendo a la tripulación y provocando un incendio. Atraviesa el blindaje con facilidad, pero los escudos lo absorben por completo."
-	IonBlasterTechDescription = &IonBlasterDesc
+	IonBlasterOverclock = "Cañon de Iones Sobreacelerado"
+	IonBlasterOverclockDesc = "Mejora el daño y hace que los iones exploten formando un cono de energía antes de colisionar, pero cause que la energía se fragmente mientras perfora y deje de perforar una vez que se agota su potencial de daño. Al dispararlo, se genera calor residual.""
 
 	HeavyIonBlasterName = "Cañon de Iones Pesado"
 	HeavyIonBlasterIcon = &HeavyIonBlasterName
 	HeavyIonBlasterDesc = "Dispara una ráfaga masiva, pero lenta, de iones guiados desde la torreta y luego dirige la ráfaga hacia su objetivo. Excelente para disparar en diagonal.\n\n"\
 						"Al chocar, los iones estallan en un cono de energía que daña los componentes internos y provoca cortocircuitos, aturdiendo a la tripulación y provocando un incendio. Atraviesa el blindaje con facilidad, pero los escudos lo absorben por completo."
-	HeavyIonBlasterTechDescription = &HeavyIonBlasterDesc
+	HeavyIonBlasterOverclock = "Cañon de Iones Pesado Sobreacelerado"
+	HeavyIonBlasterOverclockDesc = "Mejora el daño y hace que los iones exploten formando un cono de energía antes de colisionar, pero cause que la energía se fragmente mientras perfora y deje de perforar una vez que se agota su potencial de daño. Al dispararlo, se genera calor residual.""
 
 	GalvanicArmorName = "Armadura Galvánica"
 	GalvanicArmorIcon = &GalvanicArmorName
 	GalvanicArmorDesc = "Una placa ancha y blindada con dos bobinas cargadas en el exterior que electrocutarán a los enemigos y proyectiles cercanos, causando más daño a medida que se acerquen."
-	GalvanicArmorIconOverclock = "Armadura Galvánica Sobrecalentada"
-	GalvanicArmorOverclockDesc = "Añade daño de área adicional. Al dispararlo, se genera calor residual."
-	GalvanicArmorTechDescription = "Una placa ancha y blindada con dos bobinas cargadas en el exterior. Puede servir como una alternativa a la Defensa Puntual de corto alcance. Inflige más daño a los objetivos más cercanos."
+	GalvanicArmorOverclock = "Armadura Galvánica Sobrecalentada"
+	GalvanicArmorOverclockDesc = "Mejora el alcance y el area de daño. Al dispararlo, se genera calor residual."
 
 	ArcEmitterName = "Emisor de Arco"
 	ArcEmitterIcon = &ArcEmitterName
 	ArcEmitterDesc = "Una peligrosa bobina de Tesla que se monta en la parte superior de la nave en lugar de en el costado para lograr una mayor estabilidad. Cada emisor de arco requiere uno o más transformadores de arco adyacentes. Cuantos más transformadores de arcos, más rápido podrá disparar."
 	ArcEmitterNameOverclock = "Emisor de Arco Sobrecalentado"
-	ArcEmitterOverclockDesc = "El Emisor de Arco dispara más lento y drena toda la energía de arco disponible de los Transformadores de Arco adjacentes, pero sus rayos se vuelven más grandes y aumentan su daño y duración en función de la energía de arco consumida. Al dispararlo, se genera calor residual."
-	ArcEmitterTechDescription = "Drena los Transformadores de Arco cercanos y los canaliza en una explosión masiva de electricidad."
+	ArcEmitterOverclockDesc = "El Emisor de Arco dispara más lento y drena toda la energía de arco disponible de los Transformadores de Arco adjacentes, pero su rango mejora, sus rayos se vuelven más grandes y aumentan su daño y duración en función de la energía de arco consumida. Al dispararlo, se genera calor residual."
 
 	ArcTransformerName = "Transformador de Arco"
 	ArcTransformerIcon = &ArcTransformerName
 	ArcTransformerDesc = "Convierte las baterías en energía de arco para ser utilizada por Emisores de Arco y Armaduras Galvánicas."
 	ArcTransformerNameOverclock = "Transformador de Arco Sobrecalentado"
 	ArcTransformerOverclockDesc = "Triplica la capacidad energética y la capacidad de energía de arco. Al producir energía de arco, se genera calor residual."	
-	ArcTransformerTechDescription = "Convierte las baterías en una forma de energía eficiente pero no portátil llamada energía de arco. Esta se suministra automáticamente a los módulos cercanos."
 
 	// Armor / Ion Diffusion Lattice
 	IonDiffusionLattice2x2 = "Difusor de Iones 2x2"
 	IonDiffusionLattice2x2Icon = "Difusor de Iones 2x2"
 	IonDiffusionLattice2x2Desc = "Contiene una disposición especial de reflectores de iones que actúan como un láser y una esponja al mismo tiempo. Absorben la energía de los iones y la expulsan en pequeños haces."
 	IonDiffusionLatticeTechName = "Difusor de Iones"
-	IonDiffusionLatticeTechDescription = &IonDiffusionLattice2x2Desc
-
+	
 	IonDiffusionLattice3x2 = "Difusor de Iones 3x2"
 	IonDiffusionLattice3x2Icon = "Difusor de Iones 3x2"
 	IonDiffusionLattice3x2Desc = &IonDiffusionLattice2x2Desc
@@ -130,4 +128,10 @@ Inputs
 Resource
 {
 	ArcEnergy = "Energía de Arco"
+}
+
+MissileTypes
+{
+	Cluster = "Misil de Racimo"
+	ClusterDesc = "Un misil enorme que se divide en múltiples misiles guiados, abrumando las defensas enemigas y causando daños en un área pequeña."
 }

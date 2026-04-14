@@ -1,0 +1,108 @@
+Techs
+[
+	{
+		ID = cosmoteer.missile_launcher_clustter
+		NameKey = "MissileTypes/Cluster"
+		DescriptionKey = "MissileTypes/ClusterDesc"
+		Icon = &<./Data/ships/terran/missile_launcher/nuke/missile_launcher_nuke.rules>/EditorIcon		// Don't have other icon...
+		EditorGroup = &<./Data/ships/terran/missile_launcher/missile_launcher.rules>/Part/EditorGroup
+		PartsUnlocked = [&<./Data/ships/terran/missile_launcher/missile_launcher.rules>/Part/ID]
+		ToggleChoicesUnlocked = [[missile_type, 5]]
+		Cost = 20000
+		UpgradedFrom = [cosmoteer.missile_launcher]
+	}
+
+	// Overclocks...
+	{
+		ID = fariel.ion_blasters-overclock
+		Categories = [ overclock ]
+		NameKey = "Parts/IonBlasterOverclock"
+		DescriptionKey = "Parts/IonBlasterOverclockDesc"
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/EditorIcon
+		SecondaryIcon = &<./Data/modes/career/techs.rules>/OverclockIcon
+		EditorGroup =  &<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/EditorGroup
+		ToggleChoicesUnlocked
+		[
+			{ PartID=fariel.ion_blasters; ToggleID=thermal_overclock; Mode=1; }
+		]
+		Cost = 50000
+		Prerequisites = [fariel.ion_blasters, cosmoteer.heat_management]
+	}
+	{
+		ID = fariel.heavy_ion_blasters-overclock
+		Categories = [ overclock ]
+		NameKey = "Parts/HeavyIonBlasterOverclock"
+		DescriptionKey = "Parts/HeavyIonBlasterOverclockDesc"
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/EditorIcon
+		SecondaryIcon = &<./Data/modes/career/techs.rules>/OverclockIcon
+		EditorGroup =  &<./Data/../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/EditorGroup
+		ToggleChoicesUnlocked
+		[
+			{ PartID=fariel.heavy_ion_blasters; ToggleID=thermal_overclock; Mode=1; }
+		]
+		Cost = 150000
+		Prerequisites = [fariel.heavy_ion_blasters, cosmoteer.heat_management]
+	}
+	{
+		ID = fariel.galvanic_armor-overclock
+		Categories = [ overclock ]
+		NameKey = "Parts/GalvanicArmorOverclock"
+		DescriptionKey = "Parts/GalvanicArmorOverclockDesc"
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/EditorIcon
+		SecondaryIcon = &<./Data/modes/career/techs.rules>/OverclockIcon
+		EditorGroups =  &<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/EditorGroups
+		ToggleChoicesUnlocked
+		[
+			{ PartID=fariel.galvanic_armor; ToggleID=thermal_overclock; Mode=1; }
+		]
+		Cost = 100000
+		Prerequisites = [fariel.galvanic_armor, cosmoteer.heat_management]
+	}
+	{
+		ID = fariel.arc_emitter-overclock
+		Categories = [ overclock ]
+		NameKey = "Parts/ArcEmitterOverclock"
+		DescriptionKey = "Parts/ArcEmitterOverclockDesc"
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/EditorIcon
+		SecondaryIcon = &<./Data/modes/career/techs.rules>/OverclockIcon
+		EditorGroup =  &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/EditorGroup
+		ToggleChoicesUnlocked
+		[
+			{ PartID=fariel.arc_emitter; ToggleID=thermal_overclock; Mode=1; }
+		]
+		Cost = 200000
+		Prerequisites = [fariel.arc_emitter, cosmoteer.heat_management]
+	}
+]
+
+Ion_Blaster
+{
+	DescriptionKey = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/DescriptionKey
+	Cost = 5000	// Reduce cost
+	Prerequisites = [ cosmoteer.laser_blaster_small ]	// Add prerequisite
+}
+Heavy_Ion_Blaster
+{
+	DescriptionKey = &<./Data/../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/DescriptionKey
+	Cost = 15000	// Increase cost
+}
+Galvanic_Armor
+{
+	DescriptionKey = &<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/DescriptionKey
+}
+Arc_Emitter
+{
+	DescriptionKey = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/DescriptionKey
+	PartUnlocked = [
+		&<arc_transformer/arc_emitter.rules>/Part/ID
+		&<arc_transformer/arc_transformer.rules>/Part/ID	// Also unlocks Arc Transformer
+	]
+	Prerequisites = [
+		fariel.galvanic_armor
+		cosmoteer.reactor_med	// Also required
+	]
+}
+Ion_Diffusion_Lattice
+{
+	DescriptionKey = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x2/2x2.rules>/Part/DescriptionKey
+}
