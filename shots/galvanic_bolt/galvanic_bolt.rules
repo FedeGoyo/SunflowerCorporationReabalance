@@ -1,6 +1,28 @@
-Range = 30 // using a path did't work &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Range
+OVERCLOCK
+{
+	RANGE_FACTOR = 60/30
+	RADIUS_FACTOR = 3/2
+}
+
+Range
+{
+	BaseValue = 30
+	Modifiers
+	[
+		{
+			Type = BuffRemap
+			BuffType = Overclock
+			ModificationMode = Multiply
+			RemapFrom = [0, 1]
+			RemapTo = [1, &~/OVERCLOCK/RANGE_FACTOR ]
+		}
+	]
+}
+// using a path did't work &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Range
 HitEffectsScaleOverRange = [1, 0.5] // using a path didn't work
 ClipRangeToTarget = true
+
+ReceivableBuffs = [Overclock]
 
 BeamMediaEffects
 [
@@ -25,7 +47,20 @@ HitNothing // : &<./Data/../../../workshop/content/799600/2995534359/shots/galva
 			Type = ExplosiveDamage
 			DamageType = default
 			TotalDamage = { BaseValue = &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Components/Hit/HitBullet/HitEffects/0/Damage; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1 }
-			Radius = 2
+			Radius
+			{
+				BaseValue = 2
+				Modifiers
+				[
+					{
+						Type = BuffRemap
+						BuffType = Overclock
+						ModificationMode = Multiply
+						RemapFrom = [0, 1]
+						RemapTo = [1, &~/OVERCLOCK/RADIUS_FACTOR ]
+					}
+				]
+			}
             Slices = 1
 			Filter
 			{
@@ -40,7 +75,20 @@ HitNothing // : &<./Data/../../../workshop/content/799600/2995534359/shots/galva
 			Type = ExplosiveDamage
 			DamageType = default
 			TotalDamage = { BaseValue = &<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Components/Hit/HitOperational/HitEffects/0/Damage; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1 }
-			Radius = 2
+			Radius
+			{
+				BaseValue = 2
+				Modifiers
+				[
+					{
+						Type = BuffRemap
+						BuffType = Overclock
+						ModificationMode = Multiply
+						RemapFrom = [0, 1]
+						RemapTo = [1, &~/OVERCLOCK/RADIUS_FACTOR ]
+					}
+				]
+			}
 			Slices = 1
 			Filter
 			{

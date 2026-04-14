@@ -30,7 +30,8 @@ Part
 				{
 					ROF = &~/Stats/ROF
 					HeatGeneration = (&~/OVERCLOCK/HEAT_PER_SHOT) * (&ROF)
-//					DamageArea = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/OverclockedComponents/Components/EmitterLeft/OVERCLOCK/RADIUS)
+					Range = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/Range/BaseValue) * (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/OVERCLOCK/RADIUS_FACTOR)
+					DamageArea = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitNothing/HitEffects/1/Radius/BaseValue) * (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/OVERCLOCK/RADIUS_FACTOR)
 				}
 			}
 		]
@@ -100,77 +101,24 @@ Components
 		Mode = All
 	}
 	
-	// Beam emitters
-	NonOverclockedComponents
+	BulletEmitterLeft :	&<../../shots/galvanic_bolt/galvanic_bolt.rules>	// Uses this name to replace the original
 	{
-		Type = ToggledComponents
-		Toggle = IsOverclocked
-		Invert = true
-		IncludeInBlueprints = true
-		Components
-		{
-			EmitterLeft :	&<../../shots/galvanic_bolt/galvanic_bolt.rules>
-			{
-				Type = BeamEmitter	// Replace bullet with beam
-				FireTrigger = ShootLeftTrigger
-				ChainedTo = TurretLeft
-				GetTargetFrom = TurretLeft
-				Location = [0, 0]
-				OperationalToggle = IsOperational
-				FireDelay = 0
-				ResourceStorage = BatteryStorage
-				ResourcesUsed = 60	// Reduce resource used
-				MinResourcesUsed = 1
-			}
-
-			EmitterRight : EmitterLeft
-			{
-				FireTrigger = ShootRightTrigger
-				ChainedTo = TurretRight
-				GetTargetFrom = TurretRight
-			}
-		}
-	}
-
-	OverclockedComponents
-	{
-		Type = ToggledComponents
-		Toggle = IsOverclocked
-		Components
-		{
-			EmitterLeft :	&<../../shots/galvanic_bolt/overclock_galvanic_bolt.rules>
-			{
-				Type = BeamEmitter	// Replace bullet with beam
-				FireTrigger = ShootLeftTrigger
-				ChainedTo = TurretLeft
-				GetTargetFrom = TurretLeft
-				Location = [0, 0]
-				OperationalToggle = IsOperational
-				FireDelay = 0
-				ResourceStorage = BatteryStorage
-				ResourcesUsed = 60	// Reduce resource used
-				MinResourcesUsed = 1
-			}
-
-			EmitterRight : EmitterLeft
-			{
-				FireTrigger = ShootRightTrigger
-				ChainedTo = TurretRight
-				GetTargetFrom = TurretRight
-			}
-		}
-	}
-
-	BulletEmitterLeft	// Uses this name to replace the original
-	{
-		Type = EmitterProxy
-		ComponentID = EmitterLeft
+		Type = BeamEmitter	// Replace bullet with beam
+		FireTrigger = ShootLeftTrigger
 		ChainedTo = TurretLeft
+		GetTargetFrom = TurretLeft
+		Location = [0, 0]
+		OperationalToggle = IsOperational
+		FireDelay = 0
+		ResourceStorage = BatteryStorage
+		ResourcesUsed = 60	// Reduce resource used
+		MinResourcesUsed = 1
 	}
 	BulletEmitterRight :	BulletEmitterLeft	// Uses this name to replace the original
 	{
-		ComponentID = EmitterRight
+		FireTrigger = ShootRightTrigger
 		ChainedTo = TurretRight
+		GetTargetFrom = TurretRight
 	}
 	
 	// Add Overclocked
@@ -320,21 +268,22 @@ Indicators	// Add indicators
 Stats
 {
 	// Path modified
-	DamagePerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/HitNothing/HitEffects/1/TotalDamage/BaseValue)
-	ShotDamagePerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/HitNothing/HitEffects/0/TotalDamage/BaseValue)
-	Range = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/Range) //(&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Range)
+	DamagePerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitNothing/HitEffects/1/TotalDamage/BaseValue)
+	ShotDamagePerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitNothing/HitEffects/0/TotalDamage/BaseValue)
+	Range = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/Range/BaseValue) //(&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/Range)
 	// Not modified
 	ROF = 1 / (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/FireTimer/Duration)
 	DamagePerSecond = (&DamagePerShot) * (&ROF)
 	ShotDamagePerSecond = (&ShotDamagePerShot) * (&ROF)
-	PowerPerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/ResourcesUsed) / 1000
+	PowerPerShot = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/ResourcesUsed) / 1000
 	// Standarized
-	NearScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/HitEffectsScaleOverRange/0) // (&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/HitEffectsScaleOverRange/0)
-	FarScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/NonOverclockedComponents/Components/EmitterLeft/HitEffectsScaleOverRange/1) // (&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/HitEffectsScaleOverRange/1)
+	NearScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitEffectsScaleOverRange/0) // (&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/HitEffectsScaleOverRange/0)
+	FarScale = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitEffectsScaleOverRange/1) // (&<./Data/../../../workshop/content/799600/2995534359/shots/galvanic_bolt/galvanic_bolt.rules>/HitEffectsScaleOverRange/1)
 	DamageContinuousNear = (&DamagePerSecond) * (&NearScale)
 	DamageContinuousFar = (&DamagePerSecond) * (&FarScale)
 	// New
 	ShotContinuousDamageNear = (&ShotDamagePerSecond) * (&NearScale)
 	ShotContinuousDamageFar = (&ShotDamagePerSecond) * (&FarScale)
 	PowerUsageContinuous = (&PowerPerShot) * (&ROF)
+	DamageArea = (&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/BulletEmitterLeft/HitNothing/HitEffects/1/Radius/BaseValue)
 }
