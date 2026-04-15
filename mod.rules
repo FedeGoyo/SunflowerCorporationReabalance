@@ -182,6 +182,7 @@ Actions
 			"<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/BeamMediaEffects/0/MinIntensity"
 			"<../../../workshop/content/799600/2995534359/shots/lightning_bolt/lightning_bolt.rules>/BeamMediaEffects/1/MinIntensity"
 			// Unused Components
+			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/BuffProvider/OperationalToggle
 //			"<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitter/EffectsScaleFactor"
 			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/ArcEmitterStorageProxy/AddMode
 			<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Components/Weapon/AllowRotationToggle

@@ -12,7 +12,7 @@ OVERCLOCK
 HEAT_TO_RESOURCE = &<./Data/statuses/heat/heat.rules>/STATUS_TO_RESOURCE_RATIO
 HEAT_TO_STATUS = &<./Data/statuses/heat/heat.rules>/RESOURCE_TO_STATUS_RATIO
 
-ReceivableBuffs : &<./Data/ships/base_part_overclock.rules>/Part/ReceivableBuffs [ElectronBuff, Arc_Energy, Arc_Energy_Heat_Multiplier]	// Add Buffs
+ReceivableBuffs : &<./Data/ships/base_part_overclock.rules>/Part/ReceivableBuffs [ElectronBuff, Arc_Energy, Arc_Energy_Heat_Multiplier, Arc_Emitter_Capacity]	// Add Buffs
 
 Part
 {
@@ -82,6 +82,12 @@ Components
 		Type = CommandConsumer
 		OperationalToggle = CommandConsumptionToggle
 		CommandPoints = 5
+	}
+	
+	ArcEmitterCapacityBuffToggle	// For Missing Component Indicator
+	{
+		Type = BuffToggle
+		BuffType = Arc_Emitter_Capacity
 	}
 
 	OverclockStateValue
@@ -369,7 +375,17 @@ Indicators	// Add indicators
 	{
 		Toggle = ScorchedToggle
 		AtlasSprite = &/INDICATORS/Scorched
-		HidesIndicators = [1,2,3,4]
+		HidesIndicators = [1,2,3,4,5]
+	}
+	// Missing component
+	{
+		Toggle = ArcEmitterCapacityBuffToggle
+		ShowInBuildMode = true
+		AtlasSprite
+		{
+			File = &/INDICATORS/MissingComponent
+			Size = [1, 1]
+		}
 	}
 	// Turned off.
 	{
@@ -379,7 +395,7 @@ Indicators	// Add indicators
 			File = &/INDICATORS/PowerOff
 			Size = [1, 1]
 		}
-		HidesIndicators = [2,3,4]
+		HidesIndicators = [3,4,5]
 	}
 
 	// Out of power.
@@ -400,7 +416,7 @@ Indicators	// Add indicators
 		{
 			Size = [1, 1]
 		}
-		HidesIndicators = [4]
+		HidesIndicators = [5]
 	}
 				
 	// No crew.

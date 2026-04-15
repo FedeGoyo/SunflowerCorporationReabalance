@@ -76,6 +76,18 @@ Components
 		CommandPoints = 4	// Increase command points cost
 	}
 	
+	ArcEmitterCapacityBuffToggle	// For Missing Component Indicator
+	{
+		Type = BuffToggle
+		BuffType = Arc_Emitter_Capacity
+	}
+	BuffProvider	// For Missing Component Indicator
+	{
+		Type = GridBuffProvider
+		BuffType = Arc_Emitter_Capacity
+		GridDistance = 1
+	}
+		
 	ModularOverclockStateValue
 	{
 		Type = MultiValue
@@ -184,7 +196,6 @@ Components
 		Mode = All
 	}
 */
-
 	ConvertFromBatteryToArcEnergy
 	{
 		Type = ResourceConverter
@@ -532,8 +543,20 @@ Indicators	// Add indicators
 	{
 		Toggle = ScorchedToggle
 		AtlasSprite = &/INDICATORS/Scorched
-		HidesIndicators = [1,2,3]
+		HidesIndicators = [1,2,3,4]
 	}
+	
+	// Missing component
+	{
+		Toggle = ArcEmitterCapacityBuffToggle
+		ShowInBuildMode = true
+		AtlasSprite
+		{
+			File = &/INDICATORS/MissingComponent
+			Size = [1, 1]
+		}
+	}
+	
 	// Turned off.
 	{
 		Toggle = PowerToggle
@@ -542,7 +565,7 @@ Indicators	// Add indicators
 			File = &/INDICATORS/PowerOff
 			Size = [1, 1]
 		}
-		HidesIndicators = [2,3]
+		HidesIndicators = [3,4]
 	}
 
 	// Out of power.
