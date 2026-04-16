@@ -27,6 +27,7 @@ Components : BASE/Components
 					Bullet = &<heavy_ion_scatter_ray_overclock.rules>
 					Count = 10
 					Arc = [-30d, 60d]
+					Spread = [-5d, 10d]
 					InheritVelocity = false
 					ScaleHealth = false
 				}

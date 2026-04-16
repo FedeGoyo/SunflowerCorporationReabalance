@@ -5,4 +5,8 @@ Base
 
 Targetable_Health = 3000	// Reduce projectile HP
 HitStructural_Impulse = 25	// Reduce impact
-HitOperational_Arc = [-60d, 120d]	// Fix and increase arc spawn of scatter
+HitEffect
+{
+	Arc = [-60d, 120d]	// Fix and increase arc spawn of scatter
+	Spread = [-5d, 10d]
+}

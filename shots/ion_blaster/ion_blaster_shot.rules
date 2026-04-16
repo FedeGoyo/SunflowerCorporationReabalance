@@ -18,6 +18,7 @@ HitEffects	// Adds scatter
 		Bullet = &<ion_scatter_ray.rules>
 		Count = 5
 		Arc = [-45d, 90d]
+		Spread = [-5d, 10d]
 		InheritVelocity = false
 		ScaleHealth = false
 	}

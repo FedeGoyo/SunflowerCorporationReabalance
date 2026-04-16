@@ -27,6 +27,7 @@ Components : BASE/Components
 					Bullet = &<ion_scatter_ray_overclock.rules>
 					Count = 5
 					Arc = [-20d, 40d]
+					Spread = [-5d, 10d]
 					InheritVelocity = false
 					ScaleHealth = false
 				}

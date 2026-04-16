@@ -424,9 +424,9 @@ Actions
 		With = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/HitStructural_Impulse
 	}
 	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/2/Arc"
-		With = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/HitOperational_Arc
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/2"
+		Overrides = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/HitEffect
 	}
 	{
 		Action = Replace

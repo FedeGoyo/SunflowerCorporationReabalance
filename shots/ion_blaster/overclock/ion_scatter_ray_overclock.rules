@@ -52,8 +52,8 @@ Components : BASE/Components
 				SpawnEffect
 				{
 					Bullet = &<ion_scatter_ray_overclock.rules>
-					Count = 5
-					Arc = [-20d,20d]
+					Count = 1
+					Spread = [-20d,20d]
 					EffectScale = {BaseValue=1; EffectScaleExponent=1;}
 				}
 			}
