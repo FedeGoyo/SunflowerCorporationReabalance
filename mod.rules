@@ -11,20 +11,21 @@ Description = "This mod rebalances Fariel's Sunflower Corporation mod and theref
 
 Actions
 [
-// Add Buffs
+// Add new stuff
+	// Add Buffs
 	{
 		Action = Overrides
 		CreateIfNotExisting = true
 		OverrideIn = "<buffs/buffs.rules>"
 		Overrides = &<buffs/buffs.rules>
 	}
-// Add Stats
+	// Add Stats
 	{
 		Action = AddMany
 		AddTo = "<gui/game/parts/part_stats.rules>/PartStats"
 		ManyToAdd = &<stats/stats.rules>/Stats
 	}
-// Modify Tech and add Overclock Tech
+	// Modify Carrer Techs
 	{
 		Action = Overrides
 		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/techs.rules>/Techs/0"
@@ -67,10 +68,17 @@ Actions
 			EditorGroups = ["WeaponsEnergy", "Power"]
 		}
 	}
+	// Add Carrear Techs
 	{
 		Action = AddMany
 		AddTo = "<modes/career/techs.rules>/Techs"
 		ManyToAdd = &<techs.rules>/Techs
+	}
+	// Add Build and Battle Techs
+	{
+		Action = AddMany
+		AddTo = "<modes/pvp/pvp_buildbattle/techs_buildbattle.rules>/Techs"
+		ManyToAdd = &<techs_buildbattle.rules>/Techs
 	}
 		
 // Rebalance Arc Emitter

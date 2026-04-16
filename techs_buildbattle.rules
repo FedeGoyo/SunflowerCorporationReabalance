@@ -1,0 +1,130 @@
+Techs
+[	
+	{
+		ID = fariel.ion_blasters
+		NameKey = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/NameKey
+		DescriptionKey = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/DescriptionKey
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/EditorIcon
+		Category = [weapons]
+		PartsUnlocked = [&<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/ID]
+		Cost = 5000
+		Prerequisites = [cosmoteer.laser_blaster_small]
+		FundsThresholdBeforeOffered = 0
+	}
+	{
+		ID = fariel.heavy_ion_blasters
+		NameKey = &<./Data/../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/NameKey
+		DescriptionKey = &<./Data/../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/DescriptionKey
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/EditorIcon
+		Category = [weapons]
+		PartsUnlocked = [&<./Data/../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/ID]
+		Cost = 5000
+		Prerequisites = [fariel.ion_blasters]
+		FundsThresholdBeforeOffered = 0
+	}
+	{
+		ID = fariel.galvanic_armor
+		NameKey = &<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/NameKey
+		DescriptionKey = &<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/DescriptionKey
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/EditorIcon
+		Category = [defenses]
+		PartsUnlocked = [&<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/ID]
+		Cost = 5000
+		Prerequisites = [cosmoteer.shield_gen_small]
+		FundsThresholdBeforeOffered = 0
+	}
+	{
+		ID = fariel.arc_emitter
+		NameKey = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/NameKey
+		DescriptionKey = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/DescriptionKey
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/EditorIcon
+		Category = [weapons]
+		PartsUnlocked = [
+			&<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/ID
+			&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/ID
+			]
+		Cost = 5000
+		Prerequisites = [fariel.galvanic_armor, cosmoteer.reactor_med]
+		FundsThresholdBeforeOffered = 2000000
+	}
+	{
+		ID = fariel.ion_diffusion_lattice
+		NameKey = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x2/2x2.rules>/Part/NameKey
+		DescriptionKey = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x2/2x2.rules>/Part/DescriptionKey
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x2/2x2.rules>/Part/EditorIcon
+		Category = [defenses]
+		PartsUnlocked = [
+			&<./Data/../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x2/2x2.rules>/Part/ID
+			&<./Data/../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/3x2/3x2.rules>/Part/ID
+			&<./Data/../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x3_wedge/2x3_wedge.rules>/Part/ID
+			&<./Data/../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x4_wedge/2x4_wedge.rules>/Part/ID
+			&<./Data/../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/wedge/wedge.rules>/Part/ID
+			&<./Data/../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/tri/tri.rules>/Part/ID
+			]
+		Cost = 5000
+		Prerequisites = [cosmoteer.ion_beam_prism]
+		FundsThresholdBeforeOffered = 200000
+	}
+
+	// Overclocks...
+	{
+		ID = fariel.ion_blasters-overclock
+		NameKey = "Parts/IonBlasterOverclock"
+		DescriptionKey = "Parts/IonBlasterOverclockDesc"
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/EditorIcon
+		SecondaryIcon = &<./Data/modes/career/techs.rules>/OverclockIcon
+		Category = [overclocks]
+		ToggleChoicesUnlocked
+		[
+			{ PartID=fariel.ion_blasters; ToggleID=thermal_overclock; Mode=1; }
+		]
+		Cost = 5000
+		Prerequisites = [fariel.ion_blasters, cosmoteer.heat_management]
+		FundsThresholdBeforeOffered = 0
+	}
+	{
+		ID = fariel.heavy_ion_blasters-overclock
+		NameKey = "Parts/HeavyIonBlasterOverclock"
+		DescriptionKey = "Parts/HeavyIonBlasterOverclockDesc"
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/EditorIcon
+		SecondaryIcon = &<./Data/modes/career/techs.rules>/OverclockIcon
+		Category = [overclocks]
+		ToggleChoicesUnlocked
+		[
+			{ PartID=fariel.heavy_ion_blasters; ToggleID=thermal_overclock; Mode=1; }
+		]
+		Cost = 5000
+		Prerequisites = [fariel.heavy_ion_blasters, cosmoteer.heat_management]
+		FundsThresholdBeforeOffered = 0
+	}
+	{
+		ID = fariel.galvanic_armor-overclock
+		NameKey = "Parts/GalvanicArmorOverclock"
+		DescriptionKey = "Parts/GalvanicArmorOverclockDesc"
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/EditorIcon
+		SecondaryIcon = &<./Data/modes/career/techs.rules>/OverclockIcon
+		Category = [overclocks]
+		ToggleChoicesUnlocked
+		[
+			{ PartID=fariel.galvanic_armor; ToggleID=thermal_overclock; Mode=1; }
+		]
+		Cost = 5000
+		Prerequisites = [fariel.galvanic_armor, cosmoteer.heat_management]
+		FundsThresholdBeforeOffered = 0
+	}
+	{
+		ID = fariel.arc_emitter-overclock
+		NameKey = "Parts/ArcEmitterOverclock"
+		DescriptionKey = "Parts/ArcEmitterOverclockDesc"
+		Icon = &<./Data/../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/EditorIcon
+		SecondaryIcon = &<./Data/modes/career/techs.rules>/OverclockIcon
+		Category = [overclocks]
+		ToggleChoicesUnlocked
+		[
+			{ PartID=fariel.arc_emitter; ToggleID=thermal_overclock; Mode=1; }
+		]
+		Cost = 5000
+		Prerequisites = [fariel.arc_emitter, cosmoteer.heat_management]
+		FundsThresholdBeforeOffered = 2000000
+	}
+]
