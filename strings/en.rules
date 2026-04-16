@@ -74,16 +74,21 @@ Stats
 StatCategories
 {
 	// Names
+	ArcBeam = "Arc Beam"
 	GalvanicBolt = "Galvanic Bolt"
 	HeavyIonBlasterShot = "Heavy Ion Bolt"
-	HeavyIonBlasterScatter = "Heavy Ion Rays"
-	IonBlasterScatter = "Ion Rays"
+	HeavyIonBlasterRay = "Heavy Ion Rays"
 	IonBlasterShot = "Ion Bolt"
+	IonBlasterRay = "Ion Rays"
 	MissileCluster = "Cluster Missile"
-	ArcBeam = "Arc Beam"
+
 	ArcBeamOverclock = "Arc Beam (Overclocked)"
 	GalvanicBoltOverlock = "Galvanic Bolt (Overclocked)"
-
+	HeavyIonBlasterShotOverlock = "Heavy Ion Bolt (Overclocked)"
+	HeavyIonBlasterRayOverclock = "Heavy Ion Rays (Overclocked)"
+	IonBlasterShotOverclock = "Ion Bolt (Overclocked)"
+	IonBlasterRayOverclock = "Ion Rays (Overclocked)"
+	
 	// Formatters, Technically, this are the Stats, but Fariel put them all in StatCategories
 	
 	// Arc Transformer
@@ -105,10 +110,11 @@ StatCategories
 	ArcLightningDamageFmt = "<white>Lightning Damage:</white> <good>{0:0}</good><gray><sup>[1]</sup> per strike</gray>"
 	ArcAmplificationFmt = "<white>Lightning Amplification Value:</white> <good>1/{0:n0}</good> <gray> per arc energy consumed</gray>"
 	// Ion Blaster
-	ScatterFmt = "<white>Rays:</white> <good>{0:0}</good>"
-	LifeTimeFmt = "<white>Lifespan:</white> <good>{0:0.##}</good> <gray> to </gray><good>{1:0.##}</good><gray> second</gray>"
-	DistancePenetratedFmt = "<white>Distance Penetrated:</white> <good>{0:0.##}</good> <gray> to </gray><good>{1:0.##}</good> <gray> meters</gray>"
-	DamagePerTileFmt = "<white>Damage:</white> <good>{0:0.##}</good> <gray>per tile penetrated</gray>"
+	RaysFmt = "<white>Rays:</white> <good>{0:0}</good>"
+	LifetimeFmt = "<white>Lifespan:</white> <good>{0:0.##}</good> <gray> seconds</gray>"
+	LifetimeRangeFmt = "<white>Lifespan:</white> <good>{0:0.##}</good><gray> to </gray><good>{1:0.##}</good><gray> seconds</gray>"
+	ShotSpeedPenetrationFmt = "<white>Speed:</white> <good>{0:0}</good> <gray>meters/sec (</gray><good>{1:0}</good> <gray>meters/sec while penetrating)</gray>"
+	PenetrationDamageFmt = "<white>Penetration:</white> <good>{0:0.##}</good> <gray>meters (</gray><good>{1:n0}</good><gray> damage)</gray>"
 }
 
 PartToggles

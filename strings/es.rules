@@ -74,15 +74,20 @@ Stats
 StatCategories
 {
 	// Names
+	ArcBeam = "Haz de arco"
 	GalvanicBolt = "Descarga galvánica"
 	HeavyIonBlasterShot = "Descarga pesada de iones"
-	HeavyIonBlasterScatter = "Rayos de iones pesados"
-	IonBlasterScatter = "Rayos de iones"
+	HeavyIonBlasterRay = "Rayos de iones pesados"
 	IonBlasterShot = "Descarga de iones"
+	IonBlasterRay = "Rayos de iones"
 	MissileCluster = "Misil de racimo"
-	ArcBeam = "Haz de arco"
+
 	ArcBeamOverclocked = "Haz de arco (sobreacelerado)"
 	GalvanicBoltOverlock = "Descarga galvánica (sobreacelerado)"
+	HeavyIonBlasterShot = "Descarga pesada de iones (sobreacelerado)"
+	HeavyIonBlasterRayOverclock = "Rayo de iones pesados (sobreacelerado)"
+	IonBlasterShotOverclock = "Descarga de iones (sobreacelerado)"
+	IonBlasterRayOverclock = "Rayos de iones (sobreacelerado)"
 
 	// Formatters, Technically, this are the Stats, but Fariel put them all in StatCategories
 	
@@ -105,10 +110,11 @@ StatCategories
 	ArcLightningDamageFmt = "<white>Daño del rayo:</white> <good>{0:0}</good><gray><sup>[1]</sup> por impacto</gray>"
 	ArcAmplificationFmt = "<white>Valor de amplificación del rayo:</white> <good>1/{0:n0}</good> <gray> por energía de arco consumida</gray>"
 	// Ion Blaster
-	ScatterFmt = "<white>Rayos:</white> <good>{0:0}</good>"
-	LifeTimeFmt = "<white>Tiempo de vida:</white> <good>{0:0.##}</good> <gray> a </gray><good>{1:0.##}</good><gray> segundos</gray>"
-	DistancePenetratedFmt = "<white>Distancia penetrada:</white> <good>{0:0.##}</good> <gray> a </gray><good>{1:0.##}</good> <gray> metros</gray>"
-	DamagePerTileFmt = "<white>Daño:</white> <good>{0:0.##}</good> <gray>por mosaico penetrado</gray>"
+	RaysFmt = "<white>Rayos:</white> <good>{0:0}</good>"
+	LifeTimeFmt = "<white>Tiempo de vida:</white> <good>{0:0.##}</good> <gray> segundos</gray>"
+	LifeTimeRangeFmt = "<white>Tiempo de vida:</white> <good>{0:0.##}</good><gray> a </gray><good>{1:0.##}</good><gray> segundos</gray>"
+	ShotSpeedPenetrationFmt = "<white>Velocidad:</white> <good>{0:0}</good> <gray>m/s (</gray><good>{1:0}</good> <gray>m/s mientras penetra)</gray>"
+	PenetrationDamageFmt = "<white>Penetración:</white> <good>{0:0.##}</good> <gray>m (</gray><good>{1:n0}</good><gray> daño)</gray>"
 }
 
 PartToggles

@@ -8,6 +8,38 @@ HEAT_TO_STATUS = &<./Data/statuses/heat/heat.rules>/RESOURCE_TO_STATUS_RATIO
 
 ReceivableBuffs : &<./Data/ships/base_part_overclock.rules>/Part/ReceivableBuffs [ElectronBuff]	// Add Buffs
 
+Part
+{
+	SecondaryToolTip	// Add overclock stats
+	{
+		TitleKey = "StatCategories/Overclocked"
+		DescriptionKey = "Parts/IonBlasterOverclockDesc"
+		StatsByCategory
+		[
+			{
+				NameKey = "StatCategories/IonBlasterShotOverclock"
+				Stats
+				{
+					HeatPerShot = (&~/OVERCLOCK/HEAT_PER_SHOT)
+				}
+			}
+			{
+				NameKey = "StatCategories/IonBlasterRayOverclock"
+				Stats
+				{
+					Lifetime = (&<../../shots/ion_blaster/overclock/ion_scatter_ray_overclock.rules>/Components/DeployDeath/Lifetime)
+					SPEED_TRAVEL = (&<../../shots/ion_blaster/overclock/ion_scatter_ray_overclock.rules>/Speed)
+					SPEED_PENETRATION = (&<../../shots/ion_blaster/overclock/ion_scatter_ray_overclock.rules>/Components/Hit/PenetrationSpeed)
+					ShotSpeedPenetration = [&../SPEED_TRAVEL, &../SPEED_PENETRATION]
+					MAXIMUM_DAMAGE = (&<../../shots/ion_blaster/overclock/ion_scatter_ray_overclock.rules>/Components/DamagePool/Damage/BaseValue)
+					PenetrationDamagePool = [infinity, &../MAXIMUM_DAMAGE]
+					CrewStunRadius = (&<../../shots/ion_blaster/overclock/ion_scatter_ray_overclock.rules>/Components/Hit/HitOperational/HitEffects/2/Radius)
+				}
+			}
+		]
+	}
+}
+
 Components
 {
 	IsOperational
@@ -210,23 +242,24 @@ BaseStats
 }
 IonBlasterShotStats
 {
-	Scatter = ("&<./Data/../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Count")
+	Rays = ("&<./Data/../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Count")
 }
 StatsByCategory
 {
-	NameKey = "StatCategories/IonBlasterScatter"
+	NameKey = "StatCategories/IonBlasterRay"
 	Stats
 	{
-		DamagePerTile = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/0/Damage/BaseValue)
-		Speed = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Speed)
-		MinLifeSpan = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/Lifetime/0)
-		MaxLifeSpan = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/Lifetime/1)
-		MinDistance = (&MinLifeSpan) * (&Speed)
-		MaxDistance = (&MaxLifeSpan) * (&Speed)
-		DistancePenetrated = [&../MinDistance, &../MaxDistance]
+		DAMAGE_PER_TILE = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/0/Damage/BaseValue)
+		PenetrationDamage = [infinity, &../DAMAGE_PER_TILE]
+		ShotSpeed = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Speed)
+		MIN_LIFETIME = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/Lifetime/0)
+		MAX_LIFETIME = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/Lifetime/1)
+		LifetimeRange = [&../MIN_LIFETIME, &../MAX_LIFETIME]
+		ShotHP = infinity
 		Spread = deg(&<./Data/../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Arc/1) + deg(&<./Data/../../../workshop/content/799600/2995534359/shots/ion_blaster/ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Arc/0)
 		FireChance = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/1/StatusChance/BaseValue) * 100
 		CrewStunDuration = [0, (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/2/Duration)]
 		CrewStunRadius = (&<../../shots/ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/2/Radius)
 	}
 }
+

@@ -53,19 +53,23 @@ Stats
 	}
 	// Ion Blaster
 	{
-		ID = Scatter
-		FormatKey = "StatCategories/ScatterFmt"
+		ID = Rays
+		FormatKey = "StatCategories/RaysFmt"
 	}
 	{
-		ID = LifeTime
-		FormatKey = "StatCategories/LifeTimeFmt"
+		ID = PenetrationDamage
+		FormatKey = "StatCategories/PenetrationDamageFmt"
 	}
 	{
-		ID = DistancePenetrated
-		FormatKey = "StatCategories/DistancePenetratedFmt"
+		ID = ShotSpeedPenetration
+		FormatKey = "StatCategories/ShotSpeedPenetrationFmt"
 	}
 	{
-		ID = DamagePerTile
-		FormatKey = "StatCategories/DamagePerTileFmt"
+		ID = Lifetime
+		FormatKey = "StatCategories/LifetimeFmt"
+	}
+	{
+		ID = LifetimeRange
+		FormatKey = "StatCategories/LifetimeRangeFmt"
 	}
 ]

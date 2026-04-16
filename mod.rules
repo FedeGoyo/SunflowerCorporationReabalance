@@ -511,6 +511,11 @@ Actions
 		AddTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/StatsByCategory"
 		ToAdd = &<parts/ion_blaster/ion_blaster.rules>/StatsByCategory
 	}
+	{
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part"
+		Overrides = &<parts/ion_blaster/ion_blaster.rules>/Part
+	}
 	// Modify shot
 	{
 		Action = Overrides
