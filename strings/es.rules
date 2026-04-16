@@ -34,7 +34,7 @@ Parts
 	ArcTransformerIcon = &ArcTransformerName
 	ArcTransformerDesc = "Convierte las baterías en energía de arco para ser utilizada por Emisores de Arco y Armaduras Galvánicas."
 	ArcTransformerNameOverclock = "Transformador de Arco Sobreacelerado"
-	ArcTransformerOverclockDesc = "Triplica la capacidad energética y la capacidad de energía de arco. Al producir energía de arco, se genera calor residual."	
+	ArcTransformerOverclockDesc = "Triplica la capacidad de energía de arco y remueve el requerimiento de tripulación. Al producir energía de arco, se genera calor residual."	
 
 	// Armor / Ion Diffusion Lattice
 	IonDiffusionLattice2x2 = "Difusor de Iones 2x2"

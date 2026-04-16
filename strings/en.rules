@@ -34,7 +34,7 @@ Parts
 	ArcTransformerIcon = &ArcTransformerName
 	ArcTransformerDesc = "Converts power into arc energy to be used by Arc Emitters and Galvanic Armor."
 	ArcTransformerNameOverclock = "Overclocked Arc Transformer"
-	ArcTransformerOverclockDesc = "Triples the power capacity and arc energy capacity. Produces waste heat while generating arc energy."
+	ArcTransformerOverclockDesc = "Triples the arc energy capacity and removes the crew requirement. Produces waste heat while generating arc energy."
 
 	// Armor / Ion Diffusion Lattice
 	IonDiffusionLattice2x2 = "Ion Diffusion Lattice 2x2"

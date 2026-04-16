@@ -1,20 +1,18 @@
 OVERCLOCK
 {
-	BATTERY_CAPACITY_FACTOR = 300%
 	ARC_CAPACITY_FACTOR = 300%
 	ARC_INTERVAL_FACTOR = 50%	// Double speed
 	
-	HEAT_PER_ARC = 1200
+	HEAT_PER_ARC = 750
 	HEAT_PER_SECOND = (&HEAT_PER_ARC) / ((&~/Components/ConvertFromBatteryToArcEnergy/Interval/BaseValue) * (&ARC_INTERVAL_FACTOR))
 	
 }
 HEAT_TO_RESOURCE = &<./Data/statuses/heat/heat.rules>/STATUS_TO_RESOURCE_RATIO
 HEAT_TO_STATUS = &<./Data/statuses/heat/heat.rules>/RESOURCE_TO_STATUS_RATIO
 
-BatteryStorage_MaxResources = 4000	// Reduce energy storage
+BatteryStorage_MaxResources = 12000	// Increase energy storage
 TransformerArcEnergyStorage_MaxResources = 4000	// Increase arc storage
 ReceivableBuffs = [Overclock, ArcHeatCollector]	// Add buffs
-BatteryConsumer_Storage = Combined_BatteryStorage
 
 Part
 {
@@ -33,8 +31,8 @@ Part
 		DescriptionKey = "Parts/ArcTransformerOverclockDesc"
 		Stats
 		{
+			CrewRequired = 0
 			HeatGenerationPerArc = [&~/OVERCLOCK/HEAT_PER_ARC, &~/OVERCLOCK/HEAT_PER_SECOND]
-			PowerCapacity = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/BatteryStorage/MaxResources) / 1000 * (&~/OVERCLOCK/BATTERY_CAPACITY_FACTOR)
 			Interval = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/Interval/BaseValue) * (&~/OVERCLOCK/ARC_INTERVAL_FACTOR)
 			ArcEnergy = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/ToQuantity) / 1000
 			Power = (&<./Data/../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/ConvertFromBatteryToArcEnergy/From/0/Quantity) / 1000
@@ -50,7 +48,7 @@ Components
 	IsOperational	
 	{
 		Type = MultiToggle
-		Toggles = [PowerToggle, BatteryStorage, PartCrew, ScorchedToggle]
+		Toggles = [PowerToggle, BatteryStorage, PartCrewNotOverclocked, ScorchedToggle]
 		Mode = All
 	}
 
@@ -203,7 +201,7 @@ Components
 		From
 		[
 			{
-				Storage = Combined_BatteryStorage
+				Storage = BatteryStorage
 				Quantity = 1000	// Increase quantity
 				MinQuantityForConversion = 1000	// Increase minimum quantity
 			}
@@ -256,7 +254,7 @@ Components
 		Type = PartCrew
 		Crew = 1
 		DefaultPriority = &/PRIORITIES/Weapon_Crew
-		PrerequisitesBeforeCrewing = [PowerToggle]
+		PrerequisitesBeforeCrewing = [PowerToggleOverclock]
 		CrewDestinations
 		[
 			[1.5, 2.3]
@@ -272,6 +270,20 @@ Components
 			CrewLocation4
 		]
 		SwitchLocationInterval = [5, 10]
+	}
+	
+	PowerToggleOverclock
+	{
+		Type = MultiToggle
+		Toggles = [PowerToggle, {toggle=IsOverclocked, invert=true}]
+		Mode = All
+	}
+	
+	PartCrewNotOverclocked
+	{
+		Type = MultiToggle
+		Toggles = [PartCrew, IsOverclocked]
+		Mode = Any
 	}
 	
 	Overclock_ToggledTransformerArcEnergyStorage
@@ -307,37 +319,6 @@ Components
 		ProvidedValuePerResource = 1/1000
 	}
 	
-	Overclock_ToggledBatteryStorage
-	{
-		Type = ToggledComponents
-		Toggle = IsOverclocked
-		Components
-		{
-			Overclock_BatteryStorage
-			{
-				Type = ResourceStorage
-				ResourceType = battery
-				MaxResources = "ceil((&~/BatteryStorage_MaxResources) * ((&~/OVERCLOCK/BATTERY_CAPACITY_FACTOR) - 1))"
-			}
-		}
-	}
-	Overclock_BatteryStorage_Proxy
-	{
-		Type = ResourceStorageProxy
-		ResourceType = battery
-		ProxyToggle = IsOverclocked
-		ComponentID = Overclock_BatteryStorage
-	}
-	
-	Combined_BatteryStorage
-	{
-		Type = MultiResourceStorage
-		ResourceType = battery
-		ResourceStorages = [ BatteryStorage, Overclock_BatteryStorage_Proxy ]
-		AddMode = InOrder
-		RemoveMode = InReverseOrder
-	}
-	
 	// Graphics
 	
 	NonOverclocked
@@ -354,73 +335,11 @@ Components
 		Toggle = NonOverclocked
 		Components
 		{
-			BatterySprites
+			BatterySprites	
 			{
 				Type = ResourceSprites
 				Location = [1.5, 1.5]
-				ResourceStorage = Combined_BatteryStorage
-				Layer = "doodads_low"
-				ResourceLevels
-				[
-					{
-						File = "arc_transformer_power_3.png"
-						Size = [3, 3]
-					}
-					{
-						File = "arc_transformer_power_6.png"
-						Size = [3, 3]
-					}
-					{
-						File = "arc_transformer_power_9.png"
-						Size = [3, 3]
-					}
-					{
-						File = "arc_transformer_power_12.png"
-						Size = [3, 3]
-					}
-				]
-			}
-			
-			ArcEnergySprites
-			{
-				Type = ResourceSprites
-				Location = [1.5, 1.5]
-				ResourceStorage = Combined_TransformerArcEnergyStorage
-				Layer = "doodads_low"
-				ResourceLevels
-				[
-					{
-						File = "arc_transformer_arc_3.png"
-						Size = [3, 3]
-					}
-					{
-						File = "arc_transformer_arc_6.png"
-						Size = [3, 3]
-					}
-					{
-						File = "arc_transformer_arc_9.png"
-						Size = [3, 3]
-					}
-					{
-						File = "arc_transformer_arc_12.png"
-						Size = [3, 3]
-					}
-				]
-			}
-		}
-	}
-	
-	Toggled_IsOverclocked	// Add Overclock graphic
-	{
-		Type = ToggledComponents
-		Toggle = IsOverclocked
-		Components
-		{
-			Overclocked_BatterySprites	
-			{
-				Type = ResourceSprites
-				Location = [1.5, 1.5]
-				ResourceStorage = Combined_BatteryStorage
+				ResourceStorage = BatteryStorage
 				Layer = "doodads_low"
 				ResourceLevels
 				[
@@ -474,6 +393,42 @@ Components
 					}
 				]
 			}
+			
+			ArcEnergySprites
+			{
+				Type = ResourceSprites
+				Location = [1.5, 1.5]
+				ResourceStorage = Combined_TransformerArcEnergyStorage
+				Layer = "doodads_low"
+				ResourceLevels
+				[
+					{
+						File = "arc_transformer_arc_3.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_6.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_9.png"
+						Size = [3, 3]
+					}
+					{
+						File = "arc_transformer_arc_12.png"
+						Size = [3, 3]
+					}
+				]
+			}
+		}
+	}
+	
+	Toggled_IsOverclocked	// Add Overclock graphic
+	{
+		Type = ToggledComponents
+		Toggle = IsOverclocked
+		Components
+		{
 			
 			Overclock_ArcEnergySprites
 			{
@@ -580,7 +535,7 @@ Indicators	// Add indicators
 				
 	// No crew.
 	{
-		Toggle = PartCrew
+		Toggle = PartCrewNotOverclocked
 		AtlasSprite
 		{
 			File = &/INDICATORS/NoCrew

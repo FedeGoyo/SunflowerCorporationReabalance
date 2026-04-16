@@ -252,11 +252,6 @@ Actions
 	}
 	{
 		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/BatteryConsumer/Storage"
-		With = &<parts/arc_transformer/arc_transformer.rules>/BatteryConsumer_Storage
-	}
-	{
-		Action = Replace
 		Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Components/Indicators/Indicators"
 		With = &<parts/arc_transformer/arc_transformer.rules>/Indicators
 	}

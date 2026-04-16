@@ -1,6 +1,6 @@
 OVERCLOCK
 {
-	HEAT_PER_ARC = 1000
+	HEAT_PER_ARC = 150
 	HEAT_PER_SHOT = (&HEAT_PER_ARC) / 1000 / (&~/ArcEmitterStorageProxy/ProvidedValuePerResource)
 
 	MIN_ARC_ENERGY_FACTOR = 12000 / 4000
