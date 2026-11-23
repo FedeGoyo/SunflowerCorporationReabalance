@@ -23,16 +23,16 @@ RANGE_MODIFIERS
 	{
 		Type = BuffRemap
 		BuffType = Overclock
-		ModificationMode = Add
+		ModificationMode = Multiply
 		RemapFrom = [0, 1]
-		RemapTo = [0, (&~/OVERCLOCK/RANGE_FACTOR)]
+		RemapTo = [1, (&~/OVERCLOCK/RANGE_FACTOR)]
 	}
 ]
 
 Base	// Increase range when overclocked
 {
-	Range = {BaseValue = 250, Modifiers = &~/MAX_CHAIN_LENGTH_1_MODIFIERS}
-	IdealRange = {BaseValue = 150, Modifiers = &~/MAX_CHAIN_LENGTH_1_MODIFIERS}
+	Range = {BaseValue = 250, Modifiers = &~/RANGE_MODIFIERS}
+	IdealRange = {BaseValue = 150, Modifiers = &~/RANGE_MODIFIERS}
 }
 
 HitEffects
