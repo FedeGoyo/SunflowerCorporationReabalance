@@ -260,7 +260,8 @@ StatsByCategory	// New stats
 		MAX_LIFETIME = (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/Lifetime/1)
 		LifetimeRange = [&../MIN_LIFETIME, &../MAX_LIFETIME]
 		ShotHP = infinity
-		Spread = deg(&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Arc/1) + deg(&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Arc/0)
+		SPREAD_BASE = &<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Arc
+		Spread = deg(&SPREAD_BASE/1) + deg(&SPREAD_BASE/0)
 		FireChance = (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/1/StatusChance/BaseValue) * 100
 		CrewStunDuration = [0, (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/2/Duration)]
 		CrewStunRadius = (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/2/Radius)

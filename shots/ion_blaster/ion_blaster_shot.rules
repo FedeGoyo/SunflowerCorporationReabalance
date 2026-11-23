@@ -1,5 +1,3 @@
-HitOperational_Impulse = 16	// Increase impulse
-HitStructural_Impulse = 8	// Increase impulse
 Physics_Radius = 0.1	// Increase size
 Targetable_Health = 600	// Increase projectile HP
 
@@ -11,15 +9,43 @@ Base
 	
 }
 
-HitEffects	// Adds scatter
-[
-	{
-		Type = SpawnBullets
-		Bullet = &<ion_scatter_ray.rules>
-		Count = 5
-		Arc = [-45d, 90d]
-		Spread = [-5d, 10d]
-		InheritVelocity = false
-		ScaleHealth = false
-	}
-]
+HitOperational
+{
+	HitEffects	// Removed damage
+	[
+		{
+			Type = Impulse;
+			Impulse = { BaseValue = 16; EffectScaleExponent = 1 }	// Increase impulse and add EffectScaleExponent
+		}
+		{
+			Type = SpawnBullets
+			Bullet = &<ion_scatter_ray.rules>
+			Count = 5
+			Arc = [-45d, 90d]
+			Spread = [-5d, 10d]
+			InheritVelocity = false
+			ScaleHealth = false
+		}
+	]
+}
+
+HitStructural
+{
+	HitEffects
+	[
+		{
+			Type = Damage
+			Damage = { BaseValue=150; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1}
+		}
+		{
+			Type = Impulse;
+			Impulse = { BaseValue = 8; EffectScaleExponent = 1 };	// Increase impulse and add EffectScaleExponent
+		}
+	]
+}
+
+PenetratingStructural : &HitStructural
+{
+	StructuralDamageRetentionPerHit = &<./Data/cosmoteer.rules>/STRUCTURAL_DAMAGE_RETENTION_PER_HIT
+	MinStructuralDamageScale = &<./Data/cosmoteer.rules>/MIN_STRUCTURAL_DAMAGE_SCALE
+}
