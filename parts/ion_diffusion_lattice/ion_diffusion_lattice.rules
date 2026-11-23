@@ -1,49 +1,72 @@
-IDL_2x2_Resources	// Reduce cost
-[
-	[steel, 32]
-	[coil2, 4]
-]
-
-IDL_2x2_InitialPenetrationResistance = 7	// Reduce penetration resistance
-
-IDL_2x3_wedge_Resources	// Reduce cost
-[
-	[steel, 24]
-	[coil2, 3]
-]
-
-IDL_2x3_wedge_InitialPenetrationResistance = 5	// Reduce penetration resistance
-
-IDL_2x4_wedge_Resources	// Reduce cost
-[
-	[steel, 32]
-	[coil2, 4]
-]
-
-IDL_2x4_wedge_InitialPenetrationResistance = 5	// Reduce penetration resistance
-
-IDL_3x2_Resources	// Reduce cost
-[
-	[steel, 48]
-	[coil2, 6]
-]
-
-IDL_3x2_InitialPenetrationResistance = 7	// Reduce penetration resistance
-
-IDL_tri_Resources	// Reduce cost
-[
-	[steel, 8]
-	[coil2, 1]
-]
-
-IDL_tri_InitialPenetrationResistance = 3	// Reduce penetration resistance
-
-IDL_wedge_Resources	// Reduce cost
-[
-	[steel, 16]
-	[coil2, 2]
-]
-
-IDL_wedge_InitialPenetrationResistance = 5	// Reduce penetration resistance
+Part
+{
+	EditorParentParts = [ "fariel.ion_diffusion_lattice2x2" ]
+}
 
 FireInterval = 2	// Remove inheritance from Arc Emitter
+
+IDL_2x2_Part : Part
+{
+	
+	Resources	// Reduce cost
+	[
+		[steel, 32]
+		[coil2, 4]
+	]
+	InitialPenetrationResistance = 7	// Reduce penetration resistance
+}
+
+IDL_2x3_wedge_Part : Part
+{
+	
+	Resources	// Reduce cost
+	[
+		[steel, 24]
+		[coil2, 3]
+	]
+	InitialPenetrationResistance = 5	// Reduce penetration resistance
+}
+
+IDL_2x4_wedge_Part : Part
+{
+	
+	Resources	// Reduce cost
+	[
+		[steel, 32]
+		[coil2, 4]
+	]
+	InitialPenetrationResistance = 5	// Reduce penetration resistance
+}
+
+IDL_3x2_Part : Part
+{
+	
+	Resources	// Reduce cost
+	[
+		[steel, 48]
+		[coil2, 6]
+	]
+	InitialPenetrationResistance = 7	// Reduce penetration resistance
+}
+
+IDL_tri_Part : Part
+{
+	
+	Resources	// Reduce cost
+	[
+		[steel, 8]
+		[coil2, 1]
+	]
+	InitialPenetrationResistance = 3	// Reduce penetration resistance
+}
+
+IDL_wedge_Part : Part
+{
+	
+	Resources	// Reduce cost
+	[
+		[steel, 16]
+		[coil2, 2]
+	]
+	InitialPenetrationResistance = 5	// Reduce penetration resistance
+}

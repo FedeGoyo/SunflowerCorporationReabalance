@@ -594,16 +594,22 @@ Actions
 	}
 
 // Rebalance Ion Diffusion Lattice
+	{
+		Action = RemoveMany
+		RemoveMany =	// Hide from menu, now appears when clicking Ion Diffusion Lattice 2x2
+		[
+			"<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x3_wedge/2x3_wedge.rules>/Part/EditorGroup"
+			"<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x4_wedge/2x4_wedge.rules>/Part/EditorGroup"
+			"<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/3x2/3x2.rules>/Part/EditorGroup"
+			"<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/tri/tri.rules>/Part/EditorGroup"
+			"<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/wedge/wedge.rules>/Part/EditorGroup"
+		]
+	}
 	// 2x2
 	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x2/2x2.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x2_Resources
-	}
-	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x2/2x2.rules>/Part/InitialPenetrationResistance"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x2_InitialPenetrationResistance
+		Action = Overrides
+		OverrideIn = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x2/2x2.rules>/Part"
+		Overrides = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x2_Part
 	}
 	{
 		Action = Replace
@@ -612,14 +618,9 @@ Actions
 	}
 	// 2x3 wedge
 	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x3_wedge/2x3_wedge.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x3_wedge_Resources
-	}
-	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x3_wedge/2x3_wedge.rules>/Part/InitialPenetrationResistance"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x3_wedge_InitialPenetrationResistance
+		Action = Overrides
+		OverrideIn = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x3_wedge/2x3_wedge.rules>/Part"
+		Overrides = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x3_wedge_Part
 	}
 	{
 		Action = Replace
@@ -628,14 +629,9 @@ Actions
 	}
 	// 2x4 wedge
 	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x4_wedge/2x4_wedge.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x4_wedge_Resources
-	}
-	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x4_wedge/2x4_wedge.rules>/Part/InitialPenetrationResistance"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x4_wedge_InitialPenetrationResistance
+		Action = Overrides
+		OverrideIn = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/2x4_wedge/2x4_wedge.rules>/Part"
+		Overrides = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_2x4_wedge_Part
 	}
 	{
 		Action = Replace
@@ -644,14 +640,9 @@ Actions
 	}
 	// 3x2
 	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/3x2/3x2.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_3x2_Resources
-	}
-	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/3x2/3x2.rules>/Part/InitialPenetrationResistance"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_3x2_InitialPenetrationResistance
+		Action = Overrides
+		OverrideIn = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/3x2/3x2.rules>/Part"
+		Overrides = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_3x2_Part
 	}
 	{
 		Action = Replace
@@ -660,14 +651,9 @@ Actions
 	}
 	// Tri
 	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/tri/tri.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_tri_Resources
-	}
-	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/tri/tri.rules>/Part/InitialPenetrationResistance"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_tri_InitialPenetrationResistance
+		Action = Overrides
+		OverrideIn = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/tri/tri.rules>/Part"
+		Overrides = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_tri_Part
 	}
 	{
 		Action = Replace
@@ -676,14 +662,9 @@ Actions
 	}
 	// Wedge
 	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/wedge/wedge.rules>/Part/Resources"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_wedge_Resources
-	}
-	{
-		Action = Replace
-		Replace = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/wedge/wedge.rules>/Part/InitialPenetrationResistance"
-		With = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_wedge_InitialPenetrationResistance
+		Action = Overrides
+		OverrideIn = "&<../../../workshop/content/799600/2995534359/parts/ion_diffusion_lattice/wedge/wedge.rules>/Part"
+		Overrides = &<parts/ion_diffusion_lattice/ion_diffusion_lattice.rules>/IDL_wedge_Part
 	}
 	{
 		Action = Replace
