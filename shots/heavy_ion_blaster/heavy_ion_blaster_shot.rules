@@ -3,7 +3,7 @@ Base
 	ReceivableBuffs = [ElectronBuff]
 }
 
-Targetable_Health = 3000	// Reduce projectile HP
+Targetable_Health = 1500	// Reduce projectile HP
 
 HitEffect
 {

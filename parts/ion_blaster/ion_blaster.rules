@@ -219,8 +219,6 @@ Indicators
 
 Turret
 {
-	FiringArc = 220d	// Increase firing arc
-	FireThresholdAngle = 220d	// Increase firing arc
 	RotateSpeed = 90d	// Add rotation speed
 	FireInterval = 2	// Increase fire interval (slow down)
 	Emitter = WeaponEmitterSelector
@@ -233,7 +231,7 @@ TurretCollider
 BulletEmitter
 {
 	OperationalToggle = IsOperationalNonOverclocked	// Prevent firing when overclocked
-	ResourceUsed = 1333		// Increased resource used
+	ResourcesUsed = 1333		// Increased resource used
 }
 
 BaseStats

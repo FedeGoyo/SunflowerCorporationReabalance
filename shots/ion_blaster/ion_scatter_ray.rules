@@ -1,6 +1,6 @@
 ID = "fariel.ion_scatter_ray_small"
-Range = 260
-IdealRange = [60, 260]
+Range = 300	// Increased to match Ion Baster
+IdealRange = [200, 300]		// Increased to match Ion Baster
 IdealRadius = 180
 Speed = 5
 ReceivableBuffs = [ElectronBuff]

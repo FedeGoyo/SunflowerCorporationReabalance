@@ -1,5 +1,5 @@
 Physics_Radius = 0.1	// Increase size
-Targetable_Health = 600	// Increase projectile HP
+Targetable_Health = 300	// Increase projectile HP
 
 Base
 {
