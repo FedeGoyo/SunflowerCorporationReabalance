@@ -419,14 +419,19 @@ Actions
 		With = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Targetable_Health
 	}
 	{
-		Action = Replace
-		Replace = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitStructural/HitEffects/1/Impulse"
-		With = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/HitStructural_Impulse
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational"
+		Overrides = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/HitOperational
 	}
 	{
 		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/2"
-		Overrides = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/HitEffect
+		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitStructural"
+		Overrides = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/HitStructural
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/PenetratingStructural"
+		Overrides = &<shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/PenetratingStructural
 	}
 	{
 		Action = Replace
@@ -444,9 +449,6 @@ Actions
 		RemoveMany
 		[
 			"<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/InitialPenetrationResistance"	// No longer penetration resistance
-			// Damage
-			"<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/0"
-			"<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitStructural/HitEffects/0"
 			// Ion Burst
 			"<../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/DeployDeath/OnDeath"
 			// Unused stats

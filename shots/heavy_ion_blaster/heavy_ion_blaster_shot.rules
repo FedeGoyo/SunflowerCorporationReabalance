@@ -4,9 +4,51 @@ Base
 }
 
 Targetable_Health = 3000	// Reduce projectile HP
-HitStructural_Impulse = 25	// Reduce impact
+
 HitEffect
 {
 	Arc = [-60d, 120d]	// Fix and increase arc spawn of scatter
 	Spread = [-5d, 10d]
+}
+
+
+HitOperational
+{
+	HitEffects	// Removed damage
+	[
+		{
+			Type = Impulse;
+			Impulse = { BaseValue = 50; EffectScaleExponent = 1 }	// Added EffectScaleExponent
+		}
+		{
+			Type = SpawnBullets
+			Bullet = &<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>
+			Count = 10
+			Arc = [-60d, 120d]	// Fix and increase arc spawn of scatter
+			Spread = [-5d, 10d]
+			InheritVelocity = false
+			ScaleHealth = false
+		}
+	]
+}
+
+HitStructural
+{
+	HitEffects
+	[
+		{
+			Type = Damage
+			Damage = { BaseValue=625; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1}	// Added EffectScaleExponent
+		}
+		{
+			Type = Impulse;
+			Impulse = { BaseValue = 25; EffectScaleExponent = 1 };	// Reduce impulse and add EffectScaleExponent
+		}
+	]
+}
+
+PenetratingStructural : &HitStructural
+{
+	StructuralDamageRetentionPerHit = &<./Data/cosmoteer.rules>/STRUCTURAL_DAMAGE_RETENTION_PER_HIT
+	MinStructuralDamageScale = &<./Data/cosmoteer.rules>/MIN_STRUCTURAL_DAMAGE_SCALE
 }
