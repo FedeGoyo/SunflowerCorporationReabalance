@@ -101,7 +101,11 @@ Components : BASE/Components
 			]
 		}
 		PenetratingOperational = &HitOperational
-		PenetratingStructural = &HitStructural
+		PenetratingStructural : &HitStructural
+		{
+			StructuralDamageRetentionPerHit = &/STRUCTURAL_DAMAGE_RETENTION_PER_HIT
+			MinStructuralDamageScale = &/MIN_STRUCTURAL_DAMAGE_SCALE
+		}
 		FinishedPenetratingOperational = &PenetratingOperational
 		FinishedPenetratingStructural = &PenetratingStructural
 	}

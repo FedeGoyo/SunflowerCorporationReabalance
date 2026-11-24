@@ -79,7 +79,11 @@ Components : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_i
 			]*/
 		}
 		PenetratingOperational = &HitOperational
-		PenetratingStructural = &HitStructural
+		PenetratingStructural : &HitStructural
+		{
+			StructuralDamageRetentionPerHit = &/STRUCTURAL_DAMAGE_RETENTION_PER_HIT
+			MinStructuralDamageScale = &/MIN_STRUCTURAL_DAMAGE_SCALE
+		}
 		FinishedPenetratingOperational = &PenetratingOperational
 		FinishedPenetratingStructural = &PenetratingStructural
 	}
