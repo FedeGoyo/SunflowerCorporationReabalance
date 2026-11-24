@@ -14,7 +14,7 @@ HitOperational
 	HitEffects	// Removed damage
 	[
 		{
-			Type = Impulse;
+			Type = Impulse
 			Impulse = { BaseValue = 16; EffectScaleExponent = 1 }	// Increase impulse and add EffectScaleExponent
 		}
 		{
@@ -35,11 +35,11 @@ HitStructural
 	[
 		{
 			Type = Damage
-			Damage = { BaseValue=150; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1}
+			Damage = { BaseValue=150; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1 }
 		}
 		{
-			Type = Impulse;
-			Impulse = { BaseValue = 8; EffectScaleExponent = 1 };	// Increase impulse and add EffectScaleExponent
+			Type = Impulse
+			Impulse = { BaseValue = 8; EffectScaleExponent = 1 }	// Increase impulse and add EffectScaleExponent
 		}
 	]
 }

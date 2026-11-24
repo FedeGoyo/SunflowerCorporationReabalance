@@ -38,7 +38,7 @@ Components : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_i
 			[
 				{
 					Type = Damage
-					Damage = { BaseValue=125; BuffType=ElectronBuff; BuffMode=Multiply; }
+					Damage = { BaseValue=125; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1 }
 				}
 				{
 					Type = StatusApplication
@@ -48,7 +48,7 @@ Components : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_i
 				}
 				{
 					Type = AreaCrewStun
-					Duration = 0.25
+					Duration = { BaseValue = .25; EffectScaleExponent = 1 }
 					Falloff = 1
 					Radius = 1
 					Cumulative = false
@@ -70,7 +70,7 @@ Components : "&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_i
 			[
 				{
 					Type = Damage
-					Damage = { BaseValue=63; BuffType=ElectronBuff; BuffMode=Multiply; }
+					Damage = { BaseValue=63; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1 }
 				}
 			]
 

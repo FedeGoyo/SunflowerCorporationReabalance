@@ -18,7 +18,7 @@ Components : BASE/Components
 	DamagePool
 	{
 		Type = DamagePool
-		Damage = { BaseValue=2500; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1; }
+		Damage = { BaseValue=2500; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1 }
 	}
 	
 	DeathByDamagePool
@@ -73,15 +73,15 @@ Components : BASE/Components
 				}
 				{
 					Type = AreaCrewStun
-					Duration = 0.5
+					Duration = { BaseValue = .5; EffectScaleExponent = 1 }
 					Falloff = 1
 					Radius = 2
 					Cumulative = false
 					HitShipOnly = true
 				}
 				{
-					Type = Impulse;
-					Impulse = 2.5;
+					Type = Impulse
+					Impulse = { BaseValue = 2.5; EffectScaleExponent = 1 }
 				}
 			]
 
@@ -95,8 +95,8 @@ Components : BASE/Components
 			HitEffects : ^/0/HitEffects
 			[
 				{
-					Type = Impulse;
-					Impulse = 1.25;
+					Type = Impulse
+					Impulse = { BaseValue = 1.25; EffectScaleExponent = 1 }
 				}
 			]
 		}

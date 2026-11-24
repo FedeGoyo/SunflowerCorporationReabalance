@@ -263,7 +263,7 @@ StatsByCategory	// New stats
 		SPREAD_BASE = &<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/heavy_ion_blaster_shot.rules>/Components/Hit/HitOperational/HitEffects/1/Arc
 		Spread = deg(&SPREAD_BASE/1) + deg(&SPREAD_BASE/0)
 		FireChance = (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/1/StatusChance/BaseValue) * 100
-		CrewStunDuration = [0, (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/2/Duration)]
+		CrewStunDuration = [0, (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/2/Duration/BaseValue)]
 		CrewStunRadius = (&<./Data/../../../workshop/content/799600/2995534359/shots/heavy_ion_blaster/ion_scatter_ray.rules>/Components/Hit/HitOperational/HitEffects/2/Radius)
 	}
 }

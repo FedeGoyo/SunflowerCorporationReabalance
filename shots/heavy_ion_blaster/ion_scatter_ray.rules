@@ -26,7 +26,7 @@ Hit	// Add penetration
 		[
 			{
 				Type = Damage
-				Damage =  { BaseValue=250; BuffType=ElectronBuff; BuffMode=Multiply; }
+				Damage =  { BaseValue=250; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1 }
 			}
 			{
 				Type = StatusApplication
@@ -36,7 +36,7 @@ Hit	// Add penetration
 			}
 			{
 				Type = AreaCrewStun
-				Duration = 0.5
+				Duration = { BaseValue = .5; EffectScaleExponent = 1 }
 				Falloff = 1
 				Radius = 1
 				Cumulative = false
@@ -58,7 +58,7 @@ Hit	// Add penetration
 		[
 			{
 				Type = Damage
-				Damage = { BaseValue=125; BuffType=ElectronBuff; BuffMode=Multiply; }
+				Damage = { BaseValue=125; BuffType=ElectronBuff; BuffMode=Multiply; EffectScaleExponent = 1 }
 			}
 		]
 
