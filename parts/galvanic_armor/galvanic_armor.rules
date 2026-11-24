@@ -137,7 +137,7 @@ Components
 	{
 		Type = MultiTrigger
 		Triggers = [BulletEmitterLeft, BulletEmitterRight]
-		ProxyToggle = IsOverclocked
+		OperationalToggle = IsOperationalOverclocked
 	}
 
 	Overclock_ShotHeatProducer

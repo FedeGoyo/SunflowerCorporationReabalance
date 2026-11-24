@@ -35,7 +35,11 @@ HitShield = &HitNothing
 
 HitOperational = &HitNothing
 
-HitStructural = &HitNothing
+HitStructural : &HitNothing
+{
+	StructuralDamageRetentionPerHit = &/STRUCTURAL_DAMAGE_RETENTION_PER_HIT
+	MinStructuralDamageScale = &/MIN_STRUCTURAL_DAMAGE_SCALE
+}
 
 HitBullet = &HitNothing
 
