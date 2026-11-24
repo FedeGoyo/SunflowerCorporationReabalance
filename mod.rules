@@ -61,12 +61,9 @@ Actions
 	}*/
 	// Temporary solution
 	{
-		Action = Overrides
-		OverrideIn = "<../../../workshop/content/799600/2995534359/parts/techs.rules>/Techs/3"
-		Overrides
-		{
-			EditorGroups = ["WeaponsEnergy", "Power"]
-		}
+		Action = Replace
+		Replace = "<../../../workshop/content/799600/2995534359/parts/techs.rules>/Techs/3/EditorGroups"
+		With = []
 	}
 	// Add Carrear Techs
 	{
