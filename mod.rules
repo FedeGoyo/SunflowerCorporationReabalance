@@ -1,7 +1,7 @@
 ID = fariel.sunflowercorp.enderluck
 Name = "Sunflower Corporation Rebalance"
-Version = 2.0.0
-CompatibleGameVersions = ["0.30.3"]
+Version = 2.0.1
+CompatibleGameVersions = ["0.30.5"]
 ModifiesMultiplayer = true
 Author = "Enderluck"
 Logo = "logo.png"
